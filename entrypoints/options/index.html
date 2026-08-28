@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="manifest.open_in_tab" content="true" />
+    <title>My reading card — Reader Setting Transfer</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to settings</a>
+    <header class="topbar">
+      <a class="brand" href="https://reader-setting-transfer.sociobot.in" target="_blank" rel="noreferrer"><span class="registration" aria-hidden="true">⌖</span> Reader Setting Transfer</a>
+      <span class="local-note">Saved on this device</span>
+    </header>
+    <main id="main" class="settings-layout">
+      <section class="settings-copy" aria-labelledby="settings-title">
+        <p class="eyebrow">Portable profile · v1</p>
+        <h1 id="settings-title">Make a reading card that feels like yours.</h1>
+        <p class="lede">These choices follow you into every article opened with the extension. Preview changes as you make them, then export a copy whenever you like.</p>
+        <form id="profile-form" novalidate>
+          <div class="control control--name">
+            <label for="profile-name">Profile name</label>
+            <input id="profile-name" name="name" maxlength="60" required />
+          </div>
+          <fieldset>
+            <legend>Type</legend>
+            <div class="control">
+              <div class="label-row"><label for="font-scale">Text size</label><output for="font-scale" id="font-scale-value"></output></div>
+              <input id="font-scale" name="fontScale" type="range" min="0.85" max="1.8" step="0.05" />
+            </div>
+            <div class="control">
+              <div class="label-row"><label for="measure">Line length</label><output for="measure" id="measure-value"></output></div>
+              <input id="measure" name="measure" type="range" min="40" max="85" step="1" />
+            </div>
+            <div class="control">
+              <div class="label-row"><label for="line-height">Line spacing</label><output for="line-height" id="line-height-value"></output></div>
+              <input id="line-height" name="lineHeight" type="range" min="1.2" max="2.2" step="0.05" />
+            </div>
+            <div class="control">
+              <div class="label-row"><label for="paragraph-space">Paragraph spacing</label><output for="paragraph-space" id="paragraph-space-value"></output></div>
+              <input id="paragraph-space" name="paragraphSpace" type="range" min="0.5" max="2.5" step="0.1" />
+            </div>
+            <div class="control">
+              <div class="label-row"><label for="letter-spacing">Letter spacing</label><output for="letter-spacing" id="letter-spacing-value"></output></div>
+              <input id="letter-spacing" name="letterSpacing" type="range" min="0" max="0.08" step="0.01" />
+            </div>
+            <div class="control">
+              <label for="font-choice">Letter shapes</label>
+              <select id="font-choice" name="fontChoice">
+                <option value="serif">Book serif</option>
+                <option value="hyperlegible">Atkinson Hyperlegible</option>
+                <option value="dyslexia">Spacious sans serif</option>
+              </select>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Comfort</legend>
+            <div class="control">
+              <label for="contrast">Page contrast</label>
+              <select id="contrast" name="contrast">
+                <option value="paper">Warm paper</option>
+                <option value="high">High contrast</option>
+                <option value="dark">Dark page</option>
+              </select>
+            </div>
+            <label class="check"><input id="reduce-motion" name="reduceMotion" type="checkbox" /><span>Reduce interface motion</span></label>
+          </fieldset>
+          <div class="form-actions">
+            <button class="button button--primary" type="submit">Save reading card</button>
+            <p id="save-status" class="save-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+        <section class="transfer" aria-labelledby="transfer-title">
+          <p class="eyebrow">Take it with you</p>
+          <h2 id="transfer-title">Import or export</h2>
+          <p>A reading card is a small, inspectable JSON file. It contains only the settings shown above—never article history.</p>
+          <div class="transfer__actions">
+            <button id="export-button" class="button" type="button">Export my card</button>
+            <label class="button file-button" for="import-file">Import a card</label>
+            <input id="import-file" class="sr-only" type="file" accept="application/json,.json" />
+          </div>
+          <p id="import-status" role="status" aria-live="polite"></p>
+        </section>
+        <section class="site-list" aria-labelledby="site-title">
+          <h2 id="site-title">Site overrides</h2>
+          <p class="muted">Sites you turn off appear here. Re-enable them at any time.</p>
+          <ul id="overrides-list"></ul>
+          <p id="overrides-empty" class="empty-note">No site overrides yet.</p>
+        </section>
+      </section>
+      <aside class="preview-panel" aria-label="Live reading preview">
+        <div class="preview-label"><span>Live preview</span><span aria-hidden="true">01 / 01</span></div>
+        <article id="preview" class="preview">
+          <p class="preview__source">FIELD NOTE · CLOSE TO HOME</p>
+          <h2>A page can meet you where you are.</h2>
+          <p>Comfortable reading is personal. The right line length gives each sentence room to breathe, while familiar letter shapes make the page easier to follow.</p>
+          <p>Your settings belong to you. Carry this reading card to the next article and the page settles into place.</p>
+          <blockquote>One profile. Any readable article.</blockquote>
+        </article>
+      </aside>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

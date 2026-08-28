@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reader Setting Transfer</title>
+  </head>
+  <body>
+    <main id="main" class="popup">
+      <header class="popup__header">
+        <div class="mark" aria-hidden="true"><span></span></div>
+        <div><p class="eyebrow">Reading card</p><h1>Reader Setting Transfer</h1></div>
+      </header>
+      <div id="page-state" class="page-state" aria-live="polite">
+        <span class="stamp">Ready on this page</span>
+        <p id="site-name" class="muted">Checking the current tab…</p>
+      </div>
+      <button id="read-button" class="button button--primary" type="button">Read this article</button>
+      <button id="enable-button" class="button" type="button" hidden>Use reader on this site</button>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+      <footer>
+        <button id="settings-button" class="button button--quiet" type="button">Edit my reading card</button>
+        <span aria-hidden="true">↗</span>
+      </footer>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

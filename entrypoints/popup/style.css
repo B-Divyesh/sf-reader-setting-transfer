@@ -1,0 +1,18 @@
+@import '../shared.css';
+
+body { width: 370px; }
+.popup { padding: 24px; }
+.popup__header { display: flex; gap: 14px; align-items: flex-start; padding-bottom: 20px; border-bottom: 2px solid var(--ink); }
+h1 { max-width: 260px; margin: 0; font-size: 1.4rem; line-height: 1.08; }
+.mark { position: relative; flex: 0 0 44px; height: 44px; border: 3px solid var(--blue); }
+.mark::before { content: ''; position: absolute; width: 30px; height: 26px; top: 10px; left: 10px; border: 3px solid var(--red); }
+.mark span::before, .mark span::after { content: ''; position: absolute; z-index: 2; background: var(--ink); }
+.mark span::before { width: 20px; height: 2px; left: 19px; top: 23px; }
+.mark span::after { width: 2px; height: 20px; left: 28px; top: 14px; }
+.page-state { min-height: 92px; padding: 20px 0 10px; }
+.page-state p { margin: 10px 0 0; overflow-wrap: anywhere; }
+.button { width: 100%; margin-top: 10px; }
+.status { min-height: 24px; margin: 14px 0 0; color: var(--muted); }
+.status[data-error] { color: var(--danger); font-weight: 700; }
+footer { display: flex; align-items: center; margin-top: 12px; border-top: 1px solid var(--rule); }
+footer .button { justify-content: flex-start; padding-left: 0; }

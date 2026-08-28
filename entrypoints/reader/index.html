@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Article reader — Reader Setting Transfer</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#article">Skip to article</a>
+    <header class="reader-bar">
+      <div class="reader-brand"><span class="registration" aria-hidden="true">⌖</span><span>Reader Setting Transfer</span></div>
+      <div class="reader-actions">
+        <button id="settings-button" class="bar-button" type="button">Reading card</button>
+        <button id="return-button" class="bar-button" type="button">Return to original</button>
+      </div>
+    </header>
+    <main id="main">
+      <section id="empty-state" class="empty-state" hidden>
+        <div class="empty-print" aria-hidden="true"><span></span></div>
+        <p class="eyebrow">No article collected</p>
+        <h1>Open an article, then choose the extension.</h1>
+        <p>Reader Setting Transfer keeps only the article you most recently opened. Nothing is sent to a server.</p>
+        <button id="empty-settings-button" class="button button--primary" type="button">Review my reading card</button>
+      </section>
+      <div id="reader-shell" class="reader-shell" hidden>
+        <aside class="reader-rail" aria-label="Reader controls">
+          <div class="profile-tab">
+            <p class="eyebrow">Active card</p>
+            <strong id="profile-name">My reading card</strong>
+            <span id="site-rule" class="muted"></span>
+          </div>
+          <div class="quick-control">
+            <span>Text size</span>
+            <div class="stepper" role="group" aria-label="Adjust text size">
+              <button id="size-down" type="button" aria-label="Make text smaller">A−</button>
+              <output id="size-value" aria-live="polite">100%</output>
+              <button id="size-up" type="button" aria-label="Make text larger">A+</button>
+            </div>
+          </div>
+          <div class="quick-control">
+            <label for="reader-contrast">Page contrast</label>
+            <select id="reader-contrast">
+              <option value="paper">Warm paper</option>
+              <option value="high">High contrast</option>
+              <option value="dark">Dark page</option>
+            </select>
+          </div>
+          <button id="disable-button" class="button button--danger" type="button">Turn off for this site</button>
+          <p class="rail-note">This is a local copy. Links open on the original site.</p>
+        </aside>
+        <article id="article" class="article-sheet" tabindex="-1">
+          <header class="article-heading">
+            <p id="article-source" class="article-source"></p>
+            <h1 id="article-title"></h1>
+            <p id="article-byline" class="article-byline"></p>
+          </header>
+          <div id="article-content" class="article-content"></div>
+          <footer class="article-end">
+            <span aria-hidden="true">⌖</span>
+            <p>End of the local reader copy.</p>
+            <button id="end-return-button" class="button" type="button">Return to original article</button>
+          </footer>
+        </article>
+      </div>
+    </main>
+    <div id="reader-status" class="sr-only" role="status" aria-live="polite"></div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
