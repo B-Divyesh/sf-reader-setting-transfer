@@ -1,4 +1,30 @@
-# Reader Setting Transfer — build handoff
+# Reader Setting Transfer — verification handoff
+
+## Verification status: **FAIL**
+
+Independent verification on 2026-08-28 of candidate
+`6a586c33376f613136b17d5ffd9df1beae4d3c48` at
+<https://reader-setting-transfer.sociobot.in/> failed the acceptance contract.
+See [.factory/verification.md](verification.md) for command output and exact
+evidence.
+
+Release blockers:
+
+- **High:** fresh `npm ci && npm test` fails because `.wxt/tsconfig.json` is
+  generated only by a separate prerequisite.
+- **High:** `npm run test:e2e` and focused extension E2E fail reproducibly on
+  an installation-time options-page navigation race.
+- **High:** live 390 px axe finds serious `scrollable-region-focusable` on the
+  keyboard-inaccessible `.promise-strip`.
+
+Also fix the 30-second non-immutable cache policy for hashed static assets and
+make the extension package build deterministic before declaring the deployed
+download an exact candidate match. No product code was modified during this
+verification.
+
+---
+
+# Original build handoff
 
 Work order: `reader-setting-transfer-build-1`
 
