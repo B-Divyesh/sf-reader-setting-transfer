@@ -1,11 +1,13 @@
 # Reader Setting Transfer — repair handoff
 
-## Status: ready for static deployment
+## Status: deployed and verified
 
 Repair work order: `reader-setting-transfer-repair-2`
 
 Verifier baseline: `8944802997492d62261853de78bc2066dfd9bee9`
 Independent report: [verification-2.md](verification-2.md)
+
+Repair commit: `7cb0bd4` (`fix: repair verifier release blockers`)
 
 ## Repaired release blockers
 
@@ -74,20 +76,34 @@ Response-policy unit coverage asserts immutable hashed assets/downloads,
 no-cache service worker updates, self-only CSP, framing/referrer/permissions/
 MIME protections, and the 404 response override.
 
-## Deploy
+## Deployment and live verification — 2026-08-28
 
-The original deployment class is unchanged: static Azure Static Web Apps.
-Publish the already-built `dist/site` with:
+Published the exact built `dist/site` via the original static Azure Static Web
+Apps deployment class:
 
 ```sh
 /opt/fleet/lib/deploy-static.sh reader-setting-transfer dist/site
 ```
 
-After publication, verify `https://reader-setting-transfer.sociobot.in/`,
-`/demo/`, the download ZIP hash above, and a nonexistent route returning the
-designed 404. The static deploy configuration remains the factory-owned
-deployment mechanism; no billing, DNS, analytics, or extension permissions
-were broadened by this repair.
+Live checks at <https://reader-setting-transfer.sociobot.in/> and `/demo/`
+passed `verify-url.sh`: HTTP 200, title/lang/main/h1/alt checks, desktop and
+390 × 844 screenshots, and no console or page errors. The exact live download
+SHA-256 is `72694dfd31a21d9c5ee00525c1a4f6853ddbbf5c98c31e3959e54d2d1e96f339`,
+matching the local two-build package. A nonexistent live route returns HTTP
+404 and the designed page.
+
+Live mobile Chromium evidence: no serious/critical axe findings on landing or
+demo, document overflow `0`, keyboard promise-strip scroll `0 → 257 px`,
+service-worker `update()` completion, successful offline `/demo/` reload, no
+console errors, and requests only to the product origin. Live assets and ZIP
+send `Cache-Control: public, max-age=31536000, immutable`; `sw.js` sends
+`no-cache`; HTML has self-only CSP, framing, referrer, permissions, and MIME
+protections. Screenshots and JSON are committed under
+`.factory/evidence/live-home/` and `.factory/evidence/live-demo/`.
+
+The static deploy configuration remains the factory-owned deployment
+mechanism; no billing, DNS, analytics, or extension permissions were broadened
+by this repair.
 
 ## Known scope note
 
