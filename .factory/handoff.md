@@ -54,11 +54,32 @@ Initial site JS is 1.52 KB raw and site CSS is 11.41 KB raw; the mobile hero
 remains 48 KB. The static output contains the Azure Static Web Apps response
 policy (and a portable `_headers` companion).
 
+### Live deployment evidence — 2026-08-28
+
+Deployed with the factory Azure Static Web Apps workflow:
+
+    /opt/fleet/lib/deploy-static.sh reader-setting-transfer dist/site
+
+At https://reader-setting-transfer.sociobot.in/ the live response is the repair
+build (last modified 08:43:52 UTC). The deployed ZIP SHA-256 is exactly
+`aab4e1dd7b3388c2aa7e005d66527e7bc9ccec32c17ac1c3a74511e743981412`, matching
+the local two-build package check. Live response checks confirm:
+
+- HTML revalidates with `Cache-Control: public, max-age=0, must-revalidate`.
+- Hashed JS and the ZIP send `public, max-age=31536000, immutable`.
+- `sw.js` sends `Cache-Control: no-cache`.
+- CSP, Permissions-Policy, X-Frame-Options, nosniff, strict referrer policy,
+  and existing HSTS are present.
+- A real Chromium 390 × 844 session has zero serious/critical axe findings,
+  no console errors, only same-origin requests, and its product-promise region
+  scrolls from 0 to 3 px after Arrow Right. Its service worker updates and
+  serves the heading again while offline.
+
 ### Remaining scope notes
 
-- The deployment is still the original static-site class; its hosted response
-  headers and downloaded artifact must be checked once the main-branch
-  publication triggered by this repair completes.
+- Deployment remains the original static-site class; no infrastructure,
+  billing, DNS, or permissions scope was changed beyond the factory-configured
+  static publish.
 - `npm ci` reports 10 development-only advisories inherited from the locked
   toolchain. The production dependency audit is clean; no dependency upgrades
   were made because they are outside this repair's product behavior scope.
