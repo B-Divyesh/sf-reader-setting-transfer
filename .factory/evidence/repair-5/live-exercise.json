@@ -1,0 +1,18 @@
+{
+  "url": "https://reader-setting-transfer.sociobot.in/demo/",
+  "requestOrigins": [
+    "https://reader-setting-transfer.sociobot.in"
+  ],
+  "storage": {
+    "local": [],
+    "session": [
+      "demo:reader-profile"
+    ]
+  },
+  "keyboard": "120% -> 125%",
+  "focusOutline": "rgb(184, 55, 30) solid 4px",
+  "horizontalOverflowPx": 0,
+  "seriousCriticalAxeViolations": 0,
+  "offlineReload": true,
+  "consoleOrPageErrors": []
+}

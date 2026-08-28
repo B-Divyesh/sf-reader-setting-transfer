@@ -1,13 +1,15 @@
 # Reader Setting Transfer — repair handoff
 
-## Status: locally verified; deployment pending
+## Status: PASS
 
 - Work order: `reader-setting-transfer-repair-5`
 - Verifier report: [verification-5.md](verification-5.md)
 - Rejected candidate: `885da27e3d8926b5d2e7a79fa6011c573be0839e`
 - Report commit: `b5ad990451c8eb7878778b138de0adac635493a6`
+- Repair commit: `a5a8ddc84e21d79de9127d597ce4ca89ac6dc02c`
 - Artifact: WXT + TypeScript Manifest V3 browser extension
 - Deployment: static site from `dist/site`
+- Live URL: <https://reader-setting-transfer.sociobot.in/>
 
 ## Repairs
 
@@ -101,8 +103,50 @@ npm run test:package
 Serve `dist/site` for static verification. Load `.output/chrome-mv3` as an
 unpacked extension for manual browser use.
 
+## Deployment and live verification
+
+The verified static output was deployed through the work-order helper:
+
+```text
+/opt/fleet/lib/deploy-static.sh reader-setting-transfer dist/site  PASS
+Deployment ID: d96e62ec-5093-4660-b993-5e1b76358a96
+Region: centralus
+Custom domain: Ready; HTTPS 200
+```
+
+The deployed site and downloadable browser extension are the exact local
+artifacts verified above:
+
+```text
+index.html local/live  376cf57311939f4dc8327f31a671eca0b86500d1701fa123a9576b89b7b6ae00
+ZIP local/live         e77f5bd8299435470b62000299620a0f442bea9e00a15e6e0667af4ec50d2bcd
+```
+
+Live `verify-url.sh` checks passed for `/`, `/demo/`, `/privacy/`, and
+`/terms/` at desktop and 390 px with no console or page errors. All public
+links, the source repository, and the downloadable ZIP returned 200. An
+unknown route returned the designed HTTP 404.
+
+The fresh live demo made requests only to its own origin, left `localStorage`
+empty, and used only `sessionStorage["demo:reader-profile"]`. Arrow Right moved
+the focused text-size control from 120% to 125%; the focus ring was a 4 px
+persimmon outline, and horizontal overflow was zero. A Playwright axe scan had
+zero serious/critical findings. After service-worker activation and update,
+the sample banner and article reloaded offline with no console or page errors.
+
+Live mobile Lighthouse scored Performance 100, Accessibility 100, Best
+Practices 100, and SEO 100. LCP was 1.2 s, CLS was 0, and total blocking time
+was 30 ms. Live headers provide HSTS, self-only CSP, frame denial, MIME-sniffing
+protection, strict referrer policy, and a restrictive permissions policy. HTML
+revalidates, `sw.js` uses `no-cache`, and fingerprinted assets and the ZIP use
+one-year immutable caching. Evidence is under `.factory/evidence/repair-5/`.
+
+There is no runtime AI, API, sign-in, payment, tenant, or server endpoint, so
+AI gateway, Entra authority, per-client 429, and `Retry-After` checks do not
+apply to this static browser-extension product.
+
 ## Known gaps and next steps
 
-Deployment and live identity/response-policy checks remain to be recorded in
-this handoff. `npm ci` reports ten development-only transitive advisories; the
-production dependency audit is clean. There are no known product blockers.
+`npm ci` reports ten development-only transitive advisories; the production
+dependency audit is clean. There are no known release-blocking gaps. Submit
+this repair for independent verification.
