@@ -60,3 +60,8 @@ The hero illustration is an original AI-assisted risograph still life: a large-t
 - Negative list: no gradients, no glossy 3D, no photoreal people, no hands, no brands, no logos, no readable text, no watermark, no UI labels
 
 Generated with the factory Azure OpenAI image deployment (`factory-image`) on 2026-08-28. Original for this product; no source brands or copyrighted characters. Prompt sidecar is stored beside the source in `assets/src/`. The registration-cross and profile-card icons are hand-authored SVG/CSS and MIT-licensed with the repository.
+
+The 1200×630 social card is a centre crop of that same generated hero source,
+not a separate stock asset. The Apple touch icon is a 180 px raster export of
+the hand-authored extension mark. Both derivatives were produced locally on
+2026-08-28.

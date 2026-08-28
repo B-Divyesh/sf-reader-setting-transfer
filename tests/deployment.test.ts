@@ -28,5 +28,15 @@ describe('static deployment policy', () => {
       route: '/sw.js',
       headers: { 'Cache-Control': 'no-cache' }
     });
+    expect(staticWebAppConfig.navigationFallback).toBeUndefined();
+    expect(staticWebAppConfig.responseOverrides['404']).toEqual({ rewrite: '/404.html', statusCode: 404 });
+  });
+
+  it('@claim:free-open-source ships without a price gate under the MIT license', () => {
+    const license = readFileSync(resolve(import.meta.dirname, '../LICENSE'), 'utf8');
+    const manifest = JSON.parse(readFileSync(resolve(import.meta.dirname, '../package.json'), 'utf8'));
+    expect(license).toContain('Permission is hereby granted, free of charge');
+    expect(manifest.dependencies).not.toHaveProperty('stripe');
+    expect(manifest.dependencies).not.toHaveProperty('@dodo-payments/node');
   });
 });

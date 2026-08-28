@@ -2,6 +2,10 @@ import '@fontsource/atkinson-hyperlegible/400.css';
 import '@fontsource/atkinson-hyperlegible/700.css';
 import './style.css';
 
+if (new URLSearchParams(location.search).get('demo') === '1') {
+  location.replace('/demo/');
+}
+
 const offlineBanner = document.querySelector<HTMLElement>('#offline-banner');
 const promiseStrip = document.querySelector<HTMLElement>('.promise-strip');
 const syncOnlineState = () => {

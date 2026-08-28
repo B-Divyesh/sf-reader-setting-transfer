@@ -76,8 +76,7 @@
           <p>A reading card is a small, inspectable JSON file. It contains only the settings shown above—never article history.</p>
           <div class="transfer__actions">
             <button id="export-button" class="button" type="button">Export my card</button>
-            <label class="button file-button" for="import-file">Import a card</label>
-            <input id="import-file" class="sr-only" type="file" accept="application/json,.json" />
+            <input id="import-file" class="file-input" type="file" accept="application/json,.json" aria-label="Import a card" />
           </div>
           <p id="import-status" role="status" aria-live="polite"></p>
         </section>

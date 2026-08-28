@@ -11,7 +11,7 @@ export default defineConfig({
     trace: 'retain-on-failure'
   },
   webServer: {
-    command: 'npm run preview:site -- --host 127.0.0.1 --port 4173',
+    command: 'node scripts/serve-site.mjs',
     url: 'http://localhost:4173',
     reuseExistingServer: true
   }

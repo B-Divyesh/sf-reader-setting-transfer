@@ -1,5 +1,5 @@
-const CACHE = 'reader-setting-transfer-site-v1';
-const SHELL = ['/', '/privacy/', '/terms/', '/icon.svg', '/assets/reader-transfer-hero-720.webp'];
+const CACHE = 'reader-setting-transfer-site-v2';
+const SHELL = ['/', '/demo/', '/privacy/', '/terms/', '/404.html', '/icon.svg', '/assets/reader-transfer-hero-720.webp'];
 self.addEventListener('install', (event) => event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL))));
 self.addEventListener('activate', (event) => event.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key))))));
 self.addEventListener('fetch', (event) => {

@@ -2,6 +2,7 @@
   "slug": "reader-setting-transfer",
   "title": "Reader Setting Transfer",
   "artifact_class": "browser-extension",
+  "summary": "Carry a low-vision reader’s chosen settings into clean web articles.",
   "job_to_be_done": "Carry a low-vision reader's tuned typography, contrast, dyslexia-friendly font, and reduced-motion preferences into clean web articles without configuring every site.",
   "non_goals": [
     "Bypassing paywalls or access controls",

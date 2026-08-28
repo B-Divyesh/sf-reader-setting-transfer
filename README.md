@@ -1,10 +1,14 @@
 # Reader Setting Transfer
 
-Reader Setting Transfer is a free, local-first Chrome/Chromium extension for low-vision readers who have already found comfortable typography and want it to follow them into web articles.
+Reader Setting Transfer is a free, open-source Chrome/Chromium extension for low-vision readers who want the same settings in clean articles.
 
 Create one portable reading card for text size, line length, line and paragraph spacing, contrast, letter shapes, and reduced motion. Choose the extension on a public article to open a clean reader that applies those settings and clearly shows the active profile and site. Profiles can be exported as inspectable JSON and imported on another browser.
 
-The companion site is built for `https://reader-setting-transfer.sociobot.in` and serves the packaged extension from `dist/site/downloads/`.
+Try the shipped sample at <https://reader-setting-transfer.sociobot.in/demo/>.
+It uses a separate `demo:` session namespace and never reads real browsing data.
+After the first visit, the service worker can reload the demo offline.
+
+The companion site serves the packaged extension from `dist/site/downloads/`.
 
 ## What v1 does
 
@@ -14,7 +18,7 @@ The companion site is built for `https://reader-setting-transfer.sociobot.in` an
 - Provides live settings preview and quick reader text-size/contrast changes
 - Stores the current article, profile, and per-site choices locally
 - Turns the reader off per site and returns immediately to the original page
-- Handles short/unsupported pages, unavailable browser URLs, empty reader state, bad imports, offline landing state, keyboard navigation, and 390 px layouts
+- Supports keyboard use and 390 px layouts on the landing page and demo
 
 It does not bypass access controls, replace browser zoom, restyle web applications, or keep a reading-history list.
 
@@ -30,6 +34,7 @@ npm test             # unit tests
 npm run test:package # verifies the download ZIP is deterministic and valid
 npm run build        # extension + site + packaged ZIP
 npm run test:e2e     # real Chromium and axe checks after build
+npm run lint         # static TypeScript and repository checks
 ```
 
 The reproducible production command is exactly:
@@ -63,6 +68,9 @@ Outputs:
 The extension has no analytics, account, remote API, or broad host permission. `activeTab` and `scripting` allow extraction from the page only when the toolbar action is invoked. `storage` keeps the reading card, current article, and site choices on the device. Removing the extension removes that browser-managed data.
 
 See the published [privacy policy](site/privacy/index.html) and [terms](site/terms/index.html).
+Every public product claim and its observable command is listed in
+[.factory/claims.json](.factory/claims.json). The sample sandbox design is in
+[.factory/demo.md](.factory/demo.md).
 
 ## Project notes
 

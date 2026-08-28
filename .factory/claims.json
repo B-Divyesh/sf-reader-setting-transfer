@@ -1,0 +1,58 @@
+[
+  {
+    "id": "reading-settings",
+    "claim": "The sample applies text size, line spacing, contrast, letter-shape, and reduced-motion settings to a clean article.",
+    "where": "landing headline, demo, README",
+    "test": "npm run test:e2e -- --grep @claim:reading-settings",
+    "sandbox": "fresh Chromium context at /demo/; change every setting; assert rendered article state; reset and assert sample defaults"
+  },
+  {
+    "id": "profile-json-transfer",
+    "claim": "Reading cards export and import as inspectable JSON.",
+    "where": "landing profile section, demo, README",
+    "test": "npm run test:e2e -- --grep @claim:profile-json-transfer",
+    "sandbox": "fresh Chromium context at /demo/; export sample card; parse fields; import a changed valid card; assert the article changes"
+  },
+  {
+    "id": "demo-isolation",
+    "claim": "The demo uses a separate temporary demo namespace and sends no data to third parties.",
+    "where": "landing first screen, demo banner, README",
+    "test": "npm run test:e2e -- --grep @claim:demo-isolation",
+    "sandbox": "fresh Chromium context at /demo/; change a setting; assert only demo: session storage, empty local storage, and same-origin requests"
+  },
+  {
+    "id": "offline-reload",
+    "claim": "The demo reloads offline after the first visit.",
+    "where": "landing facts, README",
+    "test": "npm run test:e2e -- --grep @claim:offline-reload",
+    "sandbox": "fresh Chromium context at /demo/; wait for service-worker control; set context offline; reload and assert sample article and demo banner"
+  },
+  {
+    "id": "extension-local-reader",
+    "claim": "The extension stores its reading card and current article in local extension storage without remote requests.",
+    "where": "landing privacy section, privacy page, README",
+    "test": "npm run test:e2e -- --grep @claim:extension-local-reader",
+    "sandbox": "fresh MV3 Chromium profile; save a card; inspect chrome.storage.local; render a stored article; assert no HTTP requests"
+  },
+  {
+    "id": "article-structure",
+    "claim": "Article extraction keeps headings, lists, quotations, tables, and safe links while removing active page code.",
+    "where": "landing how-it-works, README",
+    "test": "npm test -- --testNamePattern @claim:article-structure",
+    "sandbox": "jsdom article fixture with semantic content, a relative link, script, navigation, and advertisement"
+  },
+  {
+    "id": "free-open-source",
+    "claim": "Reader Setting Transfer is free and open source.",
+    "where": "landing facts, install note, README",
+    "test": "npm test -- --testNamePattern @claim:free-open-source",
+    "sandbox": "repository checkout; assert MIT license text and no payment SDK dependency"
+  },
+  {
+    "id": "responsive-keyboard",
+    "claim": "The landing page and demo support keyboard use and a 390 px viewport without page overflow.",
+    "where": "README and accessibility contract",
+    "test": "npm run test:e2e -- --grep @claim:responsive-keyboard",
+    "sandbox": "fresh Chromium page at 390 × 844; focus the promise region; operate it with Arrow Right; assert movement, no overflow, and no serious axe findings"
+  }
+]

@@ -15,7 +15,8 @@
     "test:package": "node scripts/test-package-determinism.mjs",
     "test:watch": "vitest",
     "typecheck": "wxt prepare && tsc --noEmit",
-    "check": "npm run typecheck && npm test && npm run build"
+    "lint": "node scripts/lint-content.mjs",
+    "check": "npm run lint && npm run typecheck && npm test && npm run build"
   },
   "dependencies": {
     "@fontsource/atkinson-hyperlegible": "^5.2.6"

@@ -1,5 +1,6 @@
 import { chromium, expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 async function getOptionsPage(context: Awaited<ReturnType<typeof chromium.launchPersistentContext>>, extensionId: string) {
@@ -18,13 +19,18 @@ async function getOptionsPage(context: Awaited<ReturnType<typeof chromium.launch
   return page;
 }
 
-test('the built extension saves a profile and renders an article', async ({}, testInfo) => {
+test('@claim:extension-local-reader the built extension stores a profile locally and renders a clean article', async ({}, testInfo) => {
   const extensionPath = resolve('.output/chrome-mv3');
+  const manifest = JSON.parse(readFileSync(resolve(extensionPath, 'manifest.json'), 'utf8'));
+  expect(manifest.permissions).toEqual(['storage', 'activeTab', 'scripting']);
+  expect(manifest.host_permissions).toBeUndefined();
   const context = await chromium.launchPersistentContext(testInfo.outputPath('profile'), {
     channel: 'chromium',
     headless: true,
     args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
   });
+  const requestedUrls: string[] = [];
+  context.on('request', (request) => requestedUrls.push(request.url()));
   try {
     let worker = context.serviceWorkers()[0];
     if (!worker) worker = await context.waitForEvent('serviceworker');
@@ -37,8 +43,14 @@ test('the built extension saves a profile and renders an article', async ({}, te
     await expect(page.locator('#font-scale-value')).toHaveText('140%');
     await page.getByRole('button', { name: 'Save reading card' }).click();
     await expect(page.getByRole('status').filter({ hasText: 'Saved on this device.' })).toBeVisible();
-    const optionsAxe = await new AxeBuilder({ page }).analyze();
-    expect(optionsAxe.violations.filter((v) => ['serious', 'critical'].includes(v.impact ?? ''))).toEqual([]);
+    for (const contrast of ['paper', 'high', 'dark']) {
+      await page.locator('#contrast').selectOption(contrast);
+      await expect(page.locator('#preview')).toHaveAttribute('data-contrast', contrast);
+      const optionsAxe = await new AxeBuilder({ page }).analyze();
+      expect(optionsAxe.violations.filter((v) => ['serious', 'critical'].includes(v.impact ?? '')), `options contrast: ${contrast}`).toEqual([]);
+    }
+    const storedProfile = await page.evaluate(async () => (await chrome.storage.local.get('readerProfile')).readerProfile);
+    expect(storedProfile).toMatchObject({ fontScale: 1.4 });
 
     await page.evaluate(() => chrome.storage.local.set({ currentArticle: {
       title: 'A calmer way to read', byline: 'Ada Reader', source: 'example.test', url: 'http://127.0.0.1:4173/',
@@ -47,11 +59,17 @@ test('the built extension saves a profile and renders an article', async ({}, te
     }}));
     await page.goto(`chrome-extension://${extensionId}/reader.html`);
     await expect(page.getByRole('heading', { level: 1, name: 'A calmer way to read' })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 2, name: 'A useful heading' })).toBeVisible();
     await expect(page.locator('#size-value')).toHaveText('140%');
     await page.getByRole('button', { name: 'Make text larger' }).click();
     await expect(page.locator('#size-value')).toHaveText('145%');
-    const readerAxe = await new AxeBuilder({ page }).analyze();
-    expect(readerAxe.violations.filter((v) => ['serious', 'critical'].includes(v.impact ?? ''))).toEqual([]);
+    for (const contrast of ['paper', 'high', 'dark']) {
+      await page.locator('#reader-contrast').selectOption(contrast);
+      await expect(page.locator('#article')).toHaveAttribute('data-contrast', contrast);
+      const readerAxe = await new AxeBuilder({ page }).analyze();
+      expect(readerAxe.violations.filter((v) => ['serious', 'critical'].includes(v.impact ?? '')), `reader contrast: ${contrast}`).toEqual([]);
+    }
+    expect(requestedUrls.filter((url) => /^https?:/.test(url))).toEqual([]);
     expect(consoleErrors).toEqual([]);
   } finally {
     await context.close();
