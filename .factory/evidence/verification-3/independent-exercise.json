@@ -1,0 +1,83 @@
+{
+  "candidate": "05f33bed57276b5aa7c916b9bf8bc014e64b1bbe",
+  "liveOrigin": "https://reader-setting-transfer.sociobot.in",
+  "firstScreen": {
+    "headline": "Carry your reading settings into clean articles.",
+    "audience": "For low-vision readers tired of resetting text size, spacing, contrast, and motion on every site.",
+    "action": "Try it with sample data",
+    "actionTopAt390x844": 586.421875,
+    "demoReachedInOneClick": true
+  },
+  "demoBoundaryImport": {
+    "announcedSuccess": true,
+    "input": {
+      "version": 1,
+      "name": "Boundary recovery",
+      "fontScale": 1.3,
+      "measure": 40,
+      "lineHeight": 1.5,
+      "paragraphSpace": 2.5,
+      "letterSpacing": 0.08,
+      "contrast": "dark",
+      "fontChoice": "dyslexia",
+      "reduceMotion": false
+    },
+    "measureStyleAfterImport": "",
+    "exported": {
+      "version": 1,
+      "name": "Quiet evening",
+      "fontScale": 1.3,
+      "measure": 62,
+      "lineHeight": 1.5,
+      "paragraphSpace": 1.2,
+      "letterSpacing": 0.02,
+      "contrast": "dark",
+      "fontChoice": "dyslexia",
+      "reduceMotion": false
+    },
+    "malformedStatus": "Expected property name or '}' in JSON at position 1 (line 1 column 2)",
+    "validRecoveryStatus": "Imported “Minimum” into the demo."
+  },
+  "liveDemo": {
+    "outgoingOrigins": ["https://reader-setting-transfer.sociobot.in"],
+    "localStorageKeys": [],
+    "sessionStorageKeys": ["demo:reader-profile"],
+    "mobileOverflowPx": 0,
+    "reducedMotionAnimationName": "none",
+    "axeSeriousCriticalByContrast": {"paper": [], "high": [], "dark": []},
+    "consoleAndPageErrors": []
+  },
+  "installedExtension": {
+    "optionsMobileOverflowPx": 13,
+    "brandTouchHeightPx": 28.796875,
+    "readerH1Count": 2,
+    "readerVisibleH1Count": 1,
+    "darkSource": {
+      "foreground": "rgb(184, 55, 30)",
+      "background": "rgb(18, 23, 34)",
+      "fontSize": "14px",
+      "axeRule": "color-contrast",
+      "impact": "serious",
+      "ratio": 3.07,
+      "requiredRatio": 4.5
+    },
+    "siteOverrideAfterDisable": {"example.test": {"enabled": false}}
+  },
+  "deploymentHashes": {
+    "indexHtml": "becdebf85c6867c00383fd80b1e5c665c123fd4483861cef126cbcc59a2d06bf",
+    "extensionZip": "72694dfd31a21d9c5ee00525c1a4f6853ddbbf5c98c31e3959e54d2d1e96f339",
+    "entryJs": "8d4182b158e416222174dd209e762257b5919ea61c9e0e6b80a41c7298de7573",
+    "mainCss": "6191030e4f75ee9a88e7a80d21f9f6c7f9ce155b2ae730edd06cdb0c9d0bbf21"
+  },
+  "lighthouseMobile": {
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcpMs": 1080,
+    "lcpMs": 1380,
+    "tbtMs": 43,
+    "cls": 0.000051209052341760406,
+    "transferBytes": 93082
+  }
+}

@@ -1,0 +1,22 @@
+Candidate: 05f33bed57276b5aa7c916b9bf8bc014e64b1bbe
+Clean clone: /tmp/rst-qa-clean-05f33be
+Preparation: npm ci (exit 0; 489 packages added)
+Precondition: no dist/ or .output/ existed before these commands.
+
+FAIL  npm run test:e2e -- --grep @claim:reading-settings
+FAIL  npm run test:e2e -- --grep @claim:profile-json-transfer
+FAIL  npm run test:e2e -- --grep @claim:demo-isolation
+FAIL  npm run test:e2e -- --grep @claim:offline-reload
+FAIL  npm run test:e2e -- --grep @claim:extension-local-reader
+PASS  npm test -- --testNamePattern @claim:article-structure
+PASS  npm test -- --testNamePattern @claim:free-open-source
+FAIL  npm run test:e2e -- --grep @claim:responsive-keyboard
+
+Every failed browser command exited 1 before test execution with:
+
+Error: ENOENT: no such file or directory, open
+'/tmp/rst-qa-clean-05f33be/dist/site/404.html'
+Error: Process from config.webServer was not able to start. Exit code: 1
+
+After npm run build, npm run test:e2e passed all 14 tests. That later result
+does not satisfy the clean-checkout claim commands declared in claims.json.
