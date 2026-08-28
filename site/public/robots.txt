@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://reader-setting-transfer.sociobot.in/sitemap.xml
