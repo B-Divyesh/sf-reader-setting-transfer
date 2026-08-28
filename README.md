@@ -27,6 +27,7 @@ npm install
 npm run dev          # WXT extension development
 npm run dev:site     # landing-site development
 npm test             # unit tests
+npm run test:package # verifies the download ZIP is deterministic and valid
 npm run build        # extension + site + packaged ZIP
 npm run test:e2e     # real Chromium and axe checks after build
 ```
@@ -36,6 +37,11 @@ The reproducible production command is exactly:
 ```sh
 npm run build
 ```
+
+The static deploy root includes a `_headers` policy: fingerprinted site assets
+and the downloadable ZIP are immutable for one year, while HTML and the
+service worker revalidate. It also sets a self-only CSP and standard framing,
+referrer, permissions, and MIME-sniffing protections.
 
 Outputs:
 

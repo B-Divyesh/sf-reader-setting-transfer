@@ -1,26 +1,67 @@
-# Reader Setting Transfer — verification handoff
+# Reader Setting Transfer — repair handoff
 
-## Verification status: **FAIL**
+## Verification status: **PASS (local repair verification)**
 
-Independent verification on 2026-08-28 of candidate
-`6a586c33376f613136b17d5ffd9df1beae4d3c48` at
-<https://reader-setting-transfer.sociobot.in/> failed the acceptance contract.
-See [.factory/verification.md](verification.md) for command output and exact
-evidence.
+Repair work order: `reader-setting-transfer-repair-1`
+Verifier baseline: `6a586c33376f613136b17d5ffd9df1beae4d3c48`
+Original independent findings: [.factory/verification.md](verification.md)
 
-Release blockers:
+### Repaired findings
 
-- **High:** fresh `npm ci && npm test` fails because `.wxt/tsconfig.json` is
-  generated only by a separate prerequisite.
-- **High:** `npm run test:e2e` and focused extension E2E fail reproducibly on
-  an installation-time options-page navigation race.
-- **High:** live 390 px axe finds serious `scrollable-region-focusable` on the
-  keyboard-inaccessible `.promise-strip`.
+- `npm test` now runs `wxt prepare` itself, so a clean `npm ci && npm test`
+  succeeds without a generated `.wxt/tsconfig.json` prerequisite.
+- The extension E2E waits for the first-install options tab opened by the
+  product before it ever creates a fallback tab. This preserves the intended
+  first-install behavior and eliminates the same-URL navigation race.
+- At 390 px, the horizontal product-promise strip is a named, tabbable region.
+  Arrow Left/Right and Home/End scroll it; axe no longer reports
+  `scrollable-region-focusable`.
+- Shared extension CSS moved out of WXT's `entrypoints/` discovery path. This
+  removes the duplicated, non-deterministically named font copies. Packaging
+  now sorts entries, normalizes ZIP timestamps, strips variable metadata, and
+  has a two-build SHA-256 regression check.
+- `site/public/_headers` provides the static deployment policy: immutable
+  one-year cache lifetime for `/assets/*` and `/downloads/*`, no-cache service
+  worker updates, shell revalidation, and self-only CSP/framing/referrer/
+  permissions/MIME protections.
 
-Also fix the 30-second non-immutable cache policy for hashed static assets and
-make the extension package build deterministic before declaring the deployed
-download an exact candidate match. No product code was modified during this
-verification.
+### Exact local evidence — 2026-08-28
+
+    npm ci && npm test                 # 3 files, 7 tests passed
+    npm run typecheck                  # passed
+    npm run build                      # passed; dist/site/ and MV3 output produced
+    npm run test:e2e                   # 6/6 passed
+    npm run test:package               # ZIP integrity passed; two build hashes matched
+    npm audit --omit=dev --audit-level=low  # 0 production vulnerabilities
+
+Browser coverage in the six Playwright checks includes the shipped MV3
+extension's profile save/article reader flow, desktop axe, 390 × 844 axe and
+keyboard scroll operation, no horizontal page overflow, no console errors,
+first-party-only site requests, service-worker `update()`, and an offline
+cached-shell reload. The options and reader extension screens have no
+serious/critical axe violations.
+
+The deterministic package SHA-256 is
+`aab4e1dd7b3388c2aa7e005d66527e7bc9ccec32c17ac1c3a74511e743981412`.
+
+Lighthouse 13.4.1 on the built local preview (mobile preset) measured:
+
+| Performance | Accessibility | Best practices | SEO | LCP | CLS |
+| --- | --- | --- | --- | --- | --- |
+| 100 | 100 | 100 | 100 | 1.7 s | 0.03 |
+
+Initial site JS is 1.52 KB raw and site CSS is 11.41 KB raw; the mobile hero
+remains 48 KB. The static output contains `_headers` for the deployment
+platform to apply the cache and response policy.
+
+### Remaining scope notes
+
+- The deployment is still the original static-site class; its hosted response
+  headers and downloaded artifact must be checked once the main-branch
+  publication triggered by this repair completes.
+- `npm ci` reports 10 development-only advisories inherited from the locked
+  toolchain. The production dependency audit is clean; no dependency upgrades
+  were made because they are outside this repair's product behavior scope.
 
 ---
 

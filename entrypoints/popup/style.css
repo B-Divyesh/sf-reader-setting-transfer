@@ -1,4 +1,4 @@
-@import '../shared.css';
+@import '../../styles/shared.css';
 
 body { width: 370px; }
 .popup { padding: 24px; }

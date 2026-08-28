@@ -1,4 +1,4 @@
-@import '../shared.css';
+@import '../../styles/shared.css';
 
 :root { --reader-bg: #f3ebd8; --reader-surface: #fffdf6; --reader-text: #18213b; --reader-muted: #5a6071; }
 body { background: var(--reader-bg); }

@@ -2,6 +2,22 @@ import { chromium, expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { resolve } from 'node:path';
 
+async function getOptionsPage(context: Awaited<ReturnType<typeof chromium.launchPersistentContext>>, extensionId: string) {
+  const url = `chrome-extension://${extensionId}/options.html`;
+  const deadline = Date.now() + 5_000;
+  while (Date.now() < deadline) {
+    const installedPage = context.pages().find((candidate) => candidate.url() === url);
+    if (installedPage) return installedPage;
+    await new Promise((resolve) => setTimeout(resolve, 50));
+  }
+
+  // The extension intentionally opens this page on first installation. Wait for
+  // it to finish before creating our own tab so the two navigations cannot race.
+  const page = await context.newPage();
+  await page.goto(url, { waitUntil: 'domcontentloaded' });
+  return page;
+}
+
 test('the built extension saves a profile and renders an article', async ({}, testInfo) => {
   const extensionPath = resolve('.output/chrome-mv3');
   const context = await chromium.launchPersistentContext(testInfo.outputPath('profile'), {
@@ -13,10 +29,9 @@ test('the built extension saves a profile and renders an article', async ({}, te
     let worker = context.serviceWorkers()[0];
     if (!worker) worker = await context.waitForEvent('serviceworker');
     const extensionId = new URL(worker.url()).host;
-    const page = await context.newPage();
+    const page = await getOptionsPage(context, extensionId);
     const consoleErrors: string[] = [];
     page.on('console', (message) => { if (message.type() === 'error') consoleErrors.push(message.text()); });
-    await page.goto(`chrome-extension://${extensionId}/options.html`);
     await expect(page.getByRole('heading', { name: /Make a reading card/ })).toBeVisible();
     await page.locator('#font-scale').fill('1.4');
     await expect(page.locator('#font-scale-value')).toHaveText('140%');

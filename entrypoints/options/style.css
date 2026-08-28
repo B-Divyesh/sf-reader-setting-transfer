@@ -1,4 +1,4 @@
-@import '../shared.css';
+@import '../../styles/shared.css';
 
 body { min-height: 100vh; }
 .topbar { display: flex; justify-content: space-between; align-items: center; min-height: 72px; padding: 12px clamp(20px, 5vw, 72px); border-bottom: 2px solid var(--ink); background: var(--surface); }
