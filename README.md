@@ -38,10 +38,11 @@ The reproducible production command is exactly:
 npm run build
 ```
 
-The static deploy root includes a `_headers` policy: fingerprinted site assets
-and the downloadable ZIP are immutable for one year, while HTML and the
-service worker revalidate. It also sets a self-only CSP and standard framing,
-referrer, permissions, and MIME-sniffing protections.
+The static deploy root includes Azure Static Web Apps and portable `_headers`
+policies: fingerprinted site assets and the downloadable ZIP are immutable for
+one year, while HTML and the service worker revalidate. They also set a
+self-only CSP and standard framing, referrer, permissions, and MIME-sniffing
+protections.
 
 Outputs:
 

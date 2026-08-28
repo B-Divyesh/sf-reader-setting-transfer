@@ -20,10 +20,10 @@ Original independent findings: [.factory/verification.md](verification.md)
   removes the duplicated, non-deterministically named font copies. Packaging
   now sorts entries, normalizes ZIP timestamps, strips variable metadata, and
   has a two-build SHA-256 regression check.
-- `site/public/_headers` provides the static deployment policy: immutable
-  one-year cache lifetime for `/assets/*` and `/downloads/*`, no-cache service
-  worker updates, shell revalidation, and self-only CSP/framing/referrer/
-  permissions/MIME protections.
+- `site/public/staticwebapp.config.json` (with portable `_headers`) provides
+  the static deployment policy: immutable one-year cache lifetime for
+  `/assets/*` and `/downloads/*`, no-cache service worker updates, shell
+  revalidation, and self-only CSP/framing/referrer/permissions/MIME protections.
 
 ### Exact local evidence — 2026-08-28
 
@@ -51,8 +51,8 @@ Lighthouse 13.4.1 on the built local preview (mobile preset) measured:
 | 100 | 100 | 100 | 100 | 1.7 s | 0.03 |
 
 Initial site JS is 1.52 KB raw and site CSS is 11.41 KB raw; the mobile hero
-remains 48 KB. The static output contains `_headers` for the deployment
-platform to apply the cache and response policy.
+remains 48 KB. The static output contains the Azure Static Web Apps response
+policy (and a portable `_headers` companion).
 
 ### Remaining scope notes
 
