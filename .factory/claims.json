@@ -35,6 +35,13 @@
     "sandbox": "fresh MV3 Chromium profile; save a card; inspect chrome.storage.local; render a stored article; assert no HTTP requests"
   },
   {
+    "id": "per-site-off-return",
+    "claim": "Turn the reader off for one site and return to its original article immediately.",
+    "where": "landing how-it-works, README",
+    "test": "npm run test:e2e -- --grep @claim:per-site-off-return",
+    "sandbox": "fresh MV3 Chromium profile with a stored article; turn the reader off; assert the original URL opens and the local per-site override is disabled"
+  },
+  {
     "id": "article-structure",
     "claim": "Article extraction keeps headings, lists, quotations, tables, and safe links while removing active page code.",
     "where": "landing how-it-works, README",

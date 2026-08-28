@@ -66,6 +66,17 @@ export function validateProfile(value: unknown): ReaderProfile {
   };
 }
 
+/** Parse a portable card without surfacing browser-specific parser jargon. */
+export function parseProfileJson(source: string): ReaderProfile {
+  let value: unknown;
+  try {
+    value = JSON.parse(source);
+  } catch {
+    throw new Error('This file is not valid JSON. Check the file, then try again.');
+  }
+  return validateProfile(value);
+}
+
 export function mergedProfile(profile: ReaderProfile, override?: SiteOverride): ReaderProfile {
   return override?.profile ? { ...profile, ...override.profile } : profile;
 }

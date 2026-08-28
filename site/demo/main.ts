@@ -1,4 +1,4 @@
-import { DEFAULT_PROFILE, validateProfile, type ReaderProfile } from '../../lib/profile';
+import { DEFAULT_PROFILE, parseProfileJson, validateProfile, type ReaderProfile } from '../../lib/profile';
 import '../main';
 
 const DEMO_STORAGE_KEY = 'demo:reader-profile';
@@ -25,10 +25,13 @@ const fields = {
   fontChoice: document.querySelector<HTMLSelectElement>('#demo-font')!,
   reduceMotion: document.querySelector<HTMLInputElement>('#demo-motion')!
 };
+let activeProfile: ReaderProfile = SAMPLE_PROFILE;
 
 function readProfile(): ReaderProfile {
   return {
-    ...SAMPLE_PROFILE,
+    // The compact demo exposes the controls readers need to compare quickly,
+    // while retaining every other imported setting for a faithful transfer.
+    ...activeProfile,
     fontScale: Number(fields.fontScale.value),
     lineHeight: Number(fields.lineHeight.value),
     contrast: fields.contrast.value as ReaderProfile['contrast'],
@@ -38,12 +41,14 @@ function readProfile(): ReaderProfile {
 }
 
 function render(profile: ReaderProfile, persist = true) {
+  activeProfile = profile;
   fields.fontScale.value = String(profile.fontScale);
   fields.lineHeight.value = String(profile.lineHeight);
   fields.contrast.value = profile.contrast;
   fields.fontChoice.value = profile.fontChoice;
   fields.reduceMotion.checked = profile.reduceMotion;
   article.style.setProperty('--demo-size', `${20 * profile.fontScale}px`);
+  article.style.setProperty('--demo-measure', `${profile.measure}ch`);
   article.style.setProperty('--demo-leading', String(profile.lineHeight));
   article.style.setProperty('--demo-para', `${profile.paragraphSpace}em`);
   article.style.setProperty('--demo-spacing', `${profile.letterSpacing}em`);
@@ -90,7 +95,7 @@ document.querySelector<HTMLInputElement>('#demo-import')!.addEventListener('chan
   if (!file) return;
   try {
     if (file.size > 20_000) throw new Error('That file is too large to be a reading card.');
-    const profile = validateProfile(JSON.parse(await file.text()));
+    const profile = parseProfileJson(await file.text());
     render(profile);
     status.removeAttribute('data-error');
     status.textContent = `Imported “${profile.name}” into the demo.`;

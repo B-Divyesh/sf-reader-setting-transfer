@@ -59,18 +59,78 @@ test('@claim:extension-local-reader the built extension stores a profile locally
     }}));
     await page.goto(`chrome-extension://${extensionId}/reader.html`);
     await expect(page.getByRole('heading', { level: 1, name: 'A calmer way to read' })).toBeVisible();
+    await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.getByRole('heading', { level: 2, name: 'A useful heading' })).toBeVisible();
     await expect(page.locator('#size-value')).toHaveText('140%');
-    await page.getByRole('button', { name: 'Make text larger' }).click();
-    await expect(page.locator('#size-value')).toHaveText('145%');
-    for (const contrast of ['paper', 'high', 'dark']) {
-      await page.locator('#reader-contrast').selectOption(contrast);
-      await expect(page.locator('#article')).toHaveAttribute('data-contrast', contrast);
-      const readerAxe = await new AxeBuilder({ page }).analyze();
-      expect(readerAxe.violations.filter((v) => ['serious', 'critical'].includes(v.impact ?? '')), `reader contrast: ${contrast}`).toEqual([]);
+    for (const fontScale of [.85, 1, 1.8]) {
+      await page.evaluate(async (scale) => {
+        const { readerProfile } = await chrome.storage.local.get('readerProfile');
+        await chrome.storage.local.set({ readerProfile: { ...readerProfile, fontScale: scale } });
+      }, fontScale);
+      await page.reload();
+      await expect(page.locator('#size-value')).toHaveText(`${Math.round(fontScale * 100)}%`);
+      for (const contrast of ['paper', 'high', 'dark']) {
+        await page.locator('#reader-contrast').selectOption(contrast);
+        await expect(page.locator('#article')).toHaveAttribute('data-contrast', contrast);
+        const readerAxe = await new AxeBuilder({ page }).analyze();
+        expect(readerAxe.violations.filter((v) => ['serious', 'critical'].includes(v.impact ?? '')), `reader ${fontScale} contrast: ${contrast}`).toEqual([]);
+      }
     }
     expect(requestedUrls.filter((url) => /^https?:/.test(url))).toEqual([]);
     expect(consoleErrors).toEqual([]);
+  } finally {
+    await context.close();
+  }
+});
+
+test('@claim:per-site-off-return turns the reader off for one site and returns to the original article', async ({}, testInfo) => {
+  const extensionPath = resolve('.output/chrome-mv3');
+  const context = await chromium.launchPersistentContext(testInfo.outputPath('per-site-profile'), {
+    channel: 'chromium',
+    headless: true,
+    args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
+  });
+  try {
+    let worker = context.serviceWorkers()[0];
+    if (!worker) worker = await context.waitForEvent('serviceworker');
+    const extensionId = new URL(worker.url()).host;
+    const page = await getOptionsPage(context, extensionId);
+    await page.evaluate(() => chrome.storage.local.set({ currentArticle: {
+      title: 'Return test', byline: '', source: 'example.test', url: 'http://127.0.0.1:4173/',
+      html: '<p>A local test article.</p>', excerpt: 'A local test article.', extractedAt: Date.now()
+    }}));
+    await page.goto(`chrome-extension://${extensionId}/reader.html`);
+    await Promise.all([
+      page.waitForURL('http://127.0.0.1:4173/'),
+      page.getByRole('button', { name: 'Turn off for this site' }).click()
+    ]);
+    const overrides = await worker.evaluate(async () => (await chrome.storage.local.get('siteOverrides')).siteOverrides);
+    expect(overrides).toEqual({ '127.0.0.1': { enabled: false } });
+  } finally {
+    await context.close();
+  }
+});
+
+test('the extension settings fit at 390px and explain malformed card files', async ({}, testInfo) => {
+  const extensionPath = resolve('.output/chrome-mv3');
+  const context = await chromium.launchPersistentContext(testInfo.outputPath('mobile-options-profile'), {
+    channel: 'chromium',
+    headless: true,
+    viewport: { width: 390, height: 844 },
+    args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
+  });
+  try {
+    let worker = context.serviceWorkers()[0];
+    if (!worker) worker = await context.waitForEvent('serviceworker');
+    const page = await getOptionsPage(context, new URL(worker.url()).host);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
+    const brandBox = await page.locator('.brand').boundingBox();
+    expect(brandBox?.height).toBeGreaterThanOrEqual(44);
+    await page.locator('#import-file').setInputFiles({
+      name: 'broken-card.json', mimeType: 'application/json', buffer: Buffer.from('{not JSON')
+    });
+    await expect(page.locator('#import-status')).toHaveText('This file is not valid JSON. Check the file, then try again.');
   } finally {
     await context.close();
   }

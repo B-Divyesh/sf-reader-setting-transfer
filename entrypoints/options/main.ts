@@ -1,4 +1,4 @@
-import { DEFAULT_PROFILE, validateProfile, type ReaderProfile } from '../../lib/profile';
+import { DEFAULT_PROFILE, parseProfileJson, validateProfile, type ReaderProfile } from '../../lib/profile';
 import { getOverrides, getProfile, saveOverrides, saveProfile } from '../../lib/storage';
 import './style.css';
 
@@ -114,7 +114,7 @@ document.querySelector<HTMLInputElement>('#import-file')!.addEventListener('chan
   if (!file) return;
   try {
     if (file.size > 20_000) throw new Error('That file is too large to be a reading card.');
-    const profile = validateProfile(JSON.parse(await file.text()));
+    const profile = parseProfileJson(await file.text());
     await saveProfile(profile);
     fillForm(profile);
     importStatus.removeAttribute('data-error');

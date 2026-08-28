@@ -11,7 +11,10 @@ export default defineConfig({
     trace: 'retain-on-failure'
   },
   webServer: {
-    command: 'node scripts/serve-site.mjs',
+    // Claim commands are run directly from a clean checkout. Build the exact
+    // extension and static site that the browser tests consume instead of
+    // relying on ignored artifacts from an earlier command.
+    command: 'npm run build:site && node scripts/serve-site.mjs',
     url: 'http://localhost:4173',
     reuseExistingServer: true
   }

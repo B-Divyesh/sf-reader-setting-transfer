@@ -102,22 +102,42 @@ test('@claim:reading-settings sample settings visibly change and reset the artic
 
 test('@claim:profile-json-transfer the sample card exports and imports as JSON', async ({ page }) => {
   await page.goto('/demo/');
-  await page.locator('#demo-size').fill('1.45');
+  const imported = {
+    version: 1,
+    name: 'Boundary recovery',
+    fontScale: 1.3,
+    measure: 40,
+    lineHeight: 1.5,
+    paragraphSpace: 2.5,
+    letterSpacing: 0.08,
+    contrast: 'dark',
+    fontChoice: 'dyslexia',
+    reduceMotion: false
+  };
+  await page.locator('#demo-import').setInputFiles({
+    name: 'reading-card.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify(imported))
+  });
+  await expect(page.getByRole('status').filter({ hasText: 'Imported “Boundary recovery” into the demo.' })).toBeVisible();
+  const article = page.locator('#demo-article');
+  await expect(article).toHaveCSS('--demo-measure', '40ch');
+  await expect(article).toHaveCSS('--demo-para', '2.5em');
+  await expect(article).toHaveCSS('--demo-spacing', '0.08em');
+
   const downloadPromise = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Export sample card' }).click();
   const download = await downloadPromise;
   expect(download.suggestedFilename()).toBe('sample-reading-card.json');
   const body = JSON.parse(await (await download.createReadStream()).toArray().then((chunks) => Buffer.concat(chunks).toString('utf8')));
-  expect(body).toMatchObject({ version: 1, name: 'Quiet evening', fontScale: 1.45 });
+  expect(body).toEqual(imported);
 
   await page.locator('#demo-import').setInputFiles({
-    name: 'reading-card.json',
+    name: 'broken-card.json',
     mimeType: 'application/json',
-    buffer: Buffer.from(JSON.stringify({ ...body, name: 'Night reading', fontScale: 1.3, contrast: 'dark' }))
+    buffer: Buffer.from('{not JSON')
   });
-  await expect(page.getByRole('status').filter({ hasText: 'Imported “Night reading” into the demo.' })).toBeVisible();
-  await expect(page.locator('#demo-size-value')).toHaveText('130%');
-  await expect(page.locator('#demo-article')).toHaveAttribute('data-contrast', 'dark');
+  await expect(page.locator('#demo-status')).toHaveText('This file is not valid JSON. Check the file, then try again.');
 });
 
 test('@claim:demo-isolation the demo uses only its namespace and first-party requests', async ({ browser }) => {
