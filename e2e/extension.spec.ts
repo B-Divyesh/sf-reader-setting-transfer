@@ -20,6 +20,11 @@ async function getOptionsPage(context: Awaited<ReturnType<typeof chromium.launch
 }
 
 test('@claim:extension-local-reader the built extension stores a profile locally and renders a clean article', async ({}, testInfo) => {
+  // This claim deliberately runs 12 complete axe scans across the options and
+  // reader contrast/size matrix in a real MV3 browser context. On a contended
+  // two-worker run that valid workload can exceed the suite's 30 s default,
+  // so keep the full regression matrix and give this test bounded headroom.
+  test.setTimeout(60_000);
   const extensionPath = resolve('.output/chrome-mv3');
   const manifest = JSON.parse(readFileSync(resolve(extensionPath, 'manifest.json'), 'utf8'));
   expect(manifest.permissions).toEqual(['storage', 'activeTab', 'scripting']);
