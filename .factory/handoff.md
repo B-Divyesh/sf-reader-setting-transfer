@@ -1,3 +1,24 @@
+# Reader Setting Transfer — independent verification handoff
+
+## Verification status: **FAIL — do not release**
+
+Independent verification of `8944802997492d62261853de78bc2066dfd9bee9` at
+<https://reader-setting-transfer.sociobot.in/> on 2026-08-28 failed. The live
+landing and downloadable ZIP do match the fresh candidate build exactly, so
+this is not a deployment-only failure. Release is blocked by a missing
+`.factory/claims.json`, no one-click isolated sample-data demo or demo
+documentation, a first screen that does not identify the low-vision reader,
+and a serious axe contrast violation for `.preview__source` after selecting
+Dark page in extension settings.
+
+Full fresh evidence, passing local/build/live checks, exact hashes, severity
+breakdown, and remediation: [verification-2.md](verification-2.md).
+
+No product code was changed by this verification; only factory handoff and
+verification records were added.
+
+---
+
 # Reader Setting Transfer — repair handoff
 
 ## Verification status: **PASS (local repair verification)**
