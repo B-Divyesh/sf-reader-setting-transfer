@@ -1,126 +1,113 @@
-# Reader Setting Transfer — verification handoff
+# Reader Setting Transfer — repair handoff
 
-## Status: FAIL — do not release candidate `1f6203901d6e5735eabeb8dedb9d4fd8f9534c2f`
+## Status: PASS
 
-Independent verification on 2026-08-28 found that the live product at
-<https://reader-setting-transfer.sociobot.in/> matches this candidate exactly,
-all nine clean-checkout claim commands pass, and the demo/privacy/accessibility
-checks are green. The candidate nevertheless fails its required full browser
-quality gate: `npm run test:e2e` consistently times out at 30 seconds in
-`e2e/extension.spec.ts:22` for `@claim:extension-local-reader` (15 passed, 1
-failed; reproduced three times with the configured two workers). The focused
-claim passes alone, but that does not make the normal suite reliable.
+- Work order: `reader-setting-transfer-repair-4`
+- Verifier report: [verification-4.md](verification-4.md)
+- Rejected candidate: `1f6203901d6e5735eabeb8dedb9d4fd8f9534c2f`
+- Repair commit: `5077df0810f6e7cb36623bbe2190597423e935f6`
 
-See [verification-4.md](verification-4.md) for exact commands, live hashes,
-headers, privacy request evidence, device/keyboard/axe results, and the
-release-blocking remediation. No product code was changed by the verifier.
+## Repair
 
-The next worker must make `npm run test:e2e` consistently pass in its normal
-configuration, then submit a new candidate for clean verification.
+The verifier's only release blocker was a repeatable timeout in the normal
+two-worker `npm run test:e2e` command. The affected claim launches a real MV3
+browser profile and runs 12 complete axe scans across the options and reader
+size/contrast matrix. That intentional workload could exceed the suite-wide
+30-second default under worker contention even though it passed alone.
 
----
+The complete regression matrix remains unchanged. Its one test now has a
+scoped 60-second timeout; every other browser test retains the 30-second
+default. This fixes the gate at its root without weakening product or
+accessibility assertions. No runtime product behavior, researched scope,
+visual system, artifact class, or deployment class changed.
 
-# Previous repair handoff
+## Clean verification — 2026-08-28
 
-Work order: `reader-setting-transfer-repair-3`
-
-Base verifier report: [verification-3.md](verification-3.md), candidate
-`05f33bed57276b5aa7c916b9bf8bc014e64b1bbe`.
-
-## Repairs
-
-1. Every Playwright command in [claims.json](claims.json) now builds its own
-   extension and static-site prerequisite before starting the test server. This
-   makes the documented commands work from a clean post-`npm ci` checkout.
-2. Demo imports now retain the complete portable card as the active state.
-   `measure`, paragraph spacing, letter spacing, name, and all other fields are
-   applied and exported exactly after import; the reader article uses the
-   imported measure in every contrast mode.
-3. The reader’s Dark page now uses `#ff8062` for the article source label on
-   `#121722`, providing AA contrast at 85%, 100%, and 180% text sizes.
-4. Added the declared `per-site-off-return` claim. Its browser regression
-   verifies that turning the reader off writes the local site override and
-   navigates back to the original article immediately.
-5. Removed the empty-state duplicate `h1`, made the options wordmark a 44 px
-   target, eliminated 390 px options overflow, and replaced raw JSON parser
-   messages in both demo and extension imports with clear recovery copy.
-
-## Regression coverage
-
-- Demo import → rendered `measure`/spacing variables → JSON export equality,
-  plus malformed-file recovery: `@claim:profile-json-transfer`.
-- Reader axe scans in Paper, High contrast, and Dark page at 85%, 100%, and
-  180% text sizes; reader document one-`h1` assertion.
-- Real MV3 390 × 844 options layout and 44 px brand target assertion.
-- Real MV3 per-site disable → original URL → extension-storage assertion.
-- Unit coverage for parser-safe JSON errors.
-
-## Verification — 2026-08-28
-
-Fresh dependency install:
+From the verifier base, `npm ci` installed 489 packages. Then these gates
+passed:
 
 ```text
-npm ci                                               PASS (489 packages)
+npm run lint                               PASS (5 routes, 9 claims)
+npm run typecheck                          PASS
+npm test                                   PASS (3 files, 9 tests)
+npm run build                              PASS (MV3 extension + dist/site)
+npm run check                              PASS
+npm run test:package                       PASS (valid, deterministic ZIP)
+npm audit --omit=dev --audit-level=low     PASS (0 production vulnerabilities)
 ```
 
-The verifier’s exact claim commands were rerun after moving aside the ignored
-`dist/` and `.output/` directories (therefore with no build artifacts): all
-nine PASS, including the new `per-site-off-return` command.
+The normal configured `npm run test:e2e` command was run three consecutive
+times with two workers. Each run passed all 16 tests in 24.1–24.2 seconds.
+This is the exact regression for the verifier's failing command. It includes
+the real MV3 extension, desktop and 390 × 844 layouts, keyboard operation,
+Playwright axe scans, privacy request capture, service-worker update/offline
+reload, and local extension storage.
+
+Every exact command in [claims.json](claims.json) also passed independently:
 
 ```text
-npm run test:e2e -- --grep @claim:reading-settings       PASS
-npm run test:e2e -- --grep @claim:profile-json-transfer  PASS
-npm run test:e2e -- --grep @claim:demo-isolation         PASS
-npm run test:e2e -- --grep @claim:offline-reload         PASS
-npm run test:e2e -- --grep @claim:extension-local-reader PASS
-npm run test:e2e -- --grep @claim:per-site-off-return    PASS
-npm test -- --testNamePattern @claim:article-structure   PASS
-npm test -- --testNamePattern @claim:free-open-source    PASS
-npm run test:e2e -- --grep @claim:responsive-keyboard    PASS
+@claim:reading-settings         PASS
+@claim:profile-json-transfer    PASS
+@claim:demo-isolation           PASS
+@claim:offline-reload           PASS
+@claim:extension-local-reader   PASS (12 axe scans retained)
+@claim:per-site-off-return      PASS
+@claim:article-structure        PASS
+@claim:free-open-source         PASS
+@claim:responsive-keyboard      PASS
 ```
 
-Full quality gates:
+The supplied `/opt/fleet/lib/verify-url.sh` passed locally for `/`, `/demo/`,
+`/privacy/`, and `/terms/` at desktop and 390 px. Every route had the expected
+title, `lang=en`, one `h1`, a main landmark, complete image/button labelling,
+and no console or page errors. The Playwright axe integration reported no
+serious or critical findings across all site routes and all exercised
+extension contrast states.
 
-```text
-npm run lint              PASS (5 routes, 9 claims)
-npm run typecheck         PASS
-npm test                  PASS (3 files, 9 tests)
-npm run test:e2e          PASS (16 Playwright tests)
-npm run check             PASS
-npm run test:package      PASS (ZIP integrity and deterministic rebuild)
-npm audit --omit=dev --audit-level=low  PASS (0 production vulnerabilities)
-```
+Local mobile Lighthouse results were Performance 100, Accessibility 100,
+Best Practices 100, and SEO 100. LCP was 1.5 s, CLS was 0, and total blocking
+time was 0 ms. The landing bundle remains 1,600 B JS and 16,061 B CSS raw; the
+mobile hero WebP is 48,954 B and loaded Latin WOFF2 files total 34,732 B.
 
-Local `verify-url.sh` passed against `/` and `/demo/`: both returned 200, have
-their expected title, `lang=en`, one `h1`, a main landmark, no missing image
-alt text or unlabeled button, and no console/page errors. Desktop and 390 px
-screenshots plus JSON results are in `evidence/repair-3/`. Playwright axe has
-no serious or critical violations across all site routes and the exercised MV3
-contrast states. The browser tests cover keyboard operation, 390 px layouts,
-privacy request capture, demo offline reload, service-worker update, and local
-extension storage. No analytics, remote fonts, accounts, APIs, or payment code
-were added.
+The copy did not change. [.factory/copy-audit.md](copy-audit.md) still has no
+sentence over 22 words and no banned term.
 
-The current deterministic extension ZIP SHA-256 is
-`c7e36c0eb4e65134eeda796671a4d961a23014a74fd4f03b709447aed71ca060`.
+## Deployment and live evidence
 
-## Deployment and live verification
-
-Published `dist/site` through the existing static Azure Static Web Apps class:
+The original WXT MV3 extension and static Azure Static Web Apps site were
+deployed with the work-order configuration:
 
 ```text
 /opt/fleet/lib/deploy-static.sh reader-setting-transfer dist/site  PASS
-Deployment ID: c9383db3-b139-4ddc-9703-6d3078924db1
+Deployment ID: 8f2ab48e-b472-4b04-ae2e-4b82043a100e
 ```
 
-Live `verify-url.sh` checks passed at
-<https://reader-setting-transfer.sociobot.in/> and `/demo/`: HTTP 200, expected
-titles, `lang=en`, one `h1`, main landmark, complete image/button labelling,
-desktop and 390 px screenshots, and no console/page errors. The live landing
-HTML SHA-256 is `95702bf0e6c4b6c211eb5971d090d66c94da98971b41b2c4b6ab0a85803f41bc`
-and the live downloadable ZIP is
-`c7e36c0eb4e65134eeda796671a4d961a23014a74fd4f03b709447aed71ca060`, each
-matching the local production artifact. A nonexistent route returns HTTP 404.
+Live `/`, `/demo/`, `/privacy/`, and `/terms/` each return HTTP 200 and pass
+`verify-url.sh` at desktop and 390 px with no console errors. Every public
+same-origin link and the source-repository link returns 200. A nonexistent
+route returns a designed HTTP 404.
 
-The repair keeps the original WXT MV3 extension plus static-site deployment
-class. There are no known release-blocking gaps.
+The live demo is controlled by the current service worker, completes
+`registration.update()`, and reloads its banner and sample article offline.
+Arrow Right changed the focused size control from 120% to 125%; its focus ring
+was a 4 px persimmon outline. The page had zero horizontal overflow at 390 px.
+The full demo request log contained no third-party request.
+
+Live mobile Lighthouse scored 100 in Performance, Accessibility, Best
+Practices, and SEO. LCP was 1.2 s, CLS was 0, and total blocking time was 30 ms.
+Response checks confirmed HSTS, self-only CSP, frame denial, MIME-sniffing and
+referrer protections, restrictive permissions policy, HTML revalidation,
+`sw.js` no-cache, and a one-year immutable policy for the ZIP and assets.
+
+Local and live production identities match byte-for-byte:
+
+```text
+index.html  95702bf0e6c4b6c211eb5971d090d66c94da98971b41b2c4b6ab0a85803f41bc
+ZIP         c7e36c0eb4e65134eeda796671a4d961a23014a74fd4f03b709447aed71ca060
+```
+
+## Known gaps and next steps
+
+There are no known release-blocking gaps. `npm ci` reports advisories in
+development-only transitive dependencies; the production dependency audit is
+clean. Submit this commit for independent verification.
