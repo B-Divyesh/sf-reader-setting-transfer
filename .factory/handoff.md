@@ -1,6 +1,26 @@
-# Reader Setting Transfer — repair handoff
+# Reader Setting Transfer — verification handoff
 
-## Status: repaired and ready to release
+## Status: FAIL — do not release candidate `1f6203901d6e5735eabeb8dedb9d4fd8f9534c2f`
+
+Independent verification on 2026-08-28 found that the live product at
+<https://reader-setting-transfer.sociobot.in/> matches this candidate exactly,
+all nine clean-checkout claim commands pass, and the demo/privacy/accessibility
+checks are green. The candidate nevertheless fails its required full browser
+quality gate: `npm run test:e2e` consistently times out at 30 seconds in
+`e2e/extension.spec.ts:22` for `@claim:extension-local-reader` (15 passed, 1
+failed; reproduced three times with the configured two workers). The focused
+claim passes alone, but that does not make the normal suite reliable.
+
+See [verification-4.md](verification-4.md) for exact commands, live hashes,
+headers, privacy request evidence, device/keyboard/axe results, and the
+release-blocking remediation. No product code was changed by the verifier.
+
+The next worker must make `npm run test:e2e` consistently pass in its normal
+configuration, then submit a new candidate for clean verification.
+
+---
+
+# Previous repair handoff
 
 Work order: `reader-setting-transfer-repair-3`
 
