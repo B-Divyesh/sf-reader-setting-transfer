@@ -38,7 +38,7 @@ banned term appears.
 | 12 | Turn on Developer mode, choose “Load unpacked”, and select the unzipped folder. |
 | 11 | Pin Reader Setting Transfer and open it on a public article. |
 | 5 | Free and open source. |
-| 8 | Does not bypass paywalls or restyle web apps. |
+| 11 | Refuses clearly marked paywalls and does not restyle source pages. |
 | 7 | Carry comfortable reading settings into clean articles. |
 | 10 | Original hero artwork was generated with the factory image model. |
 

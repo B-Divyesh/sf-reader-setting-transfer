@@ -116,6 +116,44 @@ test('@claim:per-site-off-return turns the reader off for one site and returns t
   }
 });
 
+test('@claim:extension-uninstall-data removing the extension clears its browser-managed local data', async ({}, testInfo) => {
+  const extensionPath = resolve('.output/chrome-mv3');
+  const profilePath = testInfo.outputPath('uninstall-profile');
+  const launch = () => chromium.launchPersistentContext(profilePath, {
+    channel: 'chromium',
+    headless: true,
+    args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
+  });
+
+  let context = await launch();
+  try {
+    let worker = context.serviceWorkers()[0];
+    if (!worker) worker = await context.waitForEvent('serviceworker');
+    const extensionId = new URL(worker.url()).host;
+    const page = await getOptionsPage(context, extensionId);
+    await page.evaluate(() => chrome.storage.local.set({ uninstallSentinel: 'private reading data' }));
+    await expect.poll(() => page.evaluate(async () => (await chrome.storage.local.get('uninstallSentinel')).uninstallSentinel)).toBe('private reading data');
+
+    // Chromium closes the extension page while this promise is pending. The
+    // destroyed execution context is expected and confirms removal completed.
+    await page.evaluate(() => chrome.management.uninstallSelf({ showConfirmDialog: false })).catch(() => undefined);
+    await expect.poll(() => context.serviceWorkers().length).toBe(0);
+  } finally {
+    await context.close();
+  }
+
+  context = await launch();
+  try {
+    let worker = context.serviceWorkers()[0];
+    if (!worker) worker = await context.waitForEvent('serviceworker');
+    const extensionId = new URL(worker.url()).host;
+    const page = await getOptionsPage(context, extensionId);
+    expect(await page.evaluate(() => chrome.storage.local.get(null))).toEqual({});
+  } finally {
+    await context.close();
+  }
+});
+
 test('the extension settings fit at 390px and explain malformed card files', async ({}, testInfo) => {
   const extensionPath = resolve('.output/chrome-mv3');
   const context = await chromium.launchPersistentContext(testInfo.outputPath('mobile-options-profile'), {

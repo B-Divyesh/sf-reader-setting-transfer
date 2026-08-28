@@ -20,7 +20,8 @@ The companion site serves the packaged extension from `dist/site/downloads/`.
 - Turns the reader off per site and returns immediately to the original page
 - Supports keyboard use and 390 px layouts on the landing page and demo
 
-It does not bypass access controls, replace browser zoom, restyle web applications, or keep a reading-history list.
+<!-- claim:access-boundaries -->
+It refuses clearly marked paywalls and opens a separate reader without changing the source page.
 
 ## Run locally
 
@@ -65,7 +66,9 @@ Outputs:
 
 ## Privacy and permissions
 
-The extension has no analytics, account, remote API, or broad host permission. `activeTab` and `scripting` allow extraction from the page only when the toolbar action is invoked. `storage` keeps the reading card, current article, and site choices on the device. Removing the extension removes that browser-managed data.
+The extension has no analytics, account, remote API, or broad host permission. `activeTab` and `scripting` allow extraction from the page only when the toolbar action is invoked. `storage` keeps the reading card, current article, and site choices on the device.
+<!-- claim:extension-uninstall-data -->
+Removing the extension removes that browser-managed data.
 
 See the published [privacy policy](site/privacy/index.html) and [terms](site/terms/index.html).
 Every public product claim and its observable command is listed in

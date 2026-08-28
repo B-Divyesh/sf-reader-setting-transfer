@@ -11,6 +11,18 @@ export interface ExtractedArticle {
 /** Runs in the active page. Keep this function self-contained for scripting.executeScript. */
 export function extractArticleFromPage(): ExtractedArticle {
   const safeText = (value: string | null | undefined) => (value ?? '').replace(/\s+/g, ' ').trim();
+  const accessBarrier = document.querySelector<HTMLElement>([
+    '[class*="paywall" i]',
+    '[id*="paywall" i]',
+    '[aria-label*="paywall" i]',
+    '[data-testid*="paywall" i]',
+    '[data-content-access="restricted" i]'
+  ].join(','));
+  if (accessBarrier) {
+    const style = window.getComputedStyle(accessBarrier);
+    const hidden = accessBarrier.hidden || accessBarrier.closest('[hidden]') !== null || style.display === 'none' || style.visibility === 'hidden';
+    if (!hidden) throw new Error('This page appears to restrict access. Open an article you can read without a paywall.');
+  }
   const title = safeText(
     document.querySelector<HTMLMetaElement>('meta[property="og:title"]')?.content ||
       document.querySelector('h1')?.textContent ||

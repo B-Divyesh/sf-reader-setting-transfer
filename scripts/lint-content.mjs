@@ -22,6 +22,13 @@ for (const word of ['leverage', 'seamless', 'effortless', 'robust', 'powerful', 
 const claims = JSON.parse(await readFile('.factory/claims.json', 'utf8'));
 const ids = claims.map((claim) => claim.id);
 if (new Set(ids).size !== ids.length) errors.push('.factory/claims.json: duplicate claim id');
+const publicClaimReferences = [
+  ...landingAndReadme.matchAll(/data-claims?="([^"]+)"/g),
+  ...landingAndReadme.matchAll(/<!--\s*claim:([a-z0-9-]+)\s*-->/g)
+].flatMap((match) => match[1].split(/\s+/));
+for (const id of publicClaimReferences) {
+  if (!ids.includes(id)) errors.push(`public claim reference “${id}” is missing from .factory/claims.json`);
+}
 const testSources = await Promise.all(['e2e/site.spec.ts', 'e2e/extension.spec.ts', 'tests/article.test.ts', 'tests/deployment.test.ts'].map((path) => readFile(path, 'utf8')));
 for (const id of ids) {
   const tag = `@claim:${id}`;

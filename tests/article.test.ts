@@ -35,4 +35,21 @@ describe('article extraction', () => {
     document.body.innerHTML = '<main><p>Too short.</p></main>';
     expect(() => extractArticleFromPage()).toThrow(/enough article text/);
   });
+
+  it('@claim:access-boundaries refuses gated pages and does not restyle source web apps', () => {
+    document.body.innerHTML = `<main id="app"><h1>Account dashboard</h1>
+      <p>${'Private account content stays inside this application. '.repeat(8)}</p></main>
+      <div class="paywall-overlay" role="dialog">Subscribe to continue reading</div>`;
+    const gatedSource = document.documentElement.outerHTML;
+
+    expect(() => extractArticleFromPage()).toThrow(/restrict access/);
+    expect(document.documentElement.outerHTML).toBe(gatedSource);
+
+    document.body.innerHTML = `<main id="app"><h1>Public application help</h1>
+      <p>${'This public help article explains the application without changing its interface. '.repeat(8)}</p></main>
+      <div class="paywall-notice" hidden>Old subscription notice</div>`;
+    const publicSource = document.documentElement.outerHTML;
+    expect(extractArticleFromPage().html).toContain('public help article');
+    expect(document.documentElement.outerHTML).toBe(publicSource);
+  });
 });

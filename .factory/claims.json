@@ -61,5 +61,19 @@
     "where": "README and accessibility contract",
     "test": "npm run test:e2e -- --grep @claim:responsive-keyboard",
     "sandbox": "fresh Chromium page at 390 × 844; focus the promise region; operate it with Arrow Right; assert movement, no overflow, and no serious axe findings"
+  },
+  {
+    "id": "extension-uninstall-data",
+    "claim": "Removing the extension removes its browser-managed local data.",
+    "where": "landing privacy section, README",
+    "test": "npm run test:e2e -- --grep @claim:extension-uninstall-data",
+    "sandbox": "fresh MV3 Chromium profile; store a private sentinel; uninstall the extension through its self-management API; reinstall it in the same profile; assert extension local storage is empty"
+  },
+  {
+    "id": "access-boundaries",
+    "claim": "The extension refuses clearly marked paywalls and does not restyle source pages.",
+    "where": "landing install note, README",
+    "test": "npm test -- --testNamePattern @claim:access-boundaries",
+    "sandbox": "jsdom pages with visible and hidden paywall markers plus public app content; assert visible gated extraction is refused and every source DOM remains byte-for-byte unchanged"
   }
 ]
