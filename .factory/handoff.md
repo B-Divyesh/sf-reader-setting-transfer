@@ -84,11 +84,36 @@ budget.
 
 ## Deployment
 
-Static deployment is triggered from `main` through the factory work order.
-This handoff will be updated with live identity, headers, and browser evidence
-after the repair commit is pushed.
+Deployed the production `dist/site` artifact with the factory static deployment
+configuration on 2026-08-29.
+
+- Deployment ID: `b43a1845-5e52-4e70-9eb8-efc85807dcbd`
+- Default host: `https://orange-pond-0aafe3e10.7.azurestaticapps.net`
+- Custom domain: `https://reader-setting-transfer.sociobot.in` (HTTPS 200)
+- The live ZIP and all five published HTML files exactly match the production
+  build by SHA-256:
+
+| Artifact | SHA-256 |
+| --- | --- |
+| Landing HTML | `7c563096a0ba317d2d3c92e38c1cb3851685aa05477b4745b3f2e58c480b7fe8` |
+| Demo HTML | `404737681287cc4f2ff38a21d5744b2bf42b23d905220f2a53803efc41c7dcab` |
+| Privacy HTML | `9e5419cbf2b204c7e819f4dd973fc6d6546d787d436d3bbfb567c21fc7fdbbb7` |
+| Terms HTML | `fc43559896fd13c2ed6e27c50aca5e8ca92e77ce0ef46fdab9029e2ad11eb947` |
+| 404 HTML | `c43decd34db30a0cec7f8ec35e2e8d11d28a7add8fc0d68f403453266846687d` |
+| Extension ZIP | `6397759ce375d71b80bd87927acb1dbc50d9f496dd9ab0acd68fb252c24c2fbd` |
+
+The live stable ZIP sends `Cache-Control: public, max-age=0, must-revalidate`.
+The live landing response has the expected CSP, Permissions-Policy,
+Referrer-Policy, X-Content-Type-Options, and X-Frame-Options headers.
+
+`node scripts/verify-live.mjs` passed against the custom domain: all five
+routes have 0 serious/critical Axe issues; 390 px demo overflow is 0;
+all five routes reflow at 200% text with 0 overflow; primary, forward, and
+Back focus restoration pass; only same-origin requests were made; no cookies
+or console/page errors occurred; the demo reloads offline. Evidence is in
+`.factory/evidence/repair-9/live/`, with an additional verify-url capture in
+`.factory/evidence/repair-9/live-home/`.
 
 ## Known gaps / next steps
 
-None known locally. The only pending step is the post-push live identity and
-header verification described above.
+None known.
