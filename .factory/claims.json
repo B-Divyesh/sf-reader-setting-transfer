@@ -28,6 +28,20 @@
     "sandbox": "fresh Chromium context at /demo/; wait for service-worker control; set context offline; reload and assert sample article and demo banner"
   },
   {
+    "id": "offline-landing",
+    "claim": "The landing page reloads offline after the first visit.",
+    "where": "landing offline banner",
+    "test": "npm run test:e2e -- --grep @claim:offline-landing",
+    "sandbox": "fresh Chromium context at /; wait for service-worker control; reload online once; set context offline; reload and assert the landing heading and offline notice"
+  },
+  {
+    "id": "site-no-tracking",
+    "claim": "The static site has no analytics, advertising, tracking pixels, cookies, account system, or remote fonts.",
+    "where": "privacy page",
+    "test": "npm run test:e2e -- --grep @claim:site-no-tracking",
+    "sandbox": "fresh Chromium context across /, /demo/, /privacy/, /terms/, and /404.html; record requests and response headers; assert same-origin requests, no Set-Cookie, and an empty cookie jar"
+  },
+  {
     "id": "extension-local-reader",
     "claim": "The extension stores its reading card and current article in local extension storage without remote requests.",
     "where": "landing privacy section, privacy page, README",

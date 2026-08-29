@@ -19,7 +19,7 @@ async function getOptionsPage(context: Awaited<ReturnType<typeof chromium.launch
   return page;
 }
 
-test('a fresh reader exposes only its empty state and keeps article controls inert', async ({}, testInfo) => {
+test('a fresh reader has a usable empty state and keeps article controls inert', async ({}, testInfo) => {
   const extensionPath = resolve('.output/chrome-mv3');
   const context = await chromium.launchPersistentContext(testInfo.outputPath('empty-reader-profile'), {
     channel: 'chromium',
@@ -41,9 +41,13 @@ test('a fresh reader exposes only its empty state and keeps article controls ine
     await page.goto(`chrome-extension://${extensionId}/reader.html`);
 
     await expect(page.getByRole('heading', { name: 'Open an article, then choose the extension.' })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
     await expect(page.locator('#reader-shell')).toBeHidden();
     await expect(page.getByRole('button', { name: 'Make text larger' })).toHaveCount(0);
-    await expect(page.getByRole('heading', { level: 1 })).toHaveCount(0);
+    await expect(page.getByRole('button', { name: 'Return to original' })).toHaveCount(0);
+    await page.locator('.skip-link').focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#main')).toBeFocused();
     // Dispatch directly against the hidden DOM node to prove the defensive
     // initialization also prevents the verifier's former fontScale error.
     await page.locator('#size-up').dispatchEvent('click');
@@ -68,8 +72,10 @@ test('a fresh reader exposes only its empty state and keeps article controls ine
     });
     await errorPage.goto(`chrome-extension://${extensionId}/reader.html`);
     await expect(errorPage.getByText('The saved article could not be opened. Return to its page and collect it again.')).toBeVisible();
+    await expect(errorPage.getByRole('heading', { level: 1, name: 'Open an article, then choose the extension.' })).toHaveCount(1);
     await expect(errorPage.locator('#reader-shell')).toBeHidden();
     await expect(errorPage.getByRole('button', { name: 'Make text larger' })).toHaveCount(0);
+    await expect(errorPage.getByRole('button', { name: 'Return to original' })).toHaveCount(0);
     expect(initializationErrors).toEqual([]);
   } finally {
     await context.close();
@@ -121,7 +127,7 @@ test('@claim:extension-local-reader the built extension stores a profile locally
     }}));
     await page.goto(`chrome-extension://${extensionId}/reader.html`);
     await expect(page.getByRole('heading', { level: 1, name: 'A calmer way to read' })).toBeVisible();
-    await expect(page.locator('h1')).toHaveCount(1);
+    await expect(page.locator('h1:visible')).toHaveCount(1);
     await expect(page.getByRole('heading', { level: 2, name: 'A useful heading' })).toBeVisible();
     await expect(page.locator('#size-value')).toHaveText('140%');
     for (const fontScale of [.85, 1, 1.8]) {

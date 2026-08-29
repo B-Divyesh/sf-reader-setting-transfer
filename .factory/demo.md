@@ -12,9 +12,10 @@ versioned JSON reading card.
 
 Demo changes use only the `demo:reader-profile` key in `sessionStorage`. The
 demo never reads or writes extension storage, `localStorage`, or real browsing
-data. Closing the tab discards the session. **Reset demo** removes the key and
-restores the shipped sample. **Start for real** removes the key and downloads
-the extension package.
+data. Closing the tab discards the session. **Reset demo** replaces the key
+with the shipped sample card, so the restored sample remains available for the
+rest of that tab session. **Start for real** removes the key and downloads the
+extension package.
 
 The service worker precaches `/demo/`, so the route reloads offline after one
 online visit. Claim tests start with a fresh browser context and use only the

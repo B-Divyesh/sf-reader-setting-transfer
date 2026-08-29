@@ -7,6 +7,7 @@ const shell = document.querySelector<HTMLElement>('#reader-shell')!;
 const empty = document.querySelector<HTMLElement>('#empty-state')!;
 const sheet = document.querySelector<HTMLElement>('#article')!;
 const status = document.querySelector<HTMLElement>('#reader-status')!;
+const returnButton = document.querySelector<HTMLButtonElement>('#return-button')!;
 // Keep controls safe even if storage initialization fails. They remain hidden
 // outside a ready reader, but a synthetic/programmatic activation must not
 // turn a recoverable empty state into an uncaught exception.
@@ -40,6 +41,7 @@ async function persistQuickChange(changes: Partial<ReaderProfile>) {
 function showEmptyState(message?: string) {
   shell.hidden = true;
   empty.hidden = false;
+  returnButton.hidden = true;
   if (message) empty.querySelector('p:last-of-type')!.textContent = message;
 }
 
@@ -64,6 +66,7 @@ async function init() {
   document.querySelector<HTMLElement>('#article-content')!.innerHTML = article.html;
   document.querySelector<HTMLElement>('#site-rule')!.textContent = `Applied on ${hostname}`;
   applyProfile(mergedProfile(storedProfile, overrides[hostname]));
+  returnButton.hidden = false;
   shell.hidden = false;
   empty.hidden = true;
   sheet.focus({ preventScroll: true });

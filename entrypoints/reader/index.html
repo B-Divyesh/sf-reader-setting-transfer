@@ -6,19 +6,19 @@
     <title>Article reader — Reader Setting Transfer</title>
   </head>
   <body>
-    <a class="skip-link" href="#article">Skip to article</a>
+    <a class="skip-link" href="#main">Skip to reader content</a>
     <header class="reader-bar">
       <div class="reader-brand"><span class="registration" aria-hidden="true">⌖</span><span>Reader Setting Transfer</span></div>
       <div class="reader-actions">
         <button id="settings-button" class="bar-button" type="button">Reading card</button>
-        <button id="return-button" class="bar-button" type="button">Return to original</button>
+        <button id="return-button" class="bar-button" type="button" hidden>Return to original</button>
       </div>
     </header>
-    <main id="main">
+    <main id="main" tabindex="-1">
       <section id="empty-state" class="empty-state" hidden>
         <div class="empty-print" aria-hidden="true"><span></span></div>
         <p class="eyebrow">No article collected</p>
-        <h2>Open an article, then choose the extension.</h2>
+        <h1>Open an article, then choose the extension.</h1>
         <p>Reader Setting Transfer keeps only the article you most recently opened. Nothing is sent to a server.</p>
         <button id="empty-settings-button" class="button button--primary" type="button">Review my reading card</button>
       </section>

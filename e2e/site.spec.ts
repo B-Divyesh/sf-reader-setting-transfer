@@ -50,6 +50,27 @@ test('@claim:offline-reload the demo reloads after the first visit while offline
   }
 });
 
+test('@claim:offline-landing the landing page reloads after the first visit while offline', async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+
+  try {
+    await page.goto('/');
+    await page.evaluate(() => navigator.serviceWorker.ready);
+    // The first controlled reload lets the worker cache the landing assets it
+    // did not see while it was registering.
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await page.waitForFunction(() => Boolean(navigator.serviceWorker?.controller));
+
+    await context.setOffline(true);
+    await page.reload({ waitUntil: 'domcontentloaded', timeout: 10_000 });
+    await expect(page.getByRole('heading', { name: 'Carry your reading settings into clean articles.' })).toBeVisible();
+    await expect(page.locator('#offline-banner')).toBeVisible();
+  } finally {
+    await context.close();
+  }
+});
+
 test('@claim:responsive-keyboard the landing page works at 390px with keyboard scrolling', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
@@ -72,6 +93,7 @@ test('@claim:responsive-keyboard the landing page works at 390px with keyboard s
 
 test('@claim:reading-settings sample settings visibly change and reset the article', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/demo/');
   const article = page.locator('#demo-article');
   await expect(page.getByText('Demo — sample data, nothing is saved')).toBeVisible();
@@ -87,6 +109,21 @@ test('@claim:reading-settings sample settings visibly change and reset the artic
   await expect(article).toHaveAttribute('data-font', 'dyslexia');
   await expect(article).toHaveAttribute('data-contrast', 'dark');
   await expect(article).toHaveAttribute('data-reduce-motion', 'false');
+  const motionEnabled = await article.evaluate((element) => {
+    const style = getComputedStyle(element);
+    return { animationName: style.animationName, animationDuration: style.animationDuration, transitionDuration: style.transitionDuration };
+  });
+  expect(motionEnabled.animationName).toBe('demo-reader-settle');
+  expect(motionEnabled.animationDuration).not.toBe('0s');
+  expect(motionEnabled.transitionDuration).not.toBe('0s');
+
+  await page.locator('#demo-motion').check();
+  await expect(article).toHaveAttribute('data-reduce-motion', 'true');
+  const motionReduced = await article.evaluate((element) => {
+    const style = getComputedStyle(element);
+    return { animationName: style.animationName, animationDuration: style.animationDuration, transitionDuration: style.transitionDuration };
+  });
+  expect(motionReduced).toEqual({ animationName: 'none', animationDuration: '0s', transitionDuration: '0s' });
 
   await page.locator('.skip-link').focus();
   await page.keyboard.press('Tab');
@@ -186,6 +223,32 @@ test('@claim:demo-isolation the demo uses only its namespace and first-party req
     expect(storage.local).toEqual([]);
     expect(storage.session).toEqual(['demo:reader-profile']);
     expect([...origins]).toEqual(['http://localhost:4173']);
+  } finally {
+    await context.close();
+  }
+});
+
+test('@claim:site-no-tracking public pages make only first-party requests and set no cookies', async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  const origins = new Set<string>();
+  const setCookies: string[] = [];
+  page.on('request', (request) => {
+    if (request.url().startsWith('http')) origins.add(new URL(request.url()).origin);
+  });
+  page.on('response', (response) => {
+    const setCookie = response.headers()['set-cookie'];
+    if (setCookie) setCookies.push(setCookie);
+  });
+
+  try {
+    for (const path of ['/', '/demo/', '/privacy/', '/terms/', '/404.html']) {
+      await page.goto(path);
+    }
+    expect([...origins]).toEqual(['http://localhost:4173']);
+    expect(setCookies).toEqual([]);
+    expect(await context.cookies()).toEqual([]);
+    expect(await page.evaluate(() => document.cookie)).toBe('');
   } finally {
     await context.close();
   }

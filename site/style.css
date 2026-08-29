@@ -135,6 +135,8 @@ code { padding: 2px 5px; background: var(--sheet); border: 1px solid var(--rule)
 .demo-reader { --demo-size: 20px; --demo-leading: 1.7; min-width: 0; border: 3px solid var(--ink); background: var(--sheet); box-shadow: 10px 10px 0 var(--red); }
 .demo-reader__rail { display: flex; justify-content: space-between; gap: 16px; padding: 12px 18px; border-bottom: 2px solid var(--ink); background: var(--blue); color: #fff; font-size: .82rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
 .demo-article { max-width: var(--demo-measure, 66ch); margin: 0 auto; padding: clamp(32px, 7vw, 88px); font-family: Georgia, serif; font-size: var(--demo-size); line-height: var(--demo-leading); letter-spacing: var(--demo-spacing, 0); }
+.demo-article[data-reduce-motion='false'] { animation: demo-reader-settle 220ms ease-out both; transition: background-color 180ms ease, color 180ms ease, font-size 180ms ease, line-height 180ms ease, letter-spacing 180ms ease; }
+.demo-article[data-reduce-motion='true'] { animation: none; transition: none; }
 .demo-article[data-font='hyperlegible'] { font-family: var(--font); }
 .demo-article[data-font='dyslexia'] { font-family: Verdana, var(--font); word-spacing: .08em; }
 .demo-article[data-contrast='dark'] { background: #121722; color: #fff9e8; }
@@ -146,6 +148,7 @@ code { padding: 2px 5px; background: var(--sheet); border: 1px solid var(--rule)
 .demo-source { color: var(--red); font-family: var(--font); font-size: .72em; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .demo-article[data-contrast='dark'] .demo-source { color: #ff8062; }
 .demo-article a { color: inherit; }
+@keyframes demo-reader-settle { from { opacity: .7; transform: translate(5px, 5px); } to { opacity: 1; transform: none; } }
 .not-found-page { min-height: 65vh; display: grid; place-content: center; max-width: 900px; padding: 64px 24px; margin: 0 auto; }
 .not-found-page h1 { font-size: clamp(3rem, 9vw, 7rem); }
 .not-found-page p { max-width: 55ch; color: var(--muted); font-size: 1.2rem; }
@@ -185,4 +188,5 @@ code { padding: 2px 5px; background: var(--sheet); border: 1px solid var(--rule)
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .demo-article[data-reduce-motion='false'], .demo-article[data-reduce-motion='true'] { animation: none; transition: none; }
 }
