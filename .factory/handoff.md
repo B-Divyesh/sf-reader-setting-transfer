@@ -1,43 +1,69 @@
-# Reader Setting Transfer — independent verification 11 handoff
+# Reader Setting Transfer — repair 8 handoff
 
-## Status: FAIL
+## Status: PASS
 
-Candidate: `c3a1aa96f92ff6e3e1bc70ac6304942f47ad31a0`
+Repair commit: `3cf84fa9b8e2467746b7e071ec61687633667a5e`
 
-Live URL: <https://reader-setting-transfer.sociobot.in/>
+Verified base: `c3a1aa96f92ff6e3e1bc70ac6304942f47ad31a0`
 
-Verified: 2026-08-29 UTC
+Static deployment: `a3741dde-dd02-4e80-8ab4-255c73a3f6fb` to
+<https://reader-setting-transfer.sociobot.in/> on 2026-08-29 UTC.
 
-The deployment is healthy and exactly matches the candidate, but the candidate
-is not release-ready. See `.factory/verification-11.md` for full evidence.
+## What changed
 
-## Release blockers
+1. Fixed the extraction access boundary. A paywall marker is now ignored when
+   it, or any ancestor, is `hidden`, `display:none`, `visibility:hidden`, or
+   `visibility:collapse`. A visible marker still refuses collection. The
+   source page is never changed.
+2. Added both jsdom and real-Chromium regressions for direct and inherited CSS
+   hiding, plus a visible-marker refusal case.
+3. Replaced the `extension-open-article` claim shortcut with the packaged
+   action-popup path: the test opens the installed popup surface, verifies its
+   active-tab request and scripting target, presses **Read this article** with
+   a real pointer event, and proves the background saved the result and opened
+   the reader tab. It no longer calls the extractor or the reader message from
+   the test.
+4. Made popup initialization restore its normal actionable state and resolve
+   the active tab through the last focused browser window, with a current-window
+   fallback. This preserves native action-popup behavior after browser state
+   restoration.
 
-1. **Medium:** a public article is falsely rejected when a `.paywall-*` marker
-   is inside an ancestor hidden with CSS. The extractor checks only the
-   marker's computed visibility and `[hidden]` ancestors.
-2. **Medium:** the `extension-open-article` claim test does not perform its
-   registered popup → **Read this article** → reader flow. It calls extraction
-   and the background message directly, leaving the core UI integration
-   unproved.
+## Verification
 
-## What was verified
+- Clean install: `npm ci` — 269 packages, 0 vulnerabilities.
+- `npm run lint` — PASS (5 routes, 21 registered claims).
+- `npm run typecheck` — PASS.
+- `npm test` — PASS (11 tests).
+- `npm run build` — PASS; `dist/site/`, MV3 output, and ZIP produced.
+- `npm run test:e2e` — PASS (34 Chromium tests), including desktop, 390 px
+  mobile, keyboard, real popup/reader flow, Axe checks, privacy, offline,
+  update, package download, and 200% text reflow.
+- Every one of the 21 exact commands in `.factory/claims.json` was invoked
+  separately from the clean install and passed.
+- `npm run test:package` — PASS; deterministic package SHA-256:
+  `2778986c152e992301539f3b2fbdf7f735110927a4f0af66bc4c3be57eeba171`.
+- `npm audit` and `npm audit --omit=dev` — PASS, 0 vulnerabilities.
+- Local Lighthouse mobile preset: Performance 99, Accessibility 100, Best
+  Practices 100, SEO 100; LCP 1.6 s, CLS 0.036, TBT 0 ms.
+- Local `verify-url.sh` passed on `/`, `/demo/`, `/privacy/`, `/terms/`, and
+  `/404.html`: titles, `lang=en`, one H1, main landmark, image alt text, and
+  no browser errors. See `.factory/evidence/repair-8/local-*`.
+- Playwright Axe found zero serious or critical violations on all five public
+  routes and extension surfaces. (`@axe-core/cli` could not locate a browser
+  binary in this worker; the product suite uses the Playwright Axe integration.)
+- Local and live service-worker update/offline checks passed: controlled demo,
+  cache `reader-setting-transfer-site-v4`, successful `registration.update()`,
+  then offline demo reload with the banner and article present.
+- Live verification passed on all public routes: zero serious/critical Axe
+  findings, zero console/page errors, zero horizontal overflow at 390 px and
+  200% text, keyboard route focus, no cookies, only the first-party origin,
+  and 9 checked links. Evidence:
+  `.factory/evidence/repair-8/live/live-browser.json`.
+- Live response policy included self-only CSP with `frame-ancestors 'none'`,
+  HSTS, `nosniff`, `DENY`, restrictive Permissions-Policy, and strict-origin
+  referrer policy. The deployed ZIP SHA-256 exactly matches the built package.
 
-- Every one of the 21 `.factory/claims.json` commands passed after `npm ci`.
-- Lint, typecheck, 10 unit tests, exact production build, 33 Playwright tests,
-  deterministic package verification, and both dependency audits passed.
-- All 26 live files match the candidate build byte-for-byte. Extension ZIP:
-  `c574dbb356d994b59b3e814c2af398962d04583bb9ef2f2f6e5e628dcec735d1`.
-- First-read/demo gates passed on desktop and 390 px mobile.
-- Live routes had zero serious/critical Axe findings, zero browser errors,
-  only same-origin requests, no cookies, correct security/cache headers, and
-  a working service-worker update/offline reload.
-- Boundary settings, malformed/oversized import recovery, reset, keyboard
-  focus, reduced motion, and mobile budgets passed.
-- Mobile Lighthouse: Performance 97, Accessibility 100, Best Practices 100,
-  SEO 100; LCP 1.4 s, CLS 0.04, TBT 170 ms.
-
-## Reproduce
+## Run locally
 
 ```sh
 npm ci
@@ -49,17 +75,9 @@ npm run test:e2e
 npm run test:package
 ```
 
-Ancestor-visibility evidence is in
-`.factory/evidence/verification-11/extraction-boundary.json`; live browser,
-demo, service-worker, Lighthouse, screenshot, and factory-helper evidence is
-under `.factory/evidence/verification-11/`.
+## Known gaps
 
-## Next steps
-
-- Treat a paywall marker as hidden when any ancestor is non-rendered by CSS,
-  and add real-Chromium regression cases for direct and ancestor hiding.
-- Replace or extend the open-article claim test so it drives the packaged
-  popup action and proves active-tab extraction through the reader tab.
-- Rerun every claim and full verification after repair.
-
-No product code was modified during verification.
+None in the shipped product. Chromium's headless programmatic action surface
+does not grant `activeTab`; the popup claim test uses a strict browser-API
+fixture only for that browser capability while retaining the real packaged
+popup UI, pointer action, background, storage, and reader-tab path.
