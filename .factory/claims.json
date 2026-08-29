@@ -77,6 +77,13 @@
     "sandbox": "fresh Chromium page at 390 × 844; visit landing and demo; operate each by keyboard; assert the sample heading is in the first demo viewport, no overflow, and no serious axe findings"
   },
   {
+    "id": "demo-first-screen",
+    "claim": "The isolated demo opens with the sample article heading and first paragraph visible at 390 × 844 and 1440 × 900.",
+    "where": "Try it with sample data action and demo",
+    "test": "npm run test:e2e -- --grep @claim:demo-first-screen",
+    "sandbox": "fresh Chromium contexts at 390 × 844 and 1440 × 900; open /?demo=1; assert the sample heading and start of its first paragraph are inside each initial viewport"
+  },
+  {
     "id": "extension-uninstall-data",
     "claim": "Removing the extension removes its browser-managed local data.",
     "where": "landing privacy section, README",
@@ -113,10 +120,24 @@
   },
   {
     "id": "extension-reading-settings",
-    "claim": "The packaged Chromium extension applies text size, line length, paragraph and line spacing, letter spacing and shapes, contrast, and reduced motion.",
+    "claim": "The packaged Chromium extension previews type, spacing, and contrast changes, then applies text size, line length, paragraph and line spacing, letter spacing and shapes, contrast, and reduced motion in the reader.",
     "where": "landing first screen and how-it-works, README",
     "test": "npm run test:e2e -- --grep @claim:extension-reading-settings",
-    "sandbox": "fresh MV3 Chromium profile; save every reading-card field in options; open a stored article; assert every rendered style and reduced-motion state"
+    "sandbox": "fresh MV3 Chromium profile; change preview type, spacing, and contrast; save every reading-card field; open a stored article; assert every rendered style and reduced-motion state"
+  },
+  {
+    "id": "extension-open-article",
+    "claim": "On a supported public article, Read this article opens the reader with extracted article text, safe links, the active site, and the saved reading card.",
+    "where": "landing how-it-works and reader description, README",
+    "test": "npm run test:e2e -- --grep @claim:extension-open-article",
+    "sandbox": "fresh MV3 Chromium profile; open a real local public article, invoke the packaged extension popup, choose Read this article, then assert saved extraction and the new reader tab"
+  },
+  {
+    "id": "extension-reading-card-transfer",
+    "claim": "A reading card exported from the packaged extension imports into a second clean extension profile.",
+    "where": "landing reading-card section and README",
+    "test": "npm run test:e2e -- --grep @claim:extension-reading-card-transfer",
+    "sandbox": "two fresh MV3 Chromium profiles; export a complete card from options in the first, import it in the second, then assert storage and reader styles"
   },
   {
     "id": "extension-no-remote-requests",

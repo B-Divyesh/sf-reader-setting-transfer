@@ -21,7 +21,8 @@
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
-    <div id="offline-banner" class="offline-banner" role="status" data-claim="offline-landing" hidden>You’re offline. The page still works; the extension download needs a connection.</div>
+    <div id="offline-banner" class="offline-banner" role="status" data-claim="offline-landing" hidden>You’re offline. This page still works.</div>
+    <div id="route-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
     <header class="site-header">
       <a class="logo" href="/" aria-label="Reader Setting Transfer home"><span class="reg-mark" aria-hidden="true"><i></i></span><span>Reader Setting<br />Transfer</span></a>
       <nav aria-label="Main navigation">
@@ -62,7 +63,7 @@
         <div class="preview-copy">
           <p class="eyebrow">Product preview</p>
           <h2 id="preview-title">See your reading card on an article.</h2>
-          <p>Your saved reading card sets the article view and lists each active value.</p>
+          <p>The preview shows the card name, text size, line spacing, and contrast.</p>
           <dl class="preview-values" aria-label="Active reading card values">
             <div><dt>Reading card</dt><dd>Quiet evening</dd></div>
             <div><dt>Text size</dt><dd>120%</dd></div>
@@ -89,16 +90,16 @@
         <div class="section-intro">
           <p class="eyebrow">How the extension works</p>
           <h2 data-claim="extension-reading-settings">Apply one reading card to supported articles.</h2>
-          <p>Your saved reading card sets the article view and lists each active value.</p>
+          <p data-claim="extension-open-article">The reader shows the card name, active site, text size, and contrast.</p>
         </div>
         <ol class="steps">
           <li>
             <span class="step-number">01</span>
-            <div><h3>Make your reading card</h3><p>Choose text size, line length, spacing, letter shapes, contrast, and reduced motion. See every change in a live preview.</p></div>
+            <div><h3>Make your reading card</h3><p>Choose text size, line length, spacing, letter shapes, contrast, and reduced motion. Preview type, spacing, and contrast changes as you adjust them.</p></div>
           </li>
           <li>
             <span class="step-number">02</span>
-            <div><h3>Open a supported public article</h3><p>Select the extension on a supported public article. It keeps headings, lists, quotes, tables, and links—without the surrounding clutter.</p></div>
+            <div><h3>Open a supported public article</h3><p data-claim="extension-open-article">Select the extension on a supported public article. It keeps headings, lists, quotes, tables, and links—without the surrounding clutter.</p></div>
           </li>
           <li>
             <span class="step-number">03</span>
@@ -124,7 +125,7 @@
         <div class="inspect-copy">
           <p class="eyebrow">Export and import your reading card</p>
           <h2 id="inspect-title">Review every saved reading setting.</h2>
-          <p>Export your reading card as a text file, then import it when needed. The file uses JSON and contains settings, not browsing history.</p>
+          <p data-claim="extension-reading-card-transfer">Export your reading card as a text file, then import it when needed. The file uses JSON and contains settings, not browsing history.</p>
           <ul class="check-list">
             <li>Visible values, not vague presets</li>
             <li>Import a saved reading card</li>

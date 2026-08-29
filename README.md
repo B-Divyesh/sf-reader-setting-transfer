@@ -3,8 +3,12 @@
 Reader Setting Transfer is a free, open-source Chromium extension for low-vision readers.
 
 <!-- claim:extension-reading-settings -->
-Make one reading card for text size, line length, spacing, contrast, letter shapes, and reduced motion. Choose the extension on a supported public article. The reader applies every saved setting and shows the active site.
+Make one reading card for text size, line length, spacing, contrast, letter shapes, and reduced motion. The preview and reader apply those settings.
 
+<!-- claim:extension-open-article -->
+Open the extension on a supported public article, then select **Read this article**. The reader opens with its text, links, active site, and saved card.
+
+<!-- claim:extension-reading-card-transfer -->
 Export the reading card as a text file, then import it when needed. The file uses JSON.
 
 Try the isolated sample at <https://reader-setting-transfer.sociobot.in/?demo=1>.
@@ -18,7 +22,7 @@ The production build places the extension ZIP in `dist/site/downloads/`.
 - Extracts article headings and text after you select **Read this article**
 - Preserves headings, paragraphs, lists, quotes, code, tables, and safe links
 - Applies your saved reading card only inside the reader
-- Previews changes and lets you adjust text size and contrast in the reader
+- Previews type, spacing, and contrast changes while you adjust the reading card
 - Stores the current article, reading card, and site choices locally
 - Turns the reader off per site and returns to the original page
 - Supports keyboard use and 390 px layouts on the landing page and demo
@@ -61,7 +65,7 @@ Outputs:
 2. Open `chrome://extensions`.
 3. Enable Developer mode.
 4. Choose **Load unpacked** and select `.output/chrome-mv3`.
-5. Pin Reader Setting Transfer, open a supported public article, and choose the extension.
+5. Pin Reader Setting Transfer, open a supported public article, and select **Read this article**.
 
 ## Privacy and permissions
 

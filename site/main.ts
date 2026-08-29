@@ -21,6 +21,8 @@ const focusPageHeading = () => {
   if (!heading) return;
   heading.tabIndex = -1;
   heading.focus({ preventScroll: true });
+  const status = document.querySelector<HTMLElement>('#route-status');
+  if (status) status.textContent = `Opened ${heading.textContent?.trim() ?? 'page'}`;
 };
 
 document.addEventListener('click', (event) => {

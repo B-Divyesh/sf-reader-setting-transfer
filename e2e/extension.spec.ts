@@ -2,6 +2,7 @@ import { chromium, expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { extractArticleFromPage } from '../lib/article';
 
 async function getOptionsPage(context: Awaited<ReturnType<typeof chromium.launchPersistentContext>>, extensionId: string) {
   const url = `chrome-extension://${extensionId}/options.html`;
@@ -176,6 +177,14 @@ test('@claim:extension-reading-settings the packaged Chromium extension applies 
     await page.locator('#font-choice').selectOption('dyslexia');
     await page.locator('#contrast').selectOption('dark');
     await page.locator('#reduce-motion').check();
+    const preview = page.locator('#preview');
+    await expect(preview).toHaveCSS('--preview-size', '27px');
+    await expect(preview).toHaveCSS('--preview-measure', '48ch');
+    await expect(preview).toHaveCSS('--preview-leading', '1.9');
+    await expect(preview).toHaveCSS('--preview-para', '1.7em');
+    await expect(preview).toHaveCSS('--preview-spacing', '0.04em');
+    await expect(preview).toHaveAttribute('data-font', 'dyslexia');
+    await expect(preview).toHaveAttribute('data-contrast', 'dark');
     await page.getByRole('button', { name: 'Save reading card' }).click();
     await expect(page.getByRole('status').filter({ hasText: 'Saved on this device.' })).toBeVisible();
 
@@ -203,6 +212,142 @@ test('@claim:extension-reading-settings the packaged Chromium extension applies 
     await page.reload();
     await expect(article).toHaveAttribute('data-reduce-motion', 'false');
     expect(await article.evaluate((element) => getComputedStyle(element).animationName)).toBe('settle');
+  } finally {
+    await context.close();
+  }
+});
+
+test('@claim:extension-reading-card-transfer a complete reading card transfers between clean packaged extension profiles', async ({}, testInfo) => {
+  test.setTimeout(60_000);
+  const extensionPath = resolve('.output/chrome-mv3');
+  const transferred = {
+    version: 1,
+    name: 'Travel reading',
+    fontScale: 1.45,
+    measure: 44,
+    lineHeight: 1.85,
+    paragraphSpace: 1.9,
+    letterSpacing: 0.05,
+    contrast: 'dark',
+    fontChoice: 'dyslexia',
+    reduceMotion: false
+  };
+  const launch = (name: string) => chromium.launchPersistentContext(testInfo.outputPath(name), {
+    channel: 'chromium',
+    headless: true,
+    args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
+  });
+
+  const sourceContext = await launch('card-transfer-source');
+  let exported: Buffer;
+  try {
+    let worker = sourceContext.serviceWorkers()[0];
+    if (!worker) worker = await sourceContext.waitForEvent('serviceworker');
+    const source = await getOptionsPage(sourceContext, new URL(worker.url()).host);
+    await source.evaluate(() => chrome.storage.local.clear());
+    await source.reload();
+    await source.locator('#profile-name').fill(transferred.name);
+    await source.locator('#font-scale').fill(String(transferred.fontScale));
+    await source.locator('#measure').fill(String(transferred.measure));
+    await source.locator('#line-height').fill(String(transferred.lineHeight));
+    await source.locator('#paragraph-space').fill(String(transferred.paragraphSpace));
+    await source.locator('#letter-spacing').fill(String(transferred.letterSpacing));
+    await source.locator('#contrast').selectOption(transferred.contrast);
+    await source.locator('#font-choice').selectOption(transferred.fontChoice);
+    await source.locator('#reduce-motion').setChecked(transferred.reduceMotion);
+    await source.getByRole('button', { name: 'Save reading card' }).click();
+    await expect(source.locator('#save-status')).toHaveText('Saved on this device.');
+    const downloadPromise = source.waitForEvent('download');
+    await source.getByRole('button', { name: 'Export my card' }).click();
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe('my-reading-card.json');
+    exported = Buffer.concat(await (await download.createReadStream()).toArray());
+    expect(JSON.parse(exported.toString('utf8'))).toEqual(transferred);
+  } finally {
+    await sourceContext.close();
+  }
+
+  const destinationContext = await launch('card-transfer-destination');
+  try {
+    let worker = destinationContext.serviceWorkers()[0];
+    if (!worker) worker = await destinationContext.waitForEvent('serviceworker');
+    const extensionId = new URL(worker.url()).host;
+    const destination = await getOptionsPage(destinationContext, extensionId);
+    await expect(destination.locator('#profile-name')).toHaveValue('My reading card');
+    await destination.locator('#import-file').setInputFiles({
+      name: 'travel-reading-card.json', mimeType: 'application/json', buffer: exported
+    });
+    await expect(destination.locator('#import-status')).toHaveText('Imported “Travel reading”.');
+    expect(await destination.evaluate(async () => (await chrome.storage.local.get('readerProfile')).readerProfile)).toEqual(transferred);
+    await destination.evaluate(() => chrome.storage.local.set({ currentArticle: {
+      title: 'Transferred card article', byline: '', source: 'travel.example', url: 'https://travel.example/article',
+      html: '<p>This local article confirms every imported setting in the reader.</p>', excerpt: 'This local article', extractedAt: Date.now()
+    }}));
+    await destination.goto(`chrome-extension://${extensionId}/reader.html`);
+    const article = destination.locator('#article');
+    await expect(article).toHaveCSS('--article-size', '29px');
+    await expect(article).toHaveCSS('--article-measure', '44ch');
+    await expect(article).toHaveCSS('--article-leading', '1.85');
+    await expect(article).toHaveCSS('--article-para', '1.9em');
+    await expect(article).toHaveCSS('--article-spacing', '0.05em');
+    await expect(article).toHaveAttribute('data-font', 'dyslexia');
+    await expect(article).toHaveAttribute('data-contrast', 'dark');
+    await expect(article).toHaveAttribute('data-reduce-motion', 'false');
+  } finally {
+    await destinationContext.close();
+  }
+});
+
+test('@claim:extension-open-article a real local public article reaches the packaged reader with its active site and safe links', async ({}, testInfo) => {
+  test.setTimeout(60_000);
+  const extensionPath = resolve('.output/chrome-mv3');
+  const context = await chromium.launchPersistentContext(testInfo.outputPath('open-article-profile'), {
+    channel: 'chromium',
+    headless: true,
+    args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
+  });
+  try {
+    let worker = context.serviceWorkers()[0];
+    if (!worker) worker = await context.waitForEvent('serviceworker');
+    const extensionId = new URL(worker.url()).host;
+    const options = await getOptionsPage(context, extensionId);
+    await options.evaluate(() => chrome.storage.local.clear());
+    await options.locator('#profile-name').fill('Article flow card');
+    await options.locator('#font-scale').fill('1.3');
+    await options.locator('#contrast').selectOption('dark');
+    await options.getByRole('button', { name: 'Save reading card' }).click();
+    await expect(options.locator('#save-status')).toHaveText('Saved on this device.');
+
+    const source = await context.newPage();
+    await source.goto('http://127.0.0.1:4173/terms/');
+    await source.evaluate(() => {
+      document.title = 'A local article about street trees';
+      document.querySelector('meta[property="og:title"]')?.remove();
+      document.body.innerHTML = `<main><article><h1>A local article about street trees</h1><p>${'A public article paragraph about evening walks, street trees, and settings that support careful reading. '.repeat(5)}</p><h2>Useful details</h2><ul><li>Notice the canopy before dusk.</li><li>Record birds near the streetlights.</li></ul><p>Read <a href="/privacy/">the privacy note</a> before sharing a card.</p></article></main>`;
+    });
+    const sourceBefore = await source.locator('main').innerHTML();
+    const extracted = await source.evaluate(extractArticleFromPage);
+    expect(extracted.title).toBe('A local article about street trees');
+    expect(extracted.html).toContain('<ul>');
+    expect(extracted.html).toContain('http://127.0.0.1:4173/privacy/');
+    expect(await source.locator('main').innerHTML()).toBe(sourceBefore);
+
+    await options.bringToFront();
+    await expect.poll(() => options.isClosed()).toBe(false);
+    await options.evaluate(async (article) => chrome.runtime.sendMessage({ type: 'reader-setting-transfer:open-reader', article }), extracted);
+    await expect.poll(() => context.pages().find((page) => page.url() === `chrome-extension://${extensionId}/reader.html`)).not.toBeUndefined();
+    const reader = context.pages().find((page) => page.url() === `chrome-extension://${extensionId}/reader.html`)!;
+    await expect(reader.getByRole('heading', { level: 1, name: 'A local article about street trees' })).toBeVisible();
+    await expect(reader.getByRole('heading', { level: 2, name: 'Useful details' })).toBeVisible();
+    await expect(reader.getByRole('link', { name: 'the privacy note' })).toHaveAttribute('href', 'http://127.0.0.1:4173/privacy/');
+    await expect(reader.getByRole('link', { name: 'the privacy note' })).toHaveAttribute('target', '_blank');
+    await expect(reader.locator('#site-rule')).toHaveText('Applied on 127.0.0.1');
+    await expect(reader.locator('#profile-name')).toHaveText('Article flow card');
+    await expect(reader.locator('#size-value')).toHaveText('130%');
+    await expect(reader.locator('#article')).toHaveAttribute('data-contrast', 'dark');
+    expect(await worker.evaluate(async () => (await chrome.storage.local.get('currentArticle')).currentArticle)).toMatchObject({
+      title: 'A local article about street trees', url: 'http://127.0.0.1:4173/terms/'
+    });
   } finally {
     await context.close();
   }

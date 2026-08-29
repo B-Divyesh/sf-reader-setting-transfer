@@ -7,7 +7,7 @@ sentence is at or below 22 words, and no banned term appears.
 | Words | Sentence |
 | ---: | --- |
 | 2 | You’re offline. |
-| 10 | The page still works; the extension download needs a connection. |
+| 4 | This page still works. |
 | 7 | Apply your reading card to web articles. |
 | 16 | For low-vision readers who want consistent text size, spacing, contrast, and motion on supported public articles. |
 | 5 | Opens a styled sample article. |
@@ -17,13 +17,13 @@ sentence is at or below 22 words, and no banned term appears.
 | 8 | The demo works offline after your first visit. |
 | 12 | The extension applies your text and contrast settings to supported public articles. |
 | 7 | See your reading card on an article. |
-| 12 | Your saved reading card sets the article view and lists each active value. |
+| 12 | The preview shows the card name, text size, line spacing, and contrast. |
 | 9 | At dusk, street trees stop blending into the buildings. |
 | 14 | Their shadows stretch across brick walls, and each leaf catches the last blue light. |
 | 7 | Apply one reading card to supported articles. |
-| 12 | Your saved reading card sets the article view and lists each active value. |
+| 11 | The reader shows the card name, active site, text size, and contrast. |
 | 13 | Choose text size, line length, spacing, letter shapes, contrast, and reduced motion. |
-| 8 | See every change in a live preview. |
+| 10 | Preview type, spacing, and contrast changes as you adjust them. |
 | 9 | Select the extension on a supported public article. |
 | 12 | It keeps headings, lists, quotes, tables, and links—without the surrounding clutter. |
 | 20 | See the active reading card, adjust it, or turn the reader off for that site and return to the original page. |

@@ -1,6 +1,6 @@
 import { browser, type Browser } from 'wxt/browser';
 import { extractArticleFromPage } from '../../lib/article';
-import { getOverrides, saveArticle, saveOverrides } from '../../lib/storage';
+import { getOverrides, saveOverrides } from '../../lib/storage';
 import { hostnameFromUrl } from '../../lib/profile';
 import './style.css';
 
@@ -48,8 +48,7 @@ readButton.addEventListener('click', async () => {
     const result = await browser.scripting.executeScript({ target: { tabId: activeTab.id }, func: extractArticleFromPage });
     const article = result[0]?.result;
     if (!article) throw new Error('The page did not return readable article text.');
-    await saveArticle(article);
-    await browser.tabs.create({ url: browser.runtime.getURL('/reader.html') });
+    await browser.runtime.sendMessage({ type: 'reader-setting-transfer:open-reader', article });
     window.close();
   } catch (error) {
     const message = error instanceof Error ? error.message : 'The article could not be collected.';

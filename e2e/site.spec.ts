@@ -99,6 +99,27 @@ test('@claim:offline-landing the landing page reloads after the first visit whil
   }
 });
 
+test('@claim:demo-first-screen the isolated demo shows a readable sample immediately on phone and desktop', async ({ browser }, testInfo) => {
+  for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 900 }]) {
+    const context = await browser.newContext({ viewport });
+    const page = await context.newPage();
+    try {
+      await page.goto('/?demo=1');
+      await expect(page).toHaveURL(/\/demo\/$/);
+      const heading = page.getByRole('heading', { name: 'The city changes when you notice its trees' });
+      const paragraph = page.locator('#demo-article > p').nth(1);
+      const [headingBox, paragraphBox] = await Promise.all([heading.boundingBox(), paragraph.boundingBox()]);
+      expect(headingBox).not.toBeNull();
+      expect(paragraphBox).not.toBeNull();
+      expect(headingBox!.y + headingBox!.height).toBeLessThanOrEqual(viewport.height);
+      expect(paragraphBox!.y).toBeLessThan(viewport.height);
+      await page.screenshot({ path: testInfo.outputPath(`demo-first-screen-${viewport.width}.png`) });
+    } finally {
+      await context.close();
+    }
+  }
+});
+
 test('@claim:responsive-keyboard the landing page and demo work at 390px with a keyboard', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
@@ -263,6 +284,15 @@ test('demo banner controls have a focus indicator with at least 3:1 contrast', a
   }
 });
 
+test('the hero caption uses an opaque high-contrast reading strip', async ({ page }) => {
+  await page.goto('/');
+  const colors = await page.locator('.hero__art figcaption').evaluate((caption) => {
+    const style = getComputedStyle(caption);
+    return { color: style.color, background: style.backgroundColor };
+  });
+  expect(contrastRatio(rgbChannels(colors.color), rgbChannels(colors.background))).toBeGreaterThanOrEqual(4.5);
+});
+
 test('@claim:reading-card-json-transfer a card transfers between clean demo sessions', async ({ browser }) => {
   const sourceContext = await browser.newContext();
   const destinationContext = await browser.newContext();
@@ -402,6 +432,37 @@ test('every public route reflows without horizontal scrolling at 200% text', asy
   }
 });
 
+test('mobile header keeps every product destination visible and keyboard-operable', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const routes = ['/', '/demo/', '/privacy/', '/terms/', '/404.html'];
+  const links = [
+    { name: 'Demo', href: '/demo/' },
+    { name: 'How it works', href: '/#how-it-works' },
+    { name: 'Privacy', href: '/privacy/' }
+  ];
+  for (const route of routes) {
+    await page.goto(route);
+    for (const link of links) {
+      const control = page.locator('header nav a', { hasText: link.name });
+      await expect(control).toBeVisible();
+      await control.focus();
+      await expect(control).toBeFocused();
+      const href = await control.getAttribute('href');
+      expect(href).not.toBeNull();
+      const actual = new URL(href!, page.url());
+      const expected = new URL(link.href, 'http://localhost:4173');
+      expect(`${actual.pathname}${actual.hash}`).toBe(`${expected.pathname}${expected.hash}`);
+    }
+    const download = page.getByRole('link', { name: /Download extension/ }).first();
+    await expect(download).toBeVisible();
+    await download.focus();
+    await expect(download).toBeFocused();
+    const downloadPromise = page.waitForEvent('download');
+    await page.keyboard.press('Enter');
+    expect((await downloadPromise).suggestedFilename()).toBe('reader-setting-transfer-chrome.zip');
+  }
+});
+
 test('unknown routes return the designed 404 response', async ({ page }) => {
   const response = await page.goto('/this-route-does-not-exist');
   expect(response?.status()).toBe(404);
@@ -434,12 +495,15 @@ test('internal route changes move focus to the destination heading and Back rest
   await page.getByRole('link', { name: 'Try it with sample data' }).click();
   await expect(page).toHaveURL(/\/demo\/$/);
   await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
+  await expect(page.locator('#route-status')).toHaveText('Opened Try your settings on a sample article.');
 
   await page.goBack();
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
+  await expect(page.locator('#route-status')).toHaveText('Opened Apply your reading card to web articles.');
 
   await page.getByRole('link', { name: 'Privacy', exact: true }).first().click();
   await expect(page).toHaveURL(/\/privacy\/$/);
   await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
+  await expect(page.locator('#route-status')).toHaveText('Opened Privacy, in plain language.');
 });
