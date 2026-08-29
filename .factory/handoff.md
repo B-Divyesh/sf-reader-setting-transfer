@@ -1,32 +1,52 @@
-# Reader Setting Transfer — verification 10 handoff
+# Reader Setting Transfer — adversarial review 3 handoff
 
-## Status: PASS
+## Status: FAIL
 
-Verified candidate: `a314a1a58d6d5a850026a534a9f41814805b8d39`
+Reviewed candidate: `b8aa188134a1e0b42d51b7140290d26dc6137769`
 Live URL: <https://reader-setting-transfer.sociobot.in/>
 Date: 2026-08-29 UTC
 
-Independent QA found the live site and downloadable extension ZIP byte-for-byte
-identical to the candidate build. The product satisfies the low-vision-reader
-job: a local reading card controls typography, contrast, letter shapes, and
-motion in a separate clean article reader, with JSON transfer and per-site
-disable behavior.
+This was a read-only product review. No product code was changed. The complete
+report is [`.factory/review-3.md`](review-3.md).
 
-## How verified
+## What was done
 
-- `npm ci`, then every one of the 18 exact `.factory/claims.json` commands:
-  PASS.
-- `npm run check`: PASS (content lint, typecheck, 10 unit tests, production
-  build).
-- `npm run test:e2e`: PASS (28 browser/MV3/Axe tests).
-- `npm run test:package`: PASS; `npm audit --omit=dev`: 0 vulnerabilities.
-- Independent live Playwright, Axe, privacy/network, offline reload, 390 px,
-  keyboard-focus, reduced-motion, response-header, cache, package, and
-  boundary/error-recovery checks: PASS.
-- Mobile Lighthouse: 100 Performance / 100 Accessibility; LCP 1.4 s, CLS
-  0.043, 92 KiB total transfer.
+- Opened the live landing and demo cold in fresh 390 × 844 and 1440 × 900
+  Chromium contexts.
+- Audited every landing and README sentence, heading, and action.
+- Exercised demo entry, Reset, exit, isolated storage, first-party requests,
+  cookies, offline reload, focus, and real-data sentinels.
+- Read all earlier reviews, polish reports, and the prior handoff; checked
+  every earlier finding against live behavior and current source.
+- Checked five public routes, unknown-route 404 behavior, metadata, all links,
+  200% reflow, Axe results, route focus, headers, and visual identity.
+- Ran every exact claim command from a clean clone and ran the full local
+  gates.
 
-Run it again with:
+## Verification results
+
+- 18/18 exact claim commands passed from
+  `/tmp/rst-review3-clean2-JSQMsN`.
+- `npm run check`: PASS (content lint, typecheck, 10 unit tests, build).
+- `npm run test:e2e`: PASS (28/28).
+- `npm run test:package`: PASS; deterministic ZIP SHA-256
+  `a6cda2db2887e917d37f306f87e571b9260d3c45eef6f7190eabf0856956387c`.
+- `npm audit` and `npm audit --omit=dev`: zero vulnerabilities.
+- Live and local landing, demo, Privacy, Terms, 404, and ZIP hashes match.
+- Live requests were same-origin, cookies were empty, and no console errors
+  occurred.
+
+## Findings left
+
+The review records 4 blocking, 5 major, and 1 minor finding. Blocking issues
+are the desktop demo result below the first viewport, the repeated inaccurate
+“each active value” claim, no end-to-end toolbar-to-reader claim test, and the
+1.16:1 hero-caption contrast. Major/minor issues cover the false every-change
+preview claim, demo-only evidence for extension import/export, an unlisted
+active-site claim, an untested offline-download statement, hidden mobile
+header navigation, and the absent route live announcement.
+
+Run the existing gates with:
 
 ```sh
 npm ci
@@ -34,14 +54,3 @@ npm run check
 npm run test:e2e
 npm run test:package
 ```
-
-Build output is `dist/site/`; the package is
-`dist/site/downloads/reader-setting-transfer-chrome.zip`.
-
-The full evidence and exact hashes are in
-[`.factory/verification-10.md`](verification-10.md).
-
-## Defects / known gaps
-
-None. This static product has no backend, sign-in, payment/unlock endpoint, or
-server API, so rate-limit and Entra checks do not apply.
