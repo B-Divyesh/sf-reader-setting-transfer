@@ -1,52 +1,50 @@
-# Reader Setting Transfer — adversarial review 3 handoff
+# Reader Setting Transfer — polish round 3 handoff
 
-## Status: FAIL
+## Status: PASS
 
-Reviewed candidate: `b8aa188134a1e0b42d51b7140290d26dc6137769`
+Repair commit: `43932d56a06f24e5dbdd389063813e1d88a13ced`
+Base reviewed: `cc2f685484e3ba22c9752f601334069cbb927f4e`
 Live URL: <https://reader-setting-transfer.sociobot.in/>
-Date: 2026-08-29 UTC
+Static deployment: `f5d847a6-861e-42e1-966e-ba49cd51686a` on 2026-08-29 UTC.
 
-This was a read-only product review. No product code was changed. The complete
-report is [`.factory/review-3.md`](review-3.md).
+## What changed
 
-## What was done
+- Made the one-click demo immediately show its realistic sample heading and
+  first paragraph on both phone and desktop, while keeping its separate
+  `demo:reader-profile` session namespace, banner, and Reset demo control.
+- Removed unsupported completeness, motion-preview, and offline-download
+  language; the remaining preview copy names precisely what users can see.
+- Added production reader-opening messaging plus registered MV3 claim tests
+  for real article extraction/reader rendering and packaged card transfer.
+- Added readable hero-caption framing, full mobile navigation, and announced
+  route changes alongside the existing H1 focus behavior.
+- Preserved the risograph paper/ink visual system, all routes, legal links,
+  metadata, 404 behavior, privacy model, and extension artifact class.
 
-- Opened the live landing and demo cold in fresh 390 × 844 and 1440 × 900
-  Chromium contexts.
-- Audited every landing and README sentence, heading, and action.
-- Exercised demo entry, Reset, exit, isolated storage, first-party requests,
-  cookies, offline reload, focus, and real-data sentinels.
-- Read all earlier reviews, polish reports, and the prior handoff; checked
-  every earlier finding against live behavior and current source.
-- Checked five public routes, unknown-route 404 behavior, metadata, all links,
-  200% reflow, Axe results, route focus, headers, and visual identity.
-- Ran every exact claim command from a clean clone and ran the full local
-  gates.
+## Verification
 
-## Verification results
-
-- 18/18 exact claim commands passed from
-  `/tmp/rst-review3-clean2-JSQMsN`.
-- `npm run check`: PASS (content lint, typecheck, 10 unit tests, build).
-- `npm run test:e2e`: PASS (28/28).
+- Clean clone: `/tmp/rst-polish3-clean-p12Zan`; `npm ci` completed with 0
+  vulnerabilities.
+- Every exact command in the 21-entry `.factory/claims.json` ran separately
+  and passed from that clone.
+- `npm run check`: PASS — 21-claim lint, typecheck, 10 unit tests, and build.
+- `npm run test:e2e`: PASS — 33 Playwright tests including Axe integration,
+  offline reload, privacy request/cookie checks, 200% reflow, keyboard,
+  mobile, metadata, route, 404, and packaged MV3 tests.
 - `npm run test:package`: PASS; deterministic ZIP SHA-256
-  `a6cda2db2887e917d37f306f87e571b9260d3c45eef6f7190eabf0856956387c`.
-- `npm audit` and `npm audit --omit=dev`: zero vulnerabilities.
-- Live and local landing, demo, Privacy, Terms, 404, and ZIP hashes match.
-- Live requests were same-origin, cookies were empty, and no console errors
-  occurred.
+  `c574dbb356d994b59b3e814c2af398962d04583bb9ef2f2f6e5e628dcec735d1`.
+- `npm audit` and `npm audit --omit=dev`: PASS, 0 vulnerabilities.
+- Live cold verification: `verify-url.sh` passed with 0 console errors,
+  title/lang/main/alt checks passed, and Playwright Axe found 0 serious or
+  critical violations on `/`, `/demo/`, `/privacy/`, `/terms/`, and `/404.html`.
+- Live privacy/offline checks: only the product origin was requested, cookies
+  were empty, demo reloaded offline, and every public route had 0 px overflow
+  at 200% text. Evidence: `.factory/evidence/polish-3/live-routes/`.
+- Live desktop demo check: heading bottom 823.22 px; first paragraph top
+  862.81 px in a 1440×900 viewport. Live hero-caption contrast: 15.64:1.
+  Screenshots and reports: `.factory/evidence/polish-3/`.
 
-## Findings left
-
-The review records 4 blocking, 5 major, and 1 minor finding. Blocking issues
-are the desktop demo result below the first viewport, the repeated inaccurate
-“each active value” claim, no end-to-end toolbar-to-reader claim test, and the
-1.16:1 hero-caption contrast. Major/minor issues cover the false every-change
-preview claim, demo-only evidence for extension import/export, an unlisted
-active-site claim, an untested offline-download statement, hidden mobile
-header navigation, and the absent route live announcement.
-
-Run the existing gates with:
+## Run locally
 
 ```sh
 npm ci
@@ -54,3 +52,7 @@ npm run check
 npm run test:e2e
 npm run test:package
 ```
+
+## Known gaps
+
+None.
