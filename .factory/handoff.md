@@ -1,6 +1,6 @@
 # Reader Setting Transfer — repair 7 handoff
 
-## Status: repaired; local verification passed
+## Status: repaired, deployed, and verified live
 
 - Work order: `reader-setting-transfer-repair-7`
 - Repaired candidate base: `79fbab36d7bc2e6ffcf446f78512373135d7b38f`
@@ -71,9 +71,28 @@ The reproducible production build command remains exactly `npm run build`.
 
 ## Deployment and live checks
 
-The source commit is pushed before deployment. Post-deploy live identity,
-offline, accessibility, and header checks are recorded in the follow-up
-handoff commit.
+- Source repair commit: `cbf4fc6` (`fix: repair motion and fresh reader states`),
+  pushed to `origin/main` before deployment.
+- Deployed with `/opt/fleet/lib/deploy-static.sh reader-setting-transfer
+  dist/site` to the existing Standard Static Web App in `centralus`.
+- Live identity passed: local and downloaded live `index.html` both SHA-256
+  `44946533db65d3fbe41167ed7c52cf9139a0e66fa470590ccbd00f4f8bed193a`;
+  local and live extension ZIP both SHA-256
+  `2d5c1423e1daa4a3433999bae7ac2514c24464590d1e0a79780320a5445c0d2b`.
+- `/opt/fleet/lib/verify-url.sh` passed live for `/`, `/demo/`, `/privacy/`,
+  and `/terms/` at desktop and 390 px. Every route had one H1, `lang=en`, a
+  main landmark, complete image alt text, and no console/page errors.
+- Live Playwright/Axe checks over `/`, `/demo/`, `/privacy/`, `/terms/`, and
+  `/404.html` found no serious or critical violations. The same run confirmed
+  no console errors, only the product origin requested, no `Set-Cookie`, and
+  an empty browser cookie jar.
+- Live repaired motion behavior: with OS motion set to `no-preference`, an
+  unchecked control computed `demo-reader-settle`, `0.22s`, and `0.18s`;
+  checked motion reduction computed `none`, `0s`, and `0s`.
+- Live mobile/keyboard/offline check: 390 px overflow was `0`; Arrow Right
+  scrolled the keyboard-focusable promise strip; after service-worker control
+  and update, an offline landing reload rendered both the H1 and offline
+  notice.
 
 ## Known gaps / next steps
 
