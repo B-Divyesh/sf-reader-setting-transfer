@@ -106,7 +106,7 @@ test('@claim:extension-local-reader the built extension stores a profile locally
     const page = await getOptionsPage(context, extensionId);
     const consoleErrors: string[] = [];
     page.on('console', (message) => { if (message.type() === 'error') consoleErrors.push(message.text()); });
-    await expect(page.getByRole('heading', { name: /Make a reading card/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Set your reading card.' })).toBeVisible();
     await page.locator('#font-scale').fill('1.4');
     await expect(page.locator('#font-scale-value')).toHaveText('140%');
     await page.getByRole('button', { name: 'Save reading card' }).click();
@@ -212,6 +212,45 @@ test('@claim:extension-uninstall-data removing the extension clears its browser-
     const extensionId = new URL(worker.url()).host;
     const page = await getOptionsPage(context, extensionId);
     expect(await page.evaluate(() => chrome.storage.local.get(null))).toEqual({});
+  } finally {
+    await context.close();
+  }
+});
+
+test('@claim:activation-boundary @claim:no-background-monitoring passive browsing cannot populate extension storage', async ({}, testInfo) => {
+  const extensionPath = resolve('.output/chrome-mv3');
+  const manifest = JSON.parse(readFileSync(resolve(extensionPath, 'manifest.json'), 'utf8'));
+  expect(manifest.content_scripts).toBeUndefined();
+  expect(manifest.host_permissions).toBeUndefined();
+  expect(manifest.permissions).toEqual(['storage', 'activeTab', 'scripting']);
+  expect(manifest.action.default_popup).toBe('popup.html');
+
+  const context = await chromium.launchPersistentContext(testInfo.outputPath('activation-boundary-profile'), {
+    channel: 'chromium',
+    headless: true,
+    args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
+  });
+  const extensionRequests: string[] = [];
+  context.on('request', (request) => {
+    if (request.url().startsWith('chrome-extension:')) extensionRequests.push(request.url());
+  });
+  try {
+    let worker = context.serviceWorkers()[0];
+    if (!worker) worker = await context.waitForEvent('serviceworker');
+    const extensionId = new URL(worker.url()).host;
+    const optionsPage = await getOptionsPage(context, extensionId);
+    await optionsPage.evaluate(() => chrome.storage.local.clear());
+    await optionsPage.close();
+    extensionRequests.length = 0;
+
+    const articlePage = await context.newPage();
+    await articlePage.goto('/terms/');
+    await articlePage.goto('/');
+    const pageBefore = await articlePage.locator('main').innerHTML();
+    await articlePage.waitForTimeout(250);
+    expect(await worker.evaluate(() => chrome.storage.local.get(null))).toEqual({});
+    expect(await articlePage.locator('main').innerHTML()).toBe(pageBefore);
+    expect(extensionRequests).toEqual([]);
   } finally {
     await context.close();
   }

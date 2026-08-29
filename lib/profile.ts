@@ -38,11 +38,11 @@ const inRange = (value: unknown, min: number, max: number): value is number =>
   typeof value === 'number' && Number.isFinite(value) && value >= min && value <= max;
 
 export function validateProfile(value: unknown): ReaderProfile {
-  if (!value || typeof value !== 'object') throw new Error('The file does not contain a reading profile.');
+  if (!value || typeof value !== 'object') throw new Error('The file does not contain a reading card.');
   const profile = value as Record<string, unknown>;
-  if (profile.version !== PROFILE_VERSION) throw new Error('This profile version is not supported.');
+  if (profile.version !== PROFILE_VERSION) throw new Error('This reading card version is not supported.');
   if (typeof profile.name !== 'string' || profile.name.trim().length < 1 || profile.name.length > 60) {
-    throw new Error('The profile needs a name between 1 and 60 characters.');
+    throw new Error('The reading card needs a name between 1 and 60 characters.');
   }
   if (!inRange(profile.fontScale, 0.85, 1.8)) throw new Error('Text size is outside the supported range.');
   if (!inRange(profile.measure, 40, 85)) throw new Error('Line length is outside the supported range.');

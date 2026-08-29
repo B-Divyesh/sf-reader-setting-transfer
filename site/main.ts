@@ -6,6 +6,42 @@ if (new URLSearchParams(location.search).get('demo') === '1') {
   location.replace('/demo/');
 }
 
+const ROUTE_FOCUS_KEY = 'reader-setting-transfer:route-focus';
+const routeName = () => `${location.pathname}${location.search}`;
+const focusPageHeading = () => {
+  const heading = document.querySelector<HTMLHeadingElement>('main h1');
+  if (!heading) return;
+  heading.tabIndex = -1;
+  heading.focus({ preventScroll: true });
+};
+
+document.addEventListener('click', (event) => {
+  const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href]') : null;
+  if (!link || link.target || link.hasAttribute('download')) return;
+  const destination = new URL(link.href, location.href);
+  if (destination.origin !== location.origin) return;
+  if (destination.pathname === location.pathname && destination.search === location.search) return;
+  try {
+    sessionStorage.setItem(ROUTE_FOCUS_KEY, `${destination.pathname}${destination.search}`);
+  } catch {
+    // Focus still follows the browser's normal navigation when storage is unavailable.
+  }
+});
+
+try {
+  if (sessionStorage.getItem(ROUTE_FOCUS_KEY) === routeName()) {
+    sessionStorage.removeItem(ROUTE_FOCUS_KEY);
+    focusPageHeading();
+  }
+} catch {
+  // A direct load should retain the browser's default focus position.
+}
+
+window.addEventListener('pageshow', (event) => {
+  const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+  if (event.persisted || navigation?.type === 'back_forward') focusPageHeading();
+});
+
 const offlineBanner = document.querySelector<HTMLElement>('#offline-banner');
 const promiseStrip = document.querySelector<HTMLElement>('.promise-strip');
 const syncOnlineState = () => {

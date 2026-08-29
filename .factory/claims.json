@@ -7,10 +7,10 @@
     "sandbox": "fresh Chromium context at /demo/; change every setting; assert rendered article state; reset and assert sample defaults"
   },
   {
-    "id": "profile-json-transfer",
+    "id": "reading-card-json-transfer",
     "claim": "Reading cards export and import as inspectable JSON.",
-    "where": "landing profile section, demo, README",
-    "test": "npm run test:e2e -- --grep @claim:profile-json-transfer",
+    "where": "landing reading-card section, demo, README",
+    "test": "npm run test:e2e -- --grep @claim:reading-card-json-transfer",
     "sandbox": "fresh Chromium context at /demo/; export sample card; parse fields; import a changed valid card; assert the article changes"
   },
   {
@@ -50,7 +50,7 @@
   },
   {
     "id": "per-site-off-return",
-    "claim": "Turn the reader off for one site and return to its original article immediately.",
+    "claim": "Turn the reader off for one site and return to its original article.",
     "where": "landing how-it-works, README",
     "test": "npm run test:e2e -- --grep @claim:per-site-off-return",
     "sandbox": "fresh MV3 Chromium profile with a stored article; turn the reader off; assert the original URL opens and the local per-site override is disabled"
@@ -74,7 +74,7 @@
     "claim": "The landing page and demo support keyboard use and a 390 px viewport without page overflow.",
     "where": "README and accessibility contract",
     "test": "npm run test:e2e -- --grep @claim:responsive-keyboard",
-    "sandbox": "fresh Chromium page at 390 × 844; focus the promise region; operate it with Arrow Right; assert movement, no overflow, and no serious axe findings"
+    "sandbox": "fresh Chromium page at 390 × 844; visit landing and demo; operate each by keyboard; assert the sample heading is in the first demo viewport, no overflow, and no serious axe findings"
   },
   {
     "id": "extension-uninstall-data",
@@ -89,5 +89,26 @@
     "where": "landing install note, README",
     "test": "npm test -- --testNamePattern @claim:access-boundaries",
     "sandbox": "jsdom pages with visible and hidden paywall markers plus public app content; assert visible gated extraction is refused and every source DOM remains byte-for-byte unchanged"
+  },
+  {
+    "id": "extension-download",
+    "claim": "The product site provides the packaged extension ZIP.",
+    "where": "landing download actions and README",
+    "test": "npm run test:e2e -- --grep @claim:extension-download",
+    "sandbox": "fresh built site; fetch the download; assert its response type, ZIP signature, and required MV3 package entries"
+  },
+  {
+    "id": "activation-boundary",
+    "claim": "The extension reads article text only after the reader opens it and selects Read this article.",
+    "where": "privacy page and README",
+    "test": "npm run test:e2e -- --grep @claim:activation-boundary",
+    "sandbox": "fresh MV3 profile; visit public pages before opening the extension; assert extension storage stays empty and no automatic content script exists"
+  },
+  {
+    "id": "no-background-monitoring",
+    "claim": "The extension does not read or store pages while the reader browses without opening it.",
+    "where": "privacy page and README",
+    "test": "npm run test:e2e -- --grep @claim:no-background-monitoring",
+    "sandbox": "fresh MV3 profile; visit two pages without opening the extension; assert extension storage remains empty and no extension requests or injected elements appear"
   }
 ]

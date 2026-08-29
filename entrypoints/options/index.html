@@ -14,12 +14,12 @@
     </header>
     <main id="main" class="settings-layout">
       <section class="settings-copy" aria-labelledby="settings-title">
-        <p class="eyebrow">Portable profile · v1</p>
-        <h1 id="settings-title">Make a reading card that feels like yours.</h1>
-        <p class="lede">These choices follow you into every article opened with the extension. Preview changes as you make them, then export a copy whenever you like.</p>
+        <p class="eyebrow">Reading card settings · v1</p>
+        <h1 id="settings-title">Set your reading card.</h1>
+        <p class="lede">These choices apply to every article you open with the extension. Preview them, then export a copy.</p>
         <form id="profile-form" novalidate>
           <div class="control control--name">
-            <label for="profile-name">Profile name</label>
+            <label for="profile-name">Reading card name</label>
             <input id="profile-name" name="name" maxlength="60" required />
           </div>
           <fieldset>
@@ -71,8 +71,8 @@
           </div>
         </form>
         <section class="transfer" aria-labelledby="transfer-title">
-          <p class="eyebrow">Take it with you</p>
-          <h2 id="transfer-title">Import or export</h2>
+          <p class="eyebrow">Move your reading card</p>
+          <h2 id="transfer-title">Export or import your reading card</h2>
           <p>A reading card is a small, inspectable JSON file. It contains only the settings shown above—never article history.</p>
           <div class="transfer__actions">
             <button id="export-button" class="button" type="button">Export my card</button>
@@ -81,20 +81,20 @@
           <p id="import-status" role="status" aria-live="polite"></p>
         </section>
         <section class="site-list" aria-labelledby="site-title">
-          <h2 id="site-title">Site overrides</h2>
+          <h2 id="site-title">Site choices</h2>
           <p class="muted">Sites you turn off appear here. Re-enable them at any time.</p>
           <ul id="overrides-list"></ul>
-          <p id="overrides-empty" class="empty-note">No site overrides yet.</p>
+          <p id="overrides-empty" class="empty-note">No site choices yet.</p>
         </section>
       </section>
       <aside class="preview-panel" aria-label="Live reading preview">
         <div class="preview-label"><span>Live preview</span><span aria-hidden="true">01 / 01</span></div>
         <article id="preview" class="preview">
           <p class="preview__source">FIELD NOTE · CLOSE TO HOME</p>
-          <h2>A page can meet you where you are.</h2>
-          <p>Comfortable reading is personal. The right line length gives each sentence room to breathe, while familiar letter shapes make the page easier to follow.</p>
-          <p>Your settings belong to you. Carry this reading card to the next article and the page settles into place.</p>
-          <blockquote>One profile. Any readable article.</blockquote>
+          <h2>Preview your reading card</h2>
+          <p>Text size, line length, and spacing change here as you adjust them.</p>
+          <p>Contrast, letter shapes, and motion settings also appear in this sample.</p>
+          <blockquote>The preview uses every saved reading setting.</blockquote>
         </article>
       </aside>
     </main>

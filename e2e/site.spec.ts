@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { execFileSync } from 'node:child_process';
+import { resolve } from 'node:path';
 
 function contrastRatio(first: number[], second: number[]) {
   const luminance = (rgb: number[]) => rgb
@@ -14,7 +16,15 @@ function rgbChannels(value: string) {
   return value.match(/[\d.]+/g)!.slice(0, 3).map(Number);
 }
 
-for (const path of ['/', '/demo/', '/privacy/', '/terms/', '/404.html']) {
+const routeMetadata = {
+  '/': 'Reader Setting Transfer — apply settings to articles',
+  '/demo/': 'Demo — Reader Setting Transfer',
+  '/privacy/': 'Privacy — Reader Setting Transfer',
+  '/terms/': 'Terms — Reader Setting Transfer',
+  '/404.html': 'Page not found — Reader Setting Transfer'
+} as const;
+
+for (const [path, title] of Object.entries(routeMetadata)) {
   test(`${path} has one main heading and no serious accessibility violations`, async ({ page }) => {
     const consoleErrors: string[] = [];
     page.on('console', (message) => { if (message.type() === 'error') consoleErrors.push(message.text()); });
@@ -22,8 +32,14 @@ for (const path of ['/', '/demo/', '/privacy/', '/terms/', '/404.html']) {
     await expect(page.locator('main')).toBeVisible();
     await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-    await expect(page).toHaveTitle(/Reader Setting Transfer/);
+    await expect(page).toHaveTitle(title);
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /^.{1,155}$/);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', new RegExp(`${path === '/' ? '/$' : path.replaceAll('/', '\\/')}$`));
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /\/social-card\.jpg$/);
+    await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
     await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveCount(1);
+    await expect(page.locator('footer a[href="/privacy/"]')).toHaveCount(1);
+    await expect(page.locator('footer a[href="/terms/"]')).toHaveCount(1);
     const results = await new AxeBuilder({ page }).analyze();
     expect(results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''))).toEqual([]);
     expect(consoleErrors).toEqual([]);
@@ -43,7 +59,7 @@ test('@claim:offline-reload the demo reloads after the first visit while offline
 
     await context.setOffline(true);
     await page.reload({ waitUntil: 'domcontentloaded', timeout: 10_000 });
-    await expect(page.getByRole('heading', { name: 'Try your settings on a real article.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Try your settings on a sample article.' })).toBeVisible();
     await expect(page.getByText('Demo — sample data, nothing is saved')).toBeVisible();
   } finally {
     await context.close();
@@ -64,17 +80,17 @@ test('@claim:offline-landing the landing page reloads after the first visit whil
 
     await context.setOffline(true);
     await page.reload({ waitUntil: 'domcontentloaded', timeout: 10_000 });
-    await expect(page.getByRole('heading', { name: 'Carry your reading settings into clean articles.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Apply your reading settings to web articles.' })).toBeVisible();
     await expect(page.locator('#offline-banner')).toBeVisible();
   } finally {
     await context.close();
   }
 });
 
-test('@claim:responsive-keyboard the landing page works at 390px with keyboard scrolling', async ({ page }) => {
+test('@claim:responsive-keyboard the landing page and demo work at 390px with a keyboard', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Carry your reading settings into clean articles.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Apply your reading settings to web articles.' })).toBeVisible();
   await expect(page.locator('img[alt]')).toBeVisible();
   const promises = page.getByRole('region', { name: 'Product promises' });
   await promises.focus();
@@ -86,14 +102,36 @@ test('@claim:responsive-keyboard the landing page works at 390px with keyboard s
   expect(overflow).toBeLessThanOrEqual(1);
   const results = await new AxeBuilder({ page }).analyze();
   expect(results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''))).toEqual([]);
-  const response = await page.request.get('/downloads/reader-setting-transfer-chrome.zip');
-  expect(response.ok()).toBe(true);
   await page.screenshot({ path: 'test-results/mobile-landing.png', fullPage: true });
+
+  await page.goto('/demo/');
+  const sampleHeading = page.getByRole('heading', { name: 'The city changes when you notice its trees' });
+  const headingBox = await sampleHeading.boundingBox();
+  expect(headingBox).not.toBeNull();
+  expect(headingBox!.y + headingBox!.height).toBeLessThanOrEqual(844);
+  const firstParagraphBox = await page.locator('#demo-article > p').nth(1).boundingBox();
+  expect(firstParagraphBox).not.toBeNull();
+  expect(firstParagraphBox!.y).toBeLessThan(844);
+  await page.screenshot({ path: 'test-results/mobile-demo-first-screen.png' });
+  await page.locator('#demo-size').focus();
+  await expect(page.locator('#demo-size')).toBeFocused();
+  await page.keyboard.press('ArrowRight');
+  await expect(page.locator('#demo-size-value')).toHaveText('125%');
+  const demoOverflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(demoOverflow).toBeLessThanOrEqual(1);
+  const demoResults = await new AxeBuilder({ page }).analyze();
+  expect(demoResults.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''))).toEqual([]);
 });
 
 test('@claim:reading-settings sample settings visibly change and reset the article', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  const preview = page.locator('[data-claim="reading-settings"]');
+  await expect(preview.getByText('Quiet evening', { exact: true })).toBeVisible();
+  await expect(preview.getByText('120%', { exact: true })).toBeVisible();
+  await expect(preview.getByText('1.75×', { exact: true })).toBeVisible();
+  await expect(preview.getByText('Warm paper', { exact: true })).toBeVisible();
   await page.goto('/demo/');
   const article = page.locator('#demo-article');
   await expect(page.getByText('Demo — sample data, nothing is saved')).toBeVisible();
@@ -155,7 +193,7 @@ test('demo banner controls have a focus indicator with at least 3:1 contrast', a
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/demo/');
 
-  for (const control of [page.getByRole('button', { name: 'Reset demo' }), page.getByRole('link', { name: 'Start for real' })]) {
+  for (const control of [page.getByRole('button', { name: 'Reset demo' }), page.getByRole('link', { name: 'Download the extension' })]) {
     await control.focus();
     await expect(control).toBeFocused();
     const colors = await control.evaluate((element) => {
@@ -168,7 +206,7 @@ test('demo banner controls have a focus indicator with at least 3:1 contrast', a
   }
 });
 
-test('@claim:profile-json-transfer the sample card exports and imports as JSON', async ({ page }) => {
+test('@claim:reading-card-json-transfer the sample card exports and imports as JSON', async ({ page }) => {
   await page.goto('/demo/');
   const imported = {
     version: 1,
@@ -214,13 +252,19 @@ test('@claim:demo-isolation the demo uses only its namespace and first-party req
   const origins = new Set<string>();
   page.on('request', (request) => origins.add(new URL(request.url()).origin));
   try {
-    await page.goto('/demo/');
+    await page.goto('/');
+    await page.evaluate(() => localStorage.setItem('readerProfile', 'real-data-sentinel'));
+    await page.goto('/?demo=1');
+    await expect(page).toHaveURL(/\/demo\/$/);
+    await expect(page.getByText('Demo — sample data, nothing is saved')).toBeVisible();
     await page.locator('#demo-size').fill('1.35');
+    await page.getByRole('button', { name: 'Reset demo' }).click();
+    await expect(page.locator('#demo-size-value')).toHaveText('120%');
     const storage = await page.evaluate(() => ({
-      local: Object.keys(localStorage),
+      local: Object.fromEntries(Object.entries(localStorage)),
       session: Object.keys(sessionStorage)
     }));
-    expect(storage.local).toEqual([]);
+    expect(storage.local).toEqual({ readerProfile: 'real-data-sentinel' });
     expect(storage.session).toEqual(['demo:reader-profile']);
     expect([...origins]).toEqual(['http://localhost:4173']);
   } finally {
@@ -257,7 +301,7 @@ test('@claim:site-no-tracking public pages make only first-party requests and se
 test('unknown routes return the designed 404 response', async ({ page }) => {
   const response = await page.goto('/this-route-does-not-exist');
   expect(response?.status()).toBe(404);
-  await expect(page.getByRole('heading', { name: 'This page slipped out of frame.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Page not found.' })).toBeVisible();
 });
 
 test('the advertised demo query opens the sandbox route', async ({ page }) => {
@@ -269,5 +313,29 @@ test('the advertised demo query opens the sandbox route', async ({ page }) => {
 test('/demo opens the real sample instead of the landing fallback', async ({ page }) => {
   const response = await page.goto('/demo');
   expect(response?.status()).toBe(200);
-  await expect(page.getByRole('heading', { name: 'Try your settings on a real article.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Try your settings on a sample article.' })).toBeVisible();
+});
+
+test('@claim:extension-download the site provides a valid packaged extension ZIP', async ({ page }) => {
+  const response = await page.request.get('/downloads/reader-setting-transfer-chrome.zip');
+  expect(response.ok()).toBe(true);
+  const body = await response.body();
+  expect(body.subarray(0, 4).toString('hex')).toBe('504b0304');
+  const entries = execFileSync('unzip', ['-Z1', resolve('dist/site/downloads/reader-setting-transfer-chrome.zip')], { encoding: 'utf8' }).trim().split('\n');
+  expect(entries).toEqual(expect.arrayContaining(['manifest.json', 'background.js', 'popup.html', 'reader.html', 'options.html']));
+});
+
+test('internal route changes move focus to the destination heading and Back restores heading focus', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Demo', exact: true }).click();
+  await expect(page).toHaveURL(/\/demo\/$/);
+  await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
+
+  await page.goBack();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
+
+  await page.getByRole('link', { name: 'Privacy', exact: true }).first().click();
+  await expect(page).toHaveURL(/\/privacy\/$/);
+  await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
 });

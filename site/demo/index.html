@@ -24,22 +24,23 @@
     <div class="demo-banner" role="status" aria-label="Demo mode">
       <p>Demo — sample data, nothing is saved</p>
       <button id="reset-demo" type="button">Reset demo</button>
-      <a id="start-real" href="/downloads/reader-setting-transfer-chrome.zip" download>Start for real</a>
+      <a id="start-real" href="/downloads/reader-setting-transfer-chrome.zip" download>Download the extension</a>
     </div>
     <div id="offline-banner" class="offline-banner" role="status" hidden>You’re offline. This sample still works.</div>
     <header class="site-header">
       <a class="logo" href="/" aria-label="Reader Setting Transfer home"><span class="reg-mark" aria-hidden="true"><i></i></span><span>Reader Setting<br />Transfer</span></a>
       <nav aria-label="Main navigation">
-        <a href="/">Product</a>
+        <a href="/demo/" aria-current="page">Demo</a>
+        <a href="/#how-it-works">How it works</a>
         <a href="/privacy/">Privacy</a>
-        <a class="nav-download" href="/downloads/reader-setting-transfer-chrome.zip" download>Download <span aria-hidden="true">↓</span></a>
+        <a class="nav-download" href="/downloads/reader-setting-transfer-chrome.zip" download>Download extension <span aria-hidden="true">↓</span></a>
       </nav>
     </header>
     <main id="main" class="demo-page">
       <section class="demo-intro">
         <p class="eyebrow">Ready sample · city field notes</p>
-        <h1>Try your settings on a real article.</h1>
-        <p class="hero__lede">Adjust this sample reading card. The demo uses separate temporary storage and never opens your browsing data.</p>
+        <h1>Try your settings on a sample article.</h1>
+        <p class="hero__lede">Adjust this sample reading card. Its temporary storage stays separate from extension data.</p>
       </section>
       <section class="demo-workspace" aria-label="Sample reader workspace">
         <form id="demo-controls" class="demo-controls">
@@ -65,7 +66,7 @@
           <p id="demo-status" class="demo-status" role="status" aria-live="polite">Sample settings are ready.</p>
         </form>
         <div id="demo-reader" class="demo-reader">
-          <div class="demo-reader__rail"><span>Quiet evening · sample profile</span><span>Applied on fieldnotes.example</span></div>
+          <div class="demo-reader__rail"><span>Quiet evening · sample reading card</span><span>Applied on fieldnotes.example</span></div>
           <article id="demo-article" class="demo-article" tabindex="-1">
             <p class="demo-source">FIELD NOTE · URBAN TREES</p>
             <h2>The city changes when you notice its trees</h2>
@@ -80,8 +81,8 @@
       </section>
     </main>
     <footer class="site-footer legal-footer">
-      <p>Carry comfortable reading settings into clean articles.</p>
-      <nav aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="https://github.com/B-Divyesh/sf-reader-setting-transfer" rel="noreferrer">Source</a></nav>
+      <p>Apply one reading card to simplified web articles.</p>
+      <nav aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="https://github.com/B-Divyesh/sf-reader-setting-transfer" rel="noreferrer">Source on GitHub</a></nav>
       <p class="art-note">Built by Param Factory · Version 1.0</p>
     </footer>
     <script type="module" src="./main.ts"></script>

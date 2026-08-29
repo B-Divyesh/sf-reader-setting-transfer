@@ -3,20 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Carry your text size, spacing, contrast, and motion settings into clean articles with a private extension for low-vision readers." />
+    <meta name="description" content="Apply one reading card to simplified web articles with a local browser extension for low-vision readers." />
     <meta name="theme-color" content="#F3EBD8" />
-    <title>Reader Setting Transfer — carry settings into articles</title>
+    <title>Reader Setting Transfer — apply settings to articles</title>
     <link rel="canonical" href="https://reader-setting-transfer.sociobot.in/" />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Reader Setting Transfer — carry settings into articles" />
-    <meta property="og:description" content="A private reading extension for low-vision readers who reset the same settings on every site." />
+    <meta property="og:title" content="Reader Setting Transfer — apply settings to articles" />
+    <meta property="og:description" content="Apply one reading card to simplified web articles with a local browser extension for low-vision readers." />
     <meta property="og:url" content="https://reader-setting-transfer.sociobot.in/" />
     <meta property="og:image" content="https://reader-setting-transfer.sociobot.in/social-card.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Reader Setting Transfer — carry settings into articles" />
-    <meta name="twitter:description" content="A private reading extension for low-vision readers who reset the same settings on every site." />
+    <meta name="twitter:title" content="Reader Setting Transfer — apply settings to articles" />
+    <meta name="twitter:description" content="Apply one reading card to simplified web articles with a local browser extension for low-vision readers." />
     <meta name="twitter:image" content="https://reader-setting-transfer.sociobot.in/social-card.jpg" />
   </head>
   <body>
@@ -27,24 +27,24 @@
       <nav aria-label="Main navigation">
         <a href="/demo/">Demo</a>
         <a href="#how-it-works">How it works</a>
-        <a href="#privacy">Privacy</a>
-        <a class="nav-download" href="/downloads/reader-setting-transfer-chrome.zip" download>Download <span aria-hidden="true">↓</span></a>
+        <a href="/privacy/">Privacy</a>
+        <a class="nav-download" href="/downloads/reader-setting-transfer-chrome.zip" download>Download extension <span aria-hidden="true">↓</span></a>
       </nav>
     </header>
     <main id="main">
       <section class="hero">
         <div class="hero__copy">
           <p class="eyebrow">Free browser extension · Chrome</p>
-          <h1>Carry your reading settings into clean articles.</h1>
-          <p class="hero__lede">For low-vision readers tired of resetting text size, spacing, contrast, and motion on every site.</p>
+          <h1>Apply your reading settings to web articles.</h1>
+          <p class="hero__lede">For low-vision readers who want the same text size, spacing, contrast, and motion across public articles.</p>
           <div class="hero__actions">
             <a class="button button--primary" href="/demo/">Try it with sample data <span aria-hidden="true">→</span></a>
-            <span class="action-note">Opens a ready sample article. Nothing is saved to your real data.</span>
+            <span class="action-note">Opens a styled article. Demo changes use separate temporary storage.</span>
           </div>
           <ul class="hero-facts" aria-label="Product facts">
             <li><span class="status-dot" aria-hidden="true"></span> Free and open source.</li>
-            <li><span class="status-dot" aria-hidden="true"></span> Profiles stay on your device.</li>
-            <li><span class="status-dot" aria-hidden="true"></span> The demo reloads offline after your first visit.</li>
+            <li><span class="status-dot" aria-hidden="true"></span> Your reading card stays on this device.</li>
+            <li><span class="status-dot" aria-hidden="true"></span> The demo works offline after your first visit.</li>
           </ul>
           <a class="text-link hero-download" href="/downloads/reader-setting-transfer-chrome.zip" download>Download the extension package <span aria-hidden="true">↓</span></a>
         </div>
@@ -54,24 +54,47 @@
             <source srcset="/assets/reader-transfer-hero-1280.webp" type="image/webp" />
             <img src="/assets/reader-transfer-hero-1280.jpg" width="1280" height="853" alt="A tactile paper collage of an article card moving between blue and red browser-shaped frames, with reading glasses nearby." fetchpriority="high" decoding="async" />
           </picture>
-          <figcaption><span aria-hidden="true">⌖</span> One reading card, carried into clean articles.</figcaption>
+          <figcaption><span aria-hidden="true">⌖</span> The extension applies the same text and contrast settings to each article.</figcaption>
         </figure>
       </section>
 
+      <section class="product-preview section-wrap" aria-labelledby="preview-title" data-claim="reading-settings">
+        <div class="preview-copy">
+          <p class="eyebrow">Product preview</p>
+          <h2 id="preview-title">See your reading card on an article.</h2>
+          <p>Your saved reading card sets the article view and lists each active value.</p>
+          <dl class="preview-values" aria-label="Active reading card values">
+            <div><dt>Reading card</dt><dd>Quiet evening</dd></div>
+            <div><dt>Text size</dt><dd>120%</dd></div>
+            <div><dt>Line spacing</dt><dd>1.75×</dd></div>
+            <div><dt>Contrast</dt><dd>Warm paper</dd></div>
+          </dl>
+          <a class="text-link" href="/demo/">Adjust this sample article <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="landing-reader" aria-label="Sample article with the Quiet evening reading card">
+          <div class="landing-reader__rail"><span>Quiet evening · reading card</span><span>fieldnotes.example</span></div>
+          <article>
+            <p class="demo-source">FIELD NOTE · URBAN TREES</p>
+            <h3>The city changes when you notice its trees</h3>
+            <p>At dusk, street trees stop blending into the buildings. Their shadows stretch across brick walls, and each leaf catches the last blue light.</p>
+          </article>
+        </div>
+      </section>
+
       <section class="promise-strip" aria-label="Product promises" tabindex="0">
-        <span>01 · Portable profile</span><span>02 · Clean article view</span><span>03 · Local by default</span>
+        <span>01 · Export your reading card</span><span>02 · Read a simplified article</span><span>03 · Keep article data on this device</span>
       </section>
 
       <section id="how-it-works" class="how-section section-wrap">
         <div class="section-intro">
-          <p class="eyebrow">A small tool for a real annoyance</p>
-          <h2>Tune once. Read without the setup ritual.</h2>
-          <p>Reader modes usually start from their defaults. This one starts from yours—and tells you exactly what it changed.</p>
+          <p class="eyebrow">How the extension works</p>
+          <h2>Apply one reading card to every article.</h2>
+          <p>Your saved reading card sets the article view and lists each active value.</p>
         </div>
         <ol class="steps">
           <li>
             <span class="step-number">01</span>
-            <div><h3>Make your reading card</h3><p>Choose text scale, line length, spacing, letter shapes, contrast, and reduced motion. See every change in a live preview.</p></div>
+            <div><h3>Make your reading card</h3><p>Choose text size, line length, spacing, letter shapes, contrast, and reduced motion. See every change in a live preview.</p></div>
           </li>
           <li>
             <span class="step-number">02</span>
@@ -79,7 +102,7 @@
           </li>
           <li>
             <span class="step-number">03</span>
-            <div><h3>Stay in control</h3><p>See which profile is active, make quick adjustments, or turn the reader off for that site and return instantly.</p></div>
+            <div><h3>Adjust or turn off the reader</h3><p>See the active reading card, adjust it, or turn the reader off for that site and return to the original page.</p></div>
           </li>
         </ol>
       </section>
@@ -99,23 +122,23 @@
           <div class="ink-tabs" aria-hidden="true"><i></i><i></i><i></i></div>
         </div>
         <div class="inspect-copy">
-          <p class="eyebrow">Open, inspectable, portable</p>
-          <h2 id="inspect-title">Your preferences aren’t a black box.</h2>
-          <p>The profile is a tiny JSON file you can export, read, and share. It contains settings—not browsing history—and needs no cloud account.</p>
+          <p class="eyebrow">Export and import your reading card</p>
+          <h2 id="inspect-title">Review every saved reading setting.</h2>
+          <p>Export your reading card as a text file and import it in another browser. The file uses JSON and contains settings, not browsing history.</p>
           <ul class="check-list">
             <li>Visible values, not vague presets</li>
             <li>Import on another browser</li>
-            <li>Per-site off switch for imperfect extraction</li>
+            <li>Turn off the reader on a site if an article looks wrong</li>
           </ul>
         </div>
       </section>
 
       <section id="privacy" class="privacy-section">
         <div class="section-wrap privacy-grid">
-          <div><p class="eyebrow">Privacy by construction</p><h2>Reading history stays out of our hands.</h2></div>
+          <div><p class="eyebrow">What stays on your device</p><h2>The extension does not send us your reading history.</h2></div>
           <div class="privacy-points">
-            <p><strong>Stored locally</strong><span>Your profile, site overrides, and current article stay in browser extension storage.</span></p>
-            <p><strong>Sent nowhere</strong><span>No account, analytics SDK, remote fonts, or article-processing server.</span></p>
+            <p><strong>Stored locally</strong><span>Your reading card, site choices, and current article stay in browser extension storage.</span></p>
+            <p><strong>Sent nowhere</strong><span>No account, tracking, remote fonts, or server upload.</span></p>
             <p data-claim="extension-uninstall-data"><strong>Easy to clear</strong><span>Remove the extension and its local data leaves with it.</span></p>
           </div>
         </div>
@@ -124,7 +147,7 @@
       <section id="install" class="install-section section-wrap">
         <div>
           <p class="eyebrow">Install the v1 package</p>
-          <h2>Four steps, then one click per article.</h2>
+          <h2>Install the extension, then open it on each article.</h2>
         </div>
         <ol>
           <li>Download and unzip the extension package.</li>
@@ -133,13 +156,13 @@
           <li>Pin Reader Setting Transfer and open it on a public article.</li>
         </ol>
         <a class="button button--primary" href="/downloads/reader-setting-transfer-chrome.zip" download>Download extension <span aria-hidden="true">↓</span></a>
-        <p class="install-note" data-claims="free-open-source access-boundaries">Version 1.0 · Manifest V3 · Free and open source. Refuses clearly marked paywalls and does not restyle source pages.</p>
+        <p class="install-note" data-claims="free-open-source access-boundaries">Version 1.0 · Free and open source. Refuses clearly marked paywalls and does not restyle source pages.</p>
       </section>
     </main>
     <footer class="site-footer">
       <a class="logo logo--footer" href="/"><span class="reg-mark" aria-hidden="true"><i></i></span><span>Reader Setting<br />Transfer</span></a>
-      <p>Carry comfortable reading settings into clean articles.</p>
-      <nav aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="https://github.com/B-Divyesh/sf-reader-setting-transfer" rel="noreferrer">Source</a></nav>
+      <p>Apply one reading card to simplified web articles.</p>
+      <nav aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="https://github.com/B-Divyesh/sf-reader-setting-transfer" rel="noreferrer">Source on GitHub</a></nav>
       <p class="art-note">Built by Param Factory · Version 1.0. Original hero artwork was generated with the factory image model.</p>
     </footer>
     <script type="module" src="/main.ts"></script>

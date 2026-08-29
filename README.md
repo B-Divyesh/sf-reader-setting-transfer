@@ -1,24 +1,25 @@
 # Reader Setting Transfer
 
-Reader Setting Transfer is a free, open-source Chrome/Chromium extension for low-vision readers who want the same settings in clean articles.
+Reader Setting Transfer is a free, open-source Chrome/Chromium extension for low-vision readers.
 
-Create one portable reading card for text size, line length, line and paragraph spacing, contrast, letter shapes, and reduced motion. Choose the extension on a public article to open a clean reader that applies those settings and clearly shows the active profile and site. Profiles can be exported as inspectable JSON and imported on another browser.
+Make one reading card for text size, line length, spacing, contrast, letter shapes, and reduced motion. Choose the extension on a public article. The reader applies your card and shows the active site. Export the card as readable JSON and import it in another browser.
 
-Try the shipped sample at <https://reader-setting-transfer.sociobot.in/demo/>.
-It uses a separate `demo:` session namespace and never reads real browsing data.
-After the first visit, the service worker can reload the demo offline.
+Try the isolated sample at <https://reader-setting-transfer.sociobot.in/?demo=1>.
+It uses a separate `demo:` session namespace and does not read extension data.
+The demo reloads offline after your first visit.
 
-The companion site serves the packaged extension from `dist/site/downloads/`.
+The production build places the extension ZIP in `dist/site/downloads/`.
 
 ## What v1 does
 
-- Extracts semantic article text only after the user chooses the toolbar action
+- Extracts article headings and text after you select **Read this article**
 - Preserves headings, paragraphs, lists, quotes, code, tables, and safe links
-- Applies a versioned, portable accessibility profile inside the reader only
+- Applies your saved reading card only inside the reader
 - Provides live settings preview and quick reader text-size/contrast changes
-- Stores the current article, profile, and per-site choices locally
-- Turns the reader off per site and returns immediately to the original page
+- Stores the current article, reading card, and site choices locally
+- Turns the reader off per site and returns to the original page
 - Supports keyboard use and 390 px layouts on the landing page and demo
+- Provides the packaged extension ZIP from the product site
 
 <!-- claim:access-boundaries -->
 It refuses clearly marked paywalls and opens a separate reader without changing the source page.
@@ -44,17 +45,11 @@ The reproducible production command is exactly:
 npm run build
 ```
 
-The static deploy root includes Azure Static Web Apps and portable `_headers`
-policies: fingerprinted site assets and the downloadable ZIP are immutable for
-one year, while HTML and the service worker revalidate. They also set a
-self-only CSP and standard framing, referrer, permissions, and MIME-sniffing
-protections.
-
 Outputs:
 
 - `.output/chrome-mv3/` — unpacked MV3 extension
 - `dist/site/index.html` — static deploy root
-- `dist/site/downloads/reader-setting-transfer-chrome.zip` — installable package
+- `dist/site/downloads/reader-setting-transfer-chrome.zip` — packaged extension
 
 ## Install the development build
 
@@ -66,14 +61,18 @@ Outputs:
 
 ## Privacy and permissions
 
-The extension has no analytics, account, remote API, or broad host permission. `activeTab` and `scripting` allow extraction from the page only when the toolbar action is invoked. `storage` keeps the reading card, current article, and site choices on the device.
+The extension has no analytics, account, remote API, or broad host permission.
+<!-- claim:activation-boundary -->
+It reads article text only after you open the extension and select **Read this article**.
+<!-- claim:no-background-monitoring -->
+It does not read or store pages while you browse without opening the extension.
+The `storage` permission keeps the reading card, current article, and site choices on the device.
 <!-- claim:extension-uninstall-data -->
 Removing the extension removes that browser-managed data.
 
 See the published [privacy policy](site/privacy/index.html) and [terms](site/terms/index.html).
-Every public product claim and its observable command is listed in
-[.factory/claims.json](.factory/claims.json). The sample sandbox design is in
-[.factory/demo.md](.factory/demo.md).
+Claim tests are listed in [.factory/claims.json](.factory/claims.json).
+The sample sandbox design is in [.factory/demo.md](.factory/demo.md).
 
 ## Project notes
 
