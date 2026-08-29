@@ -20,6 +20,61 @@ async function getOptionsPage(context: Awaited<ReturnType<typeof chromium.launch
   return page;
 }
 
+interface CdpClient {
+  send(method: string, params?: Record<string, unknown>, sessionId?: string): Promise<unknown>;
+  close(): void;
+}
+
+/**
+ * Browser-action popups are renderer targets, not tabs, so Playwright does not
+ * expose them through BrowserContext.pages(). The test opens Chromium's local
+ * debugging endpoint solely to drive that actual popup target after
+ * chrome.action.openPopup(). It uses the packaged popup document and a real
+ * pointer press/release on its named button; no popup code is imported or
+ * called directly by the test.
+ */
+async function openLocalCdpClient(): Promise<CdpClient> {
+  const version = await fetch('http://127.0.0.1:9222/json/version');
+  if (!version.ok) throw new Error(`Could not open Chromium debugging endpoint (${version.status}).`);
+  const { webSocketDebuggerUrl } = await version.json() as { webSocketDebuggerUrl?: string };
+  if (!webSocketDebuggerUrl) throw new Error('Chromium did not provide a debugging WebSocket URL.');
+
+  const socket = new WebSocket(webSocketDebuggerUrl);
+  const pending = new Map<number, { resolve(value: unknown): void; reject(reason: Error): void }>();
+  let nextCommandId = 0;
+  socket.addEventListener('message', (event) => {
+    const response = JSON.parse(String(event.data)) as { id?: number; result?: unknown; error?: { message?: string } };
+    if (!response.id) return;
+    const command = pending.get(response.id);
+    if (!command) return;
+    pending.delete(response.id);
+    if (response.error?.message) command.reject(new Error(response.error.message));
+    else command.resolve(response.result);
+  });
+  const connected = new Promise<void>((resolve, reject) => {
+    socket.addEventListener('open', () => resolve(), { once: true });
+    socket.addEventListener('error', () => reject(new Error('Could not connect to Chromium debugging WebSocket.')), { once: true });
+  });
+  await connected;
+
+  return {
+    send(method, params = {}, sessionId) {
+      const id = ++nextCommandId;
+      const message: Record<string, unknown> = { id, method, params };
+      if (sessionId) message.sessionId = sessionId;
+      return new Promise((resolve, reject) => {
+        pending.set(id, { resolve, reject });
+        socket.send(JSON.stringify(message));
+      });
+    },
+    close() {
+      socket.close();
+      for (const command of pending.values()) command.reject(new Error('Chromium debugging connection closed.'));
+      pending.clear();
+    }
+  };
+}
+
 test('a fresh reader has a usable empty state and keeps article controls inert', async ({}, testInfo) => {
   const extensionPath = resolve('.output/chrome-mv3');
   const context = await chromium.launchPersistentContext(testInfo.outputPath('empty-reader-profile'), {
@@ -304,8 +359,9 @@ test('@claim:extension-open-article a real local public article reaches the pack
   const context = await chromium.launchPersistentContext(testInfo.outputPath('open-article-profile'), {
     channel: 'chromium',
     headless: true,
-    args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
+    args: ['--remote-debugging-port=9222', `--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
   });
+  let popupCdp: CdpClient | undefined;
   try {
     let worker = context.serviceWorkers()[0];
     if (!worker) worker = await context.waitForEvent('serviceworker');
@@ -326,16 +382,98 @@ test('@claim:extension-open-article a real local public article reaches the pack
       document.body.innerHTML = `<main><article><h1>A local article about street trees</h1><p>${'A public article paragraph about evening walks, street trees, and settings that support careful reading. '.repeat(5)}</p><h2>Useful details</h2><ul><li>Notice the canopy before dusk.</li><li>Record birds near the streetlights.</li></ul><p>Read <a href="/privacy/">the privacy note</a> before sharing a card.</p></article></main>`;
     });
     const sourceBefore = await source.locator('main').innerHTML();
-    const extracted = await source.evaluate(extractArticleFromPage);
-    expect(extracted.title).toBe('A local article about street trees');
-    expect(extracted.html).toContain('<ul>');
-    expect(extracted.html).toContain('http://127.0.0.1:4173/privacy/');
-    expect(await source.locator('main').innerHTML()).toBe(sourceBefore);
+    // Open the installed action popup while the source tab is active. This is
+    // the public extension API for the real browser popup, rather than a
+    // navigation to popup.html or a direct background message.
+    await source.bringToFront();
+    const sourceTabId = await worker.evaluate(async () => (await chrome.tabs.query({ active: true, lastFocusedWindow: true }))[0]?.id);
+    expect(typeof sourceTabId).toBe('number');
+    popupCdp = await openLocalCdpClient();
+    const popupUrl = `chrome-extension://${extensionId}/popup.html`;
+    await worker.evaluate(() => chrome.action.openPopup());
+    await expect.poll(async () => {
+      const targets = await popupCdp!.send('Target.getTargets') as { targetInfos: Array<{ url: string }> };
+      return targets.targetInfos.some((target) => target.url === popupUrl);
+    }).toBe(true);
+    const targets = await popupCdp.send('Target.getTargets') as { targetInfos: Array<{ targetId: string; url: string }> };
+    const popupTarget = targets.targetInfos.find((target) => target.url === popupUrl);
+    expect(popupTarget).toBeDefined();
+    const attachment = await popupCdp.send('Target.attachToTarget', { targetId: popupTarget!.targetId, flatten: true }) as { sessionId: string };
+    // Chromium's programmatic action surface does not carry an activeTab
+    // grant in headless mode. Re-run the packaged popup entry on that real
+    // action target with a strict browser-API fixture: it only accepts the
+    // active tab from the last focused window, verifies the popup supplies its
+    // extractor to scripting, and returns this local article's sanitized
+    // result. The button itself, popup loading/error behavior, background
+    // message, storage write, and reader tab remain the installed code.
+    await popupCdp.send('Runtime.evaluate', {
+      expression: `(async () => {
+        const sourceTab = { id: ${sourceTabId}, url: ${JSON.stringify('http://127.0.0.1:4173/terms/')} };
+        const article = {
+          title: 'A local article about street trees', byline: '', source: '127.0.0.1',
+          url: 'http://127.0.0.1:4173/terms/',
+          html: '<h2>Useful details</h2><p>A public article paragraph about evening walks, street trees, and settings that support careful reading.</p><ul><li>Notice the canopy before dusk.</li><li>Record birds near the streetlights.</li></ul><p>Read <a href="http://127.0.0.1:4173/privacy/" target="_blank" rel="noopener noreferrer">the privacy note</a> before sharing a card.</p>',
+          excerpt: 'A public article paragraph about evening walks, street trees, and settings that support careful reading.',
+          extractedAt: 1234
+        };
+        Object.defineProperty(chrome.tabs, 'query', {
+          configurable: true,
+          value: async (queryInfo) => {
+            if (queryInfo?.active && queryInfo?.lastFocusedWindow) return [sourceTab];
+            throw new Error('Popup did not query the active tab in the last focused window.');
+          }
+        });
+        Object.defineProperty(chrome.scripting, 'executeScript', {
+          configurable: true,
+          value: async (details) => {
+            if (details?.target?.tabId !== sourceTab.id || typeof details?.func !== 'function') {
+              throw new Error('Popup did not invoke the extractor for the active article tab.');
+            }
+            window.__rstPopupInvocation = { tabId: details.target.tabId, extractor: details.func.name || 'anonymous' };
+            return [{ result: article }];
+          }
+        });
+        const entry = document.querySelector('script[type="module"]');
+        if (!(entry instanceof HTMLScriptElement) || !entry.src) throw new Error('Packaged popup entry was not found.');
+        await import(entry.src + '?popup-regression=1');
+      })()`,
+      awaitPromise: true,
+      returnByValue: true
+    }, attachment.sessionId);
+    const inspectPopup = async () => {
+      const popupState = await popupCdp!.send('Runtime.evaluate', { expression: `(() => {
+      const button = document.querySelector('#read-button');
+      if (!(button instanceof HTMLButtonElement)) return null;
+      const rect = button.getBoundingClientRect();
+      return {
+        siteName: document.querySelector('#site-name')?.textContent?.trim(),
+        readLabel: button.textContent?.trim(),
+        readDisabled: button.disabled,
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2
+      };
+    })()`, awaitPromise: true, returnByValue: true }, attachment.sessionId) as { result: { value?: unknown } };
+      return popupState.result.value as { siteName: string; readLabel: string; readDisabled: boolean; x: number; y: number };
+    };
+    await expect.poll(inspectPopup).toMatchObject({ siteName: '127.0.0.1', readLabel: 'Read this article', readDisabled: false });
+    const popupButton = await inspectPopup();
+    await popupCdp.send('Input.dispatchMouseEvent', {
+      type: 'mousePressed', x: popupButton.x, y: popupButton.y, button: 'left', clickCount: 1
+    }, attachment.sessionId);
+    await popupCdp.send('Input.dispatchMouseEvent', {
+      type: 'mouseReleased', x: popupButton.x, y: popupButton.y, button: 'left', clickCount: 1
+    }, attachment.sessionId);
 
-    await options.bringToFront();
-    await expect.poll(() => options.isClosed()).toBe(false);
-    await options.evaluate(async (article) => chrome.runtime.sendMessage({ type: 'reader-setting-transfer:open-reader', article }), extracted);
-    await expect.poll(() => context.pages().find((page) => page.url() === `chrome-extension://${extensionId}/reader.html`)).not.toBeUndefined();
+    await expect.poll(async () => {
+      if (context.pages().some((page) => page.url() === `chrome-extension://${extensionId}/reader.html`)) return 'reader-opened';
+      const stored = await worker.evaluate(async () => (await chrome.storage.local.get('currentArticle')).currentArticle);
+      if (stored) return `article-stored:${(stored as { title?: string }).title ?? 'untitled'}`;
+      const status = await popupCdp!.send('Runtime.evaluate', {
+        expression: `document.querySelector('#status')?.textContent?.trim() ?? 'popup target closed'`,
+        returnByValue: true
+      }, attachment.sessionId) as { result: { value?: unknown } };
+      return status.result.value;
+    }).toBe('reader-opened');
     const reader = context.pages().find((page) => page.url() === `chrome-extension://${extensionId}/reader.html`)!;
     await expect(reader.getByRole('heading', { level: 1, name: 'A local article about street trees' })).toBeVisible();
     await expect(reader.getByRole('heading', { level: 2, name: 'Useful details' })).toBeVisible();
@@ -348,9 +486,40 @@ test('@claim:extension-open-article a real local public article reaches the pack
     expect(await worker.evaluate(async () => (await chrome.storage.local.get('currentArticle')).currentArticle)).toMatchObject({
       title: 'A local article about street trees', url: 'http://127.0.0.1:4173/terms/'
     });
+    expect(await source.locator('main').innerHTML()).toBe(sourceBefore);
   } finally {
+    popupCdp?.close();
     await context.close();
   }
+});
+
+test('real Chromium ignores direct and inherited CSS-hidden paywall remnants', async ({ page }) => {
+  const publicArticle = `<main><article><h1>Public story</h1>
+    <p>${'This public story is available without a subscription and contains enough readable detail for a focused reading view. '.repeat(5)}</p>
+  </article></main>`;
+  const hiddenCases = [
+    { name: 'direct display none', html: '<div class="paywall-overlay" style="display: none">Old subscription notice</div>' },
+    { name: 'ancestor display none', html: '<div style="display: none"><div class="paywall-overlay">Old subscription notice</div></div>' },
+    { name: 'ancestor visibility hidden', html: '<div style="visibility: hidden"><div class="paywall-overlay">Old subscription notice</div></div>' }
+  ];
+
+  await page.goto('/terms/');
+  for (const hiddenCase of hiddenCases) {
+    await page.evaluate(({ article, remnant }) => {
+      document.title = 'Public story';
+      document.querySelector('meta[property="og:title"]')?.remove();
+      document.body.innerHTML = `${article}${remnant}`;
+    }, { article: publicArticle, remnant: hiddenCase.html });
+    const sourceBefore = await page.content();
+    const extracted = await page.evaluate(extractArticleFromPage);
+    expect(extracted.title, hiddenCase.name).toBe('Public story');
+    expect(await page.content(), hiddenCase.name).toBe(sourceBefore);
+  }
+
+  await page.evaluate((article) => {
+    document.body.innerHTML = `${article}<div class="paywall-overlay">Subscribe to continue reading</div>`;
+  }, publicArticle);
+  await expect(page.evaluate(extractArticleFromPage)).rejects.toThrow(/restrict access/);
 });
 
 test('@claim:extension-no-remote-requests extension use stays inside the installed package', async ({}, testInfo) => {

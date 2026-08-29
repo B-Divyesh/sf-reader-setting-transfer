@@ -52,4 +52,22 @@ describe('article extraction', () => {
     expect(extractArticleFromPage().html).toContain('public help article');
     expect(document.documentElement.outerHTML).toBe(publicSource);
   });
+
+  it('allows a public article when a paywall remnant or its ancestor is hidden', () => {
+    const publicArticle = `<main><article><h1>Public article</h1>
+      <p>${'This public article remains available without a subscription and has enough text for a reader to use it. '.repeat(5)}</p>
+    </article></main>`;
+
+    for (const hiddenRemnant of [
+      '<div class="paywall-overlay" style="display: none">Old subscription notice</div>',
+      '<div style="display: none"><div class="paywall-overlay">Old subscription notice</div></div>',
+      '<div hidden><div class="paywall-overlay">Old subscription notice</div></div>',
+      '<div style="visibility: hidden"><div class="paywall-overlay">Old subscription notice</div></div>'
+    ]) {
+      document.body.innerHTML = `${publicArticle}${hiddenRemnant}`;
+      const sourceBefore = document.documentElement.outerHTML;
+      expect(extractArticleFromPage().title).toBe('Public article');
+      expect(document.documentElement.outerHTML).toBe(sourceBefore);
+    }
+  });
 });

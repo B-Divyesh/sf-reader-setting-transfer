@@ -11,6 +11,19 @@ export interface ExtractedArticle {
 /** Runs in the active page. Keep this function self-contained for scripting.executeScript. */
 export function extractArticleFromPage(): ExtractedArticle {
   const safeText = (value: string | null | undefined) => (value ?? '').replace(/\s+/g, ' ').trim();
+  // `display` does not inherit. A paywall marker can therefore have a normal
+  // computed display value while one of its ancestors removes it from the
+  // rendered page. Check the whole ancestor chain before treating a marker as
+  // an access boundary. This runs in the active tab, so it intentionally uses
+  // only platform DOM APIs that `scripting.executeScript` can serialize.
+  const isHiddenByAnAncestor = (element: HTMLElement) => {
+    for (let node: HTMLElement | null = element; node; node = node.parentElement) {
+      if (node.hidden) return true;
+      const style = window.getComputedStyle(node);
+      if (style.display === 'none' || style.visibility === 'hidden' || style.visibility === 'collapse') return true;
+    }
+    return false;
+  };
   const accessBarrier = document.querySelector<HTMLElement>([
     '[class*="paywall" i]',
     '[id*="paywall" i]',
@@ -19,9 +32,7 @@ export function extractArticleFromPage(): ExtractedArticle {
     '[data-content-access="restricted" i]'
   ].join(','));
   if (accessBarrier) {
-    const style = window.getComputedStyle(accessBarrier);
-    const hidden = accessBarrier.hidden || accessBarrier.closest('[hidden]') !== null || style.display === 'none' || style.visibility === 'hidden';
-    if (!hidden) throw new Error('This page appears to restrict access. Open an article you can read without a paywall.');
+    if (!isHiddenByAnAncestor(accessBarrier)) throw new Error('This page appears to restrict access. Open an article you can read without a paywall.');
   }
   const title = safeText(
     document.querySelector<HTMLMetaElement>('meta[property="og:title"]')?.content ||

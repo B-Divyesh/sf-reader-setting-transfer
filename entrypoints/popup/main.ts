@@ -21,7 +21,17 @@ function showError(message: string) {
 }
 
 async function init() {
-  [activeTab] = await browser.tabs.query({ active: true, currentWindow: true });
+  // Start from the actionable state if Chromium restores this action surface
+  // after an earlier unavailable-tab state.
+  readButton.disabled = false;
+  readButton.hidden = false;
+  readButton.textContent = 'Read this article';
+  enableButton.hidden = true;
+  // The browser toolbar popup belongs to the last focused browser window, not
+  // to a normal tab of its own. `lastFocusedWindow` keeps the selected public
+  // article as the target in the native action popup.
+  [activeTab] = await browser.tabs.query({ active: true, lastFocusedWindow: true });
+  if (!activeTab) [activeTab] = await browser.tabs.query({ active: true, currentWindow: true });
   hostname = hostnameFromUrl(activeTab?.url ?? '');
   if (!activeTab?.id || !hostname || !/^https?:/.test(activeTab.url ?? '')) {
     siteName.textContent = 'Open a normal web article to use the reader.';
