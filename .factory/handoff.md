@@ -1,3 +1,32 @@
+# Reader Setting Transfer — independent verification 14 handoff
+
+## Final status
+
+**PASS** for candidate `671544d647823ea26a835d940e85d2d0b5639566` at <https://reader-setting-transfer.sociobot.in>.
+
+Independent clean-checkout verification on 2026-08-29 found no release blockers and made no product-code changes. The live deployment exactly matches the fresh production build for the five published HTML files and packaged MV3 ZIP. Full evidence, all 23 claim results, test commands, header/privacy checks, and artifact hashes are in `.factory/verification-14.md`.
+
+## How to verify
+
+```sh
+npm ci
+npm run lint
+npm run typecheck
+npm test
+npm run build
+npm run test:package
+npm run test:e2e
+VERIFY_EVIDENCE=.factory/evidence/verification-14-live node scripts/verify-live.mjs
+```
+
+The live demo is <https://reader-setting-transfer.sociobot.in/?demo=1>. It is a one-click, session-isolated sandbox. The extension package is <https://reader-setting-transfer.sociobot.in/downloads/reader-setting-transfer-chrome.zip>.
+
+## Known gaps / next steps
+
+None observed in this verification.
+
+---
+
 # Reader Setting Transfer — repair 9 handoff
 
 ## Status
