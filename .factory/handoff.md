@@ -1,64 +1,88 @@
-# Reader Setting Transfer — polish round 4 handoff
+# Reader Setting Transfer — verification 13 handoff
 
-## Status: PASS
+## Status: FAIL
 
-Release candidate `cb88464898b5559c8ee9b5cf54872b6d9cb4bb47` was repaired
-in implementation commit `27253f5822d6ad8dc636eb5e5ed5a15624abc65d` and pushed to
-`main`. Deployment `8f3528d9-9b04-44db-922e-e19ac9d1a4b3` is live at
-<https://reader-setting-transfer.sociobot.in/>.
+Candidate `ba6956cf7dd7896aa5c8137bb3945e19e3c34098` was independently
+tested on 2026-08-29 against
+<https://reader-setting-transfer.sociobot.in/>. The deployment is available
+and byte-for-byte matches the candidate production output, so the result is
+not a deployment-only failure.
 
-The four round-4 defects are closed: the article-opening claim is stable, the
-route announcement is visually hidden, site choices can be restored through a
-registered claim, and the remaining deletion metaphor is direct copy. Every
-earlier finding was rechecked. The complete finding map is
-`.factory/polish-4.md`.
+The complete evidence is in `.factory/verification-13.md`.
 
-## Verification
+## Release blockers
 
-- Clean clone `/tmp/rst-polish4-clean-jDrjLh`: `npm ci` found zero
-  vulnerabilities and every one of 22 claim commands passed independently on
-  its first invocation.
-- Final pushed-tree clone `/tmp/rst-polish4-final-TNxBf4`: `npm run check`,
-  `npm run test:package`, `npm run test:e2e`, and both audits passed.
-- `extension-open-article`: five consecutive stress runs passed, followed by
-  passes in the full suite and clean-clone claim run.
-- `npm run check`: lint, typecheck, 11 unit tests, and the production build
-  passed.
-- `npm run test:e2e`: 35/35 browser and packaged-extension tests passed.
-- `npm run test:package`: deterministic ZIP
+1. `lib/article.ts:27` checks only the first matching paywall marker. In real
+   Chromium, a hidden legacy marker followed by a visible active paywall lets
+   982 characters of gated article text through. Visible-only and
+   visible-first controls are correctly refused. This falsifies the
+   access-boundary claim and violates the brief's no-bypass rule.
+2. The packaged reader fails at 390×844 on a preserved long `<pre>` line. At
+   supported maximum reading-card values, document width grows from 390 to
+   989 px (599 px horizontal overflow) and axe reports the serious
+   `scrollable-region-focusable` violation. Plain prose, a long prose word,
+   and a table each remain at 0 px overflow.
+3. README's “preserves … code” statement is not named in
+   `.factory/claims.json` and the article-structure claim test has no
+   `<pre>`/`<code>` assertion. The claims contract treats this as an unlisted
+   claim.
+
+Additional defects: the stable extension ZIP URL is served
+`max-age=31536000, immutable`, which can leave returning users on an old build,
+and the public site fixes a light palette despite the design document's dark
+tokens.
+
+## What passed
+
+- Mandatory opening gate: `.factory/claims.json` exists and all 22 listed
+  commands passed independently after `npm ci`.
+- Cold first-read: the first screen plainly says what the product does, names
+  low-vision readers, and presents “Try it with sample data.” One click opens a
+  populated isolated demo on desktop and 390 px.
+- `npm run lint`, `npm run typecheck`, `npm test` (11/11), `npm run build`,
+  `npm run test:package`, `npm run test:e2e` (35/35), `npm audit`, and
+  `npm audit --omit=dev` passed.
+- Deterministic/live ZIP SHA-256:
   `1ab39761b25a4cf65d011ea5e3f9a689bf10f51d147d9f583c1a49720bf666ea`.
-- `npm audit` and `npm audit --omit=dev`: zero vulnerabilities.
-- Local Lighthouse: 100 performance, 100 accessibility, 100 best practices,
-  100 SEO; LCP 1.5 s, CLS 0.04, TBT 0 ms.
-- Live Lighthouse: 100/100/100/100; LCP 1.4 s, CLS 0.04, TBT 0 ms.
-- Five live routes: correct titles and metadata, one H1/main, shared legal
-  links, zero serious/critical Axe findings, and zero console errors.
-- Live route focus: primary, forward, and Back focus the H1. The announcement
-  updates while remaining clipped to 1×1 px and outside layout.
-- Live demo: sample heading/paragraph start inside 390×844 and 1440×900,
-  isolated `demo:reader-profile` session storage, Reset, exit clearing, and
-  offline reload all pass.
-- Live privacy: only the product origin was requested; no cookies were set.
-- Live routing: all 13 links returned success; unknown routes return the
-  designed HTTP 404; every route has 0 px overflow at 200% text.
-- Local/live SHA-256 matches: landing HTML
-  `81a2f00ef2c7c32f03280231247d4170ae21fbc63cf3111450529ca989857cb1`;
-  extension ZIP
-  `1ab39761b25a4cf65d011ea5e3f9a689bf10f51d147d9f583c1a49720bf666ea`.
+  A clean unpack/install profile registered the MV3 package, saved maximum
+  settings, and made zero HTTP requests.
+- Local/live hashes match for landing, demo, privacy, terms, 404, and ZIP.
+- Live demo boundaries, invalid import recovery, exact export/import, reset,
+  corrupt-state recovery, service-worker update, and offline reload passed.
+- Five live routes: correct metadata/semantics, 0 px site overflow, visible
+  keyboard focus, reduced-motion handling, no serious/critical axe findings,
+  no console/page errors, healthy links, and a real HTTP 404 for unknown URLs.
+- Privacy: only same-origin requests, no cookies, no remote extension requests.
+- Lighthouse 12.8.2: 100 performance, 100 accessibility, 100 best practices,
+  100 SEO; LCP 1.1 s, TBT 80 ms, CLS 0.036; initial transfer 94,598 bytes.
+- Security headers and fingerprinted-asset/SW cache policies are present.
+- No server-side API, sign-in, billing, or AI path exists, so rate-limit and
+  Entra checks are not applicable.
 
-## Run and verify
+## Required next steps
+
+1. Refuse extraction when any matched access marker is visible; add both mixed
+   ordering cases to `@claim:access-boundaries`.
+2. Constrain narrow reader grid items and make an overflowing code region
+   keyboard-focusable; add a 390 px maximum-settings `<pre>` regression.
+3. Register and prove code preservation or remove that README claim.
+4. Version the ZIP URL or make the stable URL revalidate.
+5. Implement the documented public-site dark treatment or explicitly document
+   the site as single-mode.
+
+## Re-run
 
 ```sh
 npm ci
-npm run check
+npm run lint
+npm run typecheck
+npm test
+npm run build
 npm run test:package
 npm run test:e2e
 npm audit
 ```
 
-Open the isolated sample at <https://reader-setting-transfer.sociobot.in/?demo=1>.
-Live evidence and screenshots are under `.factory/evidence/polish-4/`.
-
-## Known gaps and next steps
-
-None.
+Then repeat the two blocking mixed-paywall and narrow-code fixtures against the
+packaged extension and confirm the live artifact hashes match the repaired
+candidate.
