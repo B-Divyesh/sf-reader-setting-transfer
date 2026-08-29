@@ -6,9 +6,9 @@ const headers = readFileSync(resolve(import.meta.dirname, '../site/public/_heade
 const staticWebAppConfig = JSON.parse(readFileSync(resolve(import.meta.dirname, '../site/public/staticwebapp.config.json'), 'utf8'));
 
 describe('static deployment policy', () => {
-  it('keeps fingerprinted assets and the signed-off package immutable while revalidating the shell', () => {
+  it('keeps fingerprinted assets immutable while revalidating the stable extension download and shell', () => {
     expect(headers).toContain('/assets/*\n  Cache-Control: public, max-age=31536000, immutable');
-    expect(headers).toContain('/downloads/*\n  Cache-Control: public, max-age=31536000, immutable');
+    expect(headers).toContain('/downloads/*\n  Cache-Control: public, max-age=0, must-revalidate');
     expect(headers).toContain('/sw.js\n  Cache-Control: no-cache');
     expect(headers).toContain('/*\n  Content-Security-Policy:');
     expect(headers).toContain('X-Frame-Options: DENY');
@@ -20,7 +20,7 @@ describe('static deployment policy', () => {
     expect(staticWebAppConfig.routes).toContainEqual({
       route: '/downloads/*',
       headers: {
-        'Cache-Control': 'public, max-age=31536000, immutable',
+        'Cache-Control': 'public, max-age=0, must-revalidate',
         'Content-Disposition': 'attachment'
       }
     });

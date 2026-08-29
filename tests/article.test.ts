@@ -12,6 +12,7 @@ describe('article extraction', () => {
       <h2>Second idea</h2><p>The next paragraph continues the article with more than enough information for extraction. It includes a <a href="/next">related link</a> while preserving useful semantic structure for navigation.</p>
       <ul><li>A meaningful list item that belongs to the article.</li></ul>
       <blockquote>A quotation that gives the article useful context.</blockquote>
+      <pre><code>const readingCard = { textSize: '120%' };</code></pre>
       <table><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody><tr><td>Text size</td><td>120%</td></tr></tbody></table>
       <p><a href="javascript:alert('bad')">unsafe link</a></p></article>`;
     window.history.replaceState({}, '', '/article');
@@ -24,6 +25,7 @@ describe('article extraction', () => {
     expect(article.html).toContain('<h2>Readable title</h2>');
     expect(article.html).toContain('<ul>');
     expect(article.html).toContain('<blockquote>');
+    expect(article.html).toContain('<pre><code>const readingCard');
     expect(article.html).toContain('<table>');
     expect(article.html).not.toContain('<script');
     expect(article.html).not.toContain('javascript:');
@@ -36,7 +38,7 @@ describe('article extraction', () => {
     expect(() => extractArticleFromPage()).toThrow(/enough article text/);
   });
 
-  it('@claim:access-boundaries refuses gated pages and does not restyle source web apps', () => {
+  it('refuses a visible gated page and does not restyle source web apps', () => {
     document.body.innerHTML = `<main id="app"><h1>Account dashboard</h1>
       <p>${'Private account content stays inside this application. '.repeat(8)}</p></main>
       <div class="paywall-overlay" role="dialog">Subscribe to continue reading</div>`;
@@ -51,6 +53,24 @@ describe('article extraction', () => {
     const publicSource = document.documentElement.outerHTML;
     expect(extractArticleFromPage().html).toContain('public help article');
     expect(document.documentElement.outerHTML).toBe(publicSource);
+  });
+
+  it('@claim:access-boundaries refuses a visible paywall regardless of hidden marker order', () => {
+    const publicArticle = `<main><article><h1>Public article</h1>
+      <p>${'This page has enough public article text to reproduce the access-boundary check with the same long article shape used by the browser verifier. '.repeat(8)}</p>
+    </article></main>`;
+    const hiddenMarker = '<div class="paywall-overlay" hidden>Old subscription notice</div>';
+    const visibleMarker = '<div class="paywall-overlay">Subscribe to continue reading</div>';
+
+    for (const markers of [
+      `${hiddenMarker}${visibleMarker}`,
+      `${visibleMarker}${hiddenMarker}`
+    ]) {
+      document.body.innerHTML = `${publicArticle}${markers}`;
+      const sourceBefore = document.documentElement.outerHTML;
+      expect(() => extractArticleFromPage()).toThrow(/restrict access/);
+      expect(document.documentElement.outerHTML).toBe(sourceBefore);
+    }
   });
 
   it('allows a public article when a paywall remnant or its ancestor is hidden', () => {

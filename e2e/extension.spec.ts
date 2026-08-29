@@ -272,6 +272,57 @@ test('@claim:extension-reading-settings the packaged Chromium extension applies 
   }
 });
 
+test('@claim:code-preservation preserves long code at maximum settings without 390px page overflow', async ({}, testInfo) => {
+  const extensionPath = resolve('.output/chrome-mv3');
+  const context = await chromium.launchPersistentContext(testInfo.outputPath('code-preservation-profile'), {
+    channel: 'chromium',
+    headless: true,
+    viewport: { width: 390, height: 844 },
+    args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
+  });
+  try {
+    let worker = context.serviceWorkers()[0];
+    if (!worker) worker = await context.waitForEvent('serviceworker');
+    const extensionId = new URL(worker.url()).host;
+    const page = await getOptionsPage(context, extensionId);
+    const longCodeLine = `const preservedReadingCard = '${'settings '.repeat(180)}';`;
+    await page.evaluate(async ({ profile, code }) => chrome.storage.local.set({
+      readerProfile: profile,
+      currentArticle: {
+        title: 'Code preservation at narrow width', byline: '', source: 'example.test', url: 'https://example.test/article',
+        html: `<p>Code examples remain part of a simplified article.</p><pre><code>${code}</code></pre>`,
+        excerpt: 'Code examples remain part of a simplified article.', extractedAt: Date.now()
+      }
+    }), {
+      profile: {
+        version: 1, name: 'Maximum reading card', fontScale: 1.8, measure: 40,
+        lineHeight: 2.2, paragraphSpace: 2.5, letterSpacing: .08,
+        contrast: 'dark', fontChoice: 'dyslexia', reduceMotion: false
+      },
+      code: longCodeLine
+    });
+
+    await page.goto(`chrome-extension://${extensionId}/reader.html`);
+    const codeBlock = page.locator('#article-content pre');
+    await expect(codeBlock).toBeVisible();
+    await expect(codeBlock).toContainText(longCodeLine);
+    await expect(codeBlock).toHaveAttribute('tabindex', '0');
+    await expect(codeBlock).toHaveAttribute('aria-label', 'Scrollable code sample');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
+    const codeMetrics = await codeBlock.evaluate((element) => ({ clientWidth: element.clientWidth, scrollWidth: element.scrollWidth }));
+    expect(codeMetrics.scrollWidth).toBeGreaterThan(codeMetrics.clientWidth);
+    await codeBlock.focus();
+    await expect(codeBlock).toBeFocused();
+    const beforeScroll = await codeBlock.evaluate((element) => element.scrollLeft);
+    await page.keyboard.press('ArrowRight');
+    await expect.poll(() => codeBlock.evaluate((element) => element.scrollLeft)).toBeGreaterThan(beforeScroll);
+    const results = await new AxeBuilder({ page }).analyze();
+    expect(results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''))).toEqual([]);
+  } finally {
+    await context.close();
+  }
+});
+
 test('@claim:extension-reading-card-transfer a complete reading card transfers between clean packaged extension profiles', async ({}, testInfo) => {
   test.setTimeout(60_000);
   const extensionPath = resolve('.output/chrome-mv3');
@@ -578,6 +629,18 @@ test('real Chromium ignores direct and inherited CSS-hidden paywall remnants', a
     document.body.innerHTML = `${article}<div class="paywall-overlay">Subscribe to continue reading</div>`;
   }, publicArticle);
   await expect(page.evaluate(extractArticleFromPage)).rejects.toThrow(/restrict access/);
+
+  for (const markers of [
+    '<div class="paywall-overlay" hidden>Old subscription notice</div><div class="paywall-overlay">Subscribe to continue reading</div>',
+    '<div class="paywall-overlay">Subscribe to continue reading</div><div class="paywall-overlay" hidden>Old subscription notice</div>'
+  ]) {
+    await page.evaluate(({ article, accessMarkers }) => {
+      document.body.innerHTML = `${article}${accessMarkers}`;
+    }, { article: publicArticle, accessMarkers: markers });
+    const sourceBefore = await page.content();
+    await expect(page.evaluate(extractArticleFromPage)).rejects.toThrow(/restrict access/);
+    expect(await page.content()).toBe(sourceBefore);
+  }
 });
 
 test('@claim:extension-no-remote-requests extension use stays inside the installed package', async ({}, testInfo) => {

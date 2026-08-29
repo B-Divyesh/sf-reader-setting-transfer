@@ -20,6 +20,7 @@ The production build places the extension ZIP in `dist/site/downloads/`.
 ## What v1 does
 
 - Extracts article headings and text after you select **Read this article**
+<!-- claim:code-preservation -->
 - Preserves headings, paragraphs, lists, quotes, code, tables, and safe links
 - Applies your saved reading card only inside the reader
 - Previews type, spacing, and contrast changes while you adjust the reading card

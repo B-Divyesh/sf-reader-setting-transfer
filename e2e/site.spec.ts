@@ -58,6 +58,30 @@ for (const [path, title] of Object.entries(routeMetadata)) {
   });
 }
 
+test('the public site uses the documented dark treatment with readable actions', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await page.goto('/');
+  const palette = await page.evaluate(() => {
+    const action = document.querySelector<HTMLElement>('.nav-download')!;
+    const heading = document.querySelector<HTMLElement>('h1')!;
+    return {
+      page: getComputedStyle(document.body).backgroundColor,
+      heading: getComputedStyle(heading).color,
+      actionBackground: getComputedStyle(action).backgroundColor,
+      actionText: getComputedStyle(action).color,
+      colorScheme: getComputedStyle(document.documentElement).colorScheme
+    };
+  });
+  expect(palette.page).toBe('rgb(22, 27, 36)');
+  expect(palette.heading).toBe('rgb(247, 240, 222)');
+  expect(palette.colorScheme).toContain('dark');
+  expect(contrastRatio(rgbChannels(palette.heading), rgbChannels(palette.page))).toBeGreaterThanOrEqual(4.5);
+  expect(contrastRatio(rgbChannels(palette.actionText), rgbChannels(palette.actionBackground))).toBeGreaterThanOrEqual(4.5);
+  await expect(page.locator('meta[name="theme-color"][media="(prefers-color-scheme: dark)"]')).toHaveAttribute('content', '#161B24');
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''))).toEqual([]);
+});
+
 test('@claim:offline-reload the demo reloads after the first visit while offline', async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();

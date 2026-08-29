@@ -24,15 +24,18 @@ export function extractArticleFromPage(): ExtractedArticle {
     }
     return false;
   };
-  const accessBarrier = document.querySelector<HTMLElement>([
+  const accessBarriers = Array.from(document.querySelectorAll<HTMLElement>([
     '[class*="paywall" i]',
     '[id*="paywall" i]',
     '[aria-label*="paywall" i]',
     '[data-testid*="paywall" i]',
     '[data-content-access="restricted" i]'
-  ].join(','));
-  if (accessBarrier) {
-    if (!isHiddenByAnAncestor(accessBarrier)) throw new Error('This page appears to restrict access. Open an article you can read without a paywall.');
+  ].join(',')));
+  // A page can retain hidden legacy paywall markup alongside an active access
+  // barrier. Extraction must stop if any matching marker is visible; checking
+  // only the first marker makes that decision depend on incidental DOM order.
+  if (accessBarriers.some((accessBarrier) => !isHiddenByAnAncestor(accessBarrier))) {
+    throw new Error('This page appears to restrict access. Open an article you can read without a paywall.');
   }
   const title = safeText(
     document.querySelector<HTMLMetaElement>('meta[property="og:title"]')?.content ||

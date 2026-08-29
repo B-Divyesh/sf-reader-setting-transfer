@@ -63,6 +63,13 @@
     "sandbox": "jsdom article fixture with semantic content, a relative link, script, navigation, and advertisement"
   },
   {
+    "id": "code-preservation",
+    "claim": "The reader preserves code examples without making a 390 px reader page overflow.",
+    "where": "README",
+    "test": "npm run test:e2e -- --grep @claim:code-preservation",
+    "sandbox": "fresh MV3 Chromium profile at 390 × 844; store a maximum-values reading card and a long pre/code line; assert preserved code, no document overflow, keyboard scrolling, and no serious axe findings"
+  },
+  {
     "id": "free-open-source",
     "claim": "Reader Setting Transfer is free and open source.",
     "where": "landing facts, install note, README",

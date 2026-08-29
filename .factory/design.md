@@ -24,6 +24,10 @@ The palette comes from library ephemera and two-pass risograph ink:
 
 All body-copy pairs meet WCAG AA. Contrast modes in the reader are literal surfaces: warm paper, bright white/black high contrast, and dark navy. State is always paired with text or iconography, never color alone.
 
+The public site follows the system light/dark preference. Its dark treatment uses
+the documented night-desk background, charcoal sheets, pale ink, and lighter
+blue/persimmon actions; browser theme-color metadata follows the same choice.
+
 ## Typography
 
 - Interface: `Atkinson Hyperlegible`, self-hosted in 400 and 700 Latin WOFF2 subsets, chosen for differentiated glyph shapes and generous apertures.

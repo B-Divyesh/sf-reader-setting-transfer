@@ -9,7 +9,7 @@ body { background: var(--reader-bg); }
 .bar-button { min-height: 44px; border: 0; padding: 8px 10px; background: transparent; color: var(--blue); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
 .reader-shell { display: grid; grid-template-columns: 260px minmax(0, 1fr); align-items: start; gap: clamp(28px, 5vw, 80px); max-width: 1500px; margin: 0 auto; padding: 48px clamp(20px, 5vw, 72px) 100px; }
 .reader-shell[hidden] { display: none; }
-.reader-rail { position: sticky; top: 32px; display: grid; gap: 28px; padding-top: 4px; }
+.reader-rail { position: sticky; top: 32px; display: grid; min-width: 0; gap: 28px; padding-top: 4px; }
 .profile-tab { padding: 18px; border: 2px solid var(--ink); border-left: 8px solid var(--red); background: var(--surface); box-shadow: 4px 4px 0 var(--ink); }
 .profile-tab strong { display: block; font-size: 1.15rem; }
 .profile-tab span { display: block; margin-top: 6px; font-size: .875rem; }
@@ -21,20 +21,20 @@ body { background: var(--reader-bg); }
 select { min-height: 48px; border: 2px solid var(--ink); border-radius: 3px; padding: 8px; background: var(--surface); color: var(--ink); }
 .reader-rail .button { width: 100%; font-size: .9375rem; }
 .rail-note { color: var(--muted); font-size: .875rem; }
-.article-sheet { --article-size: 20px; --article-measure: 66ch; --article-leading: 1.65; --article-para: 1em; --article-spacing: 0em; width: min(100%, calc(var(--article-measure) + 128px)); margin: 0 auto; padding: clamp(40px, 7vw, 96px) clamp(24px, 7vw, 96px); background: var(--reader-surface); color: var(--reader-text); box-shadow: 10px 10px 0 color-mix(in srgb, var(--red) 85%, transparent); font-family: Georgia, 'Times New Roman', serif; font-size: var(--article-size); line-height: var(--article-leading); letter-spacing: var(--article-spacing); }
+.article-sheet { --article-size: 20px; --article-measure: 66ch; --article-leading: 1.65; --article-para: 1em; --article-spacing: 0em; box-sizing: border-box; min-width: 0; width: min(100%, calc(var(--article-measure) + 128px)); margin: 0 auto; padding: clamp(40px, 7vw, 96px) clamp(24px, 7vw, 96px); background: var(--reader-surface); color: var(--reader-text); box-shadow: 10px 10px 0 color-mix(in srgb, var(--red) 85%, transparent); font-family: Georgia, 'Times New Roman', serif; font-size: var(--article-size); line-height: var(--article-leading); letter-spacing: var(--article-spacing); }
 .article-sheet[data-font='hyperlegible'] { font-family: var(--font-ui); }
 .article-sheet[data-font='dyslexia'] { font-family: Verdana, var(--font-ui); word-spacing: .08em; }
 .article-heading { padding-bottom: 1.5em; border-bottom: 5px solid var(--reader-text); }
 .article-source { margin: 0 0 16px; color: var(--red); font-family: var(--font-ui); font-size: .7em; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-.article-sheet h1 { max-width: 18ch; margin: 0; font-size: clamp(2.2em, 6vw, 4em); line-height: .98; letter-spacing: -.035em; }
+.article-sheet h1 { max-width: 18ch; margin: 0; overflow-wrap: anywhere; font-size: clamp(2.2em, 6vw, 4em); line-height: .98; letter-spacing: -.035em; }
 .article-byline { margin: 20px 0 0; color: var(--reader-muted); font-family: var(--font-ui); font-size: .85em; }
-.article-content { max-width: var(--article-measure); margin: 2.5em auto 0; overflow-wrap: anywhere; }
+.article-content { min-width: 0; max-width: var(--article-measure); margin: 2.5em auto 0; overflow-wrap: anywhere; }
 .article-content p { margin: 0 0 var(--article-para); }
 .article-content h2 { margin: 1.8em 0 .6em; font-size: 1.7em; line-height: 1.15; }
 .article-content h3 { margin: 1.6em 0 .5em; font-size: 1.35em; line-height: 1.2; }
 .article-content a { color: #004dc2; }
 .article-content blockquote { margin: 1.5em 0; padding: .1em 0 .1em 1em; border-left: 6px solid var(--red); font-style: italic; }
-.article-content pre { overflow-x: auto; padding: 1em; background: #e8e0cf; color: #11182b; font-size: .8em; }
+.article-content pre { box-sizing: border-box; max-width: 100%; overflow-x: auto; padding: 1em; background: #e8e0cf; color: #11182b; font-size: .8em; }
 .article-content table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-family: var(--font-ui); font-size: .85em; }
 .article-content th, .article-content td { border: 1px solid currentColor; padding: 8px; text-align: left; }
 .article-end { max-width: var(--article-measure); margin: 3em auto 0; padding-top: 1.5em; border-top: 2px solid var(--reader-text); font-family: var(--font-ui); }

@@ -15,6 +15,23 @@ let profile: ReaderProfile = DEFAULT_PROFILE;
 let articleUrl = '';
 let hostname = '';
 
+function updateScrollableCodeRegions() {
+  document.querySelectorAll<HTMLElement>('#article-content pre').forEach((codeBlock) => {
+    const overflowsHorizontally = codeBlock.scrollWidth > codeBlock.clientWidth + 1;
+    if (overflowsHorizontally) {
+      codeBlock.tabIndex = 0;
+      codeBlock.setAttribute('aria-label', 'Scrollable code sample');
+    } else {
+      codeBlock.removeAttribute('tabindex');
+      codeBlock.removeAttribute('aria-label');
+    }
+  });
+}
+
+function scheduleCodeRegionUpdate() {
+  requestAnimationFrame(updateScrollableCodeRegions);
+}
+
 function applyProfile(next: ReaderProfile) {
   profile = next;
   sheet.style.setProperty('--article-size', `${20 * profile.fontScale}px`);
@@ -28,6 +45,7 @@ function applyProfile(next: ReaderProfile) {
   document.querySelector<HTMLOutputElement>('#size-value')!.value = `${Math.round(profile.fontScale * 100)}%`;
   document.querySelector<HTMLSelectElement>('#reader-contrast')!.value = profile.contrast;
   document.querySelector<HTMLElement>('#profile-name')!.textContent = profile.name;
+  scheduleCodeRegionUpdate();
 }
 
 async function persistQuickChange(changes: Partial<ReaderProfile>) {
@@ -64,6 +82,7 @@ async function init() {
   byline.textContent = article.byline ? `By ${article.byline}` : '';
   byline.hidden = !article.byline;
   document.querySelector<HTMLElement>('#article-content')!.innerHTML = article.html;
+  scheduleCodeRegionUpdate();
   document.querySelector<HTMLElement>('#site-rule')!.textContent = `Applied on ${hostname}`;
   applyProfile(mergedProfile(storedProfile, overrides[hostname]));
   returnButton.hidden = false;
@@ -92,6 +111,7 @@ document.querySelector('#disable-button')!.addEventListener('click', async () =>
 });
 document.querySelectorAll('#return-button, #end-return-button').forEach((button) => button.addEventListener('click', () => void goBack()));
 document.querySelectorAll('#settings-button, #empty-settings-button').forEach((button) => button.addEventListener('click', () => void browser.runtime.openOptionsPage()));
+window.addEventListener('resize', scheduleCodeRegionUpdate);
 
 void init().catch(() => {
   showEmptyState('The saved article could not be opened. Return to its page and collect it again.');

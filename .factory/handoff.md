@@ -1,88 +1,94 @@
-# Reader Setting Transfer — verification 13 handoff
+# Reader Setting Transfer — repair 9 handoff
 
-## Status: FAIL
+## Status
 
-Candidate `ba6956cf7dd7896aa5c8137bb3945e19e3c34098` was independently
-tested on 2026-08-29 against
-<https://reader-setting-transfer.sociobot.in/>. The deployment is available
-and byte-for-byte matches the candidate production output, so the result is
-not a deployment-only failure.
+Repaired the release blockers reported in verification 13 for the browser
+extension and its static companion site. The extension stays MV3 and the site
+stays a static deployment. The researched brief, local-only storage model,
+and all previously passing flows are unchanged.
 
-The complete evidence is in `.factory/verification-13.md`.
+## Repairs
 
-## Release blockers
+1. **Access boundary:** `extractArticleFromPage` now checks every matched
+   access marker and refuses when any one is visible. A hidden legacy marker
+   can no longer make a later visible paywall disappear from the decision.
+2. **Code at narrow widths:** reader grid descendants can shrink, the article
+   and code block are bounded to their container, and long article headings
+   can wrap. A `<pre>` that actually overflows becomes focusable and is named
+   “Scrollable code sample”, so arrow keys can scroll it without creating
+   document-level overflow.
+3. **Code claim:** registered `code-preservation` and tagged the README claim.
+   Unit coverage proves `<pre><code>` survives sanitisation; packaged-MV3
+   browser coverage proves a long code line at all maximum settings preserves
+   code, has zero 390 px page overflow, supports keyboard scrolling, and has
+   no serious/critical Axe finding.
+4. **Download update policy:** the stable extension ZIP now uses
+   `Cache-Control: public, max-age=0, must-revalidate` in both static hosting
+   configurations. Fingerprinted `/assets/*` remains immutable.
+5. **Documented dark treatment:** the site now follows system light/dark
+   preference using the palette in `design.md`, includes matching theme-color
+   metadata, and has a tested AA-contrast action treatment. The service-worker
+   cache was advanced to `reader-setting-transfer-site-v5` to ship the updated
+   shell to returning visitors.
 
-1. `lib/article.ts:27` checks only the first matching paywall marker. In real
-   Chromium, a hidden legacy marker followed by a visible active paywall lets
-   982 characters of gated article text through. Visible-only and
-   visible-first controls are correctly refused. This falsifies the
-   access-boundary claim and violates the brief's no-bypass rule.
-2. The packaged reader fails at 390×844 on a preserved long `<pre>` line. At
-   supported maximum reading-card values, document width grows from 390 to
-   989 px (599 px horizontal overflow) and axe reports the serious
-   `scrollable-region-focusable` violation. Plain prose, a long prose word,
-   and a table each remain at 0 px overflow.
-3. README's “preserves … code” statement is not named in
-   `.factory/claims.json` and the article-structure claim test has no
-   `<pre>`/`<code>` assertion. The claims contract treats this as an unlisted
-   claim.
+## Reproduction and regression evidence
 
-Additional defects: the stable extension ZIP URL is served
-`max-age=31536000, immutable`, which can leave returning users on an old build,
-and the public site fixes a light palette despite the design document's dark
-tokens.
+The exact failure was reproduced before the extractor fix. With the old
+`querySelector` implementation, the new hidden-marker-then-visible-marker
+fixture failed `@claim:access-boundaries`: it expected the extraction to throw
+and received `undefined`. The same registered test now checks both orders;
+the real-Chromium extractor test also checks both orders without mutating the
+source document.
 
-## What passed
+`@claim:code-preservation` is a real packaged-extension regression at
+390 × 844. It stores this maximum reading card: 180% text, 40 characters,
+2.2 line height, 2.5 paragraph spacing, 0.08 letter spacing, dyslexia font,
+dark contrast, and motion enabled. It asserts a long `<pre><code>` remains,
+the document overflow is ≤1 px, the local code rail overflows, focus reaches
+it, ArrowRight changes `scrollLeft`, and Axe reports no serious/critical
+violations.
 
-- Mandatory opening gate: `.factory/claims.json` exists and all 22 listed
-  commands passed independently after `npm ci`.
-- Cold first-read: the first screen plainly says what the product does, names
-  low-vision readers, and presents “Try it with sample data.” One click opens a
-  populated isolated demo on desktop and 390 px.
-- `npm run lint`, `npm run typecheck`, `npm test` (11/11), `npm run build`,
-  `npm run test:package`, `npm run test:e2e` (35/35), `npm audit`, and
-  `npm audit --omit=dev` passed.
-- Deterministic/live ZIP SHA-256:
-  `1ab39761b25a4cf65d011ea5e3f9a689bf10f51d147d9f583c1a49720bf666ea`.
-  A clean unpack/install profile registered the MV3 package, saved maximum
-  settings, and made zero HTTP requests.
-- Local/live hashes match for landing, demo, privacy, terms, 404, and ZIP.
-- Live demo boundaries, invalid import recovery, exact export/import, reset,
-  corrupt-state recovery, service-worker update, and offline reload passed.
-- Five live routes: correct metadata/semantics, 0 px site overflow, visible
-  keyboard focus, reduced-motion handling, no serious/critical axe findings,
-  no console/page errors, healthy links, and a real HTTP 404 for unknown URLs.
-- Privacy: only same-origin requests, no cookies, no remote extension requests.
-- Lighthouse 12.8.2: 100 performance, 100 accessibility, 100 best practices,
-  100 SEO; LCP 1.1 s, TBT 80 ms, CLS 0.036; initial transfer 94,598 bytes.
-- Security headers and fingerprinted-asset/SW cache policies are present.
-- No server-side API, sign-in, billing, or AI path exists, so rate-limit and
-  Entra checks are not applicable.
+## Verification run on 2026-08-29
 
-## Required next steps
+Fresh install and local gates:
 
-1. Refuse extraction when any matched access marker is visible; add both mixed
-   ordering cases to `@claim:access-boundaries`.
-2. Constrain narrow reader grid items and make an overflowing code region
-   keyboard-focusable; add a 390 px maximum-settings `<pre>` regression.
-3. Register and prove code preservation or remove that README claim.
-4. Version the ZIP URL or make the stable URL revalidate.
-5. Implement the documented public-site dark treatment or explicitly document
-   the site as single-mode.
+- `npm ci` — 269 packages installed; audit reported 0 vulnerabilities.
+- `npm run lint` — pass; 5 routes and 23 registered claims.
+- `npm run typecheck` — pass.
+- `npm test` — 12/12 pass.
+- `npm run build` — pass; MV3 output and `dist/site/` produced.
+- `npm run test:package` — pass; ZIP integrity verified and deterministic:
+  `6397759ce375d71b80bd87927acb1dbc50d9f496dd9ab0acd68fb252c24c2fbd`.
+- `npm run test:e2e` — 37/37 pass in 50.2 seconds. This covers desktop and
+  390 px flows, keyboard actions, all claims, packaged-extension privacy and
+  storage boundaries, offline reload/update, route focus, 200% text reflow,
+  light/dark Axe scans, and the new access/code regressions.
+- `npm audit` and `npm audit --omit=dev` — both report 0 vulnerabilities.
+- `/opt/fleet/lib/verify-url.sh` — pass with no console errors for `/`,
+  `/demo/`, `/privacy/`, `/terms/`, and `/404.html`; each had a title, lang,
+  one H1, main landmark, and no missing image alt text or unlabeled buttons.
+  Generated captures are in `.factory/evidence/repair-9/local-*`.
+- Axe was run through the repository’s Playwright `AxeBuilder` integration
+  across all public routes and packaged-reader states, including the long code
+  fixture; all serious/critical results are empty. The standalone
+  `@axe-core/cli` could not start its Selenium-managed Chrome in this image,
+  while the pinned Playwright Chromium path completed the same scanner checks.
+- Mobile Lighthouse against local production output:
+  Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP
+  1.4 s, LCP 1.5 s, TBT 0 ms, CLS 0.04, total transfer 117 KiB. Raw report:
+  `.factory/evidence/repair-9/lighthouse-mobile.json`.
 
-## Re-run
+The initial static JavaScript is 1.14 KiB gzip (`main-Bp8fVAT7.js`); the
+initial CSS is 5.07 KiB gzip (`main-BO9QIlwK.css`). Both are below the product
+budget.
 
-```sh
-npm ci
-npm run lint
-npm run typecheck
-npm test
-npm run build
-npm run test:package
-npm run test:e2e
-npm audit
-```
+## Deployment
 
-Then repeat the two blocking mixed-paywall and narrow-code fixtures against the
-packaged extension and confirm the live artifact hashes match the repaired
-candidate.
+Static deployment is triggered from `main` through the factory work order.
+This handoff will be updated with live identity, headers, and browser evidence
+after the repair commit is pushed.
+
+## Known gaps / next steps
+
+None known locally. The only pending step is the post-push live identity and
+header verification described above.
