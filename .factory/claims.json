@@ -8,10 +8,10 @@
   },
   {
     "id": "reading-card-json-transfer",
-    "claim": "Reading cards export and import as inspectable JSON.",
+    "claim": "A reading card exported as a JSON text file imports into a second clean demo session.",
     "where": "landing reading-card section, demo, README",
     "test": "npm run test:e2e -- --grep @claim:reading-card-json-transfer",
-    "sandbox": "fresh Chromium context at /demo/; export sample card; parse fields; import a changed valid card; assert the article changes"
+    "sandbox": "two fresh Chromium contexts at /demo/; change and export in the first; import the file in the second; assert every value and rendered article style"
   },
   {
     "id": "demo-isolation",
@@ -110,5 +110,19 @@
     "where": "privacy page and README",
     "test": "npm run test:e2e -- --grep @claim:no-background-monitoring",
     "sandbox": "fresh MV3 profile; visit two pages without opening the extension; assert extension storage remains empty and no extension requests or injected elements appear"
+  },
+  {
+    "id": "extension-reading-settings",
+    "claim": "The packaged Chromium extension applies text size, line length, paragraph and line spacing, letter spacing and shapes, contrast, and reduced motion.",
+    "where": "landing first screen and how-it-works, README",
+    "test": "npm run test:e2e -- --grep @claim:extension-reading-settings",
+    "sandbox": "fresh MV3 Chromium profile; save every reading-card field in options; open a stored article; assert every rendered style and reduced-motion state"
+  },
+  {
+    "id": "extension-no-remote-requests",
+    "claim": "The extension makes no remote requests.",
+    "where": "landing privacy section and README",
+    "test": "npm run test:e2e -- --grep @claim:extension-no-remote-requests",
+    "sandbox": "fresh MV3 Chromium profile; inspect manifest and installed dependencies; use options and reader; assert no HTTP requests, cookies, remote permissions, or unexpected storage keys"
   }
 ]

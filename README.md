@@ -1,11 +1,14 @@
 # Reader Setting Transfer
 
-Reader Setting Transfer is a free, open-source Chrome/Chromium extension for low-vision readers.
+Reader Setting Transfer is a free, open-source Chromium extension for low-vision readers.
 
-Make one reading card for text size, line length, spacing, contrast, letter shapes, and reduced motion. Choose the extension on a public article. The reader applies your card and shows the active site. Export the card as readable JSON and import it in another browser.
+<!-- claim:extension-reading-settings -->
+Make one reading card for text size, line length, spacing, contrast, letter shapes, and reduced motion. Choose the extension on a supported public article. The reader applies every saved setting and shows the active site.
+
+Export the reading card as a text file, then import it when needed. The file uses JSON.
 
 Try the isolated sample at <https://reader-setting-transfer.sociobot.in/?demo=1>.
-It uses a separate `demo:` session namespace and does not read extension data.
+The demo keeps temporary changes in its own browser session and does not read extension data.
 The demo reloads offline after your first visit.
 
 The production build places the extension ZIP in `dist/site/downloads/`.
@@ -15,7 +18,7 @@ The production build places the extension ZIP in `dist/site/downloads/`.
 - Extracts article headings and text after you select **Read this article**
 - Preserves headings, paragraphs, lists, quotes, code, tables, and safe links
 - Applies your saved reading card only inside the reader
-- Provides live settings preview and quick reader text-size/contrast changes
+- Previews changes and lets you adjust text size and contrast in the reader
 - Stores the current article, reading card, and site choices locally
 - Turns the reader off per site and returns to the original page
 - Supports keyboard use and 390 px layouts on the landing page and demo
@@ -26,7 +29,7 @@ It refuses clearly marked paywalls and opens a separate reader without changing 
 
 ## Run locally
 
-Requirements: Node.js 20+ and `zip`.
+Requirements: Node.js 22+ and `zip`.
 
 ```sh
 npm install
@@ -36,10 +39,11 @@ npm test             # unit tests
 npm run test:package # verifies the download ZIP is deterministic and valid
 npm run build        # extension + site + packaged ZIP
 npm run test:e2e     # real Chromium and axe checks after build
-npm run lint         # static TypeScript and repository checks
+npm run lint         # content and claim-tag checks
+npm run typecheck    # static TypeScript checks
 ```
 
-The reproducible production command is exactly:
+Build the production files with:
 
 ```sh
 npm run build
@@ -57,11 +61,12 @@ Outputs:
 2. Open `chrome://extensions`.
 3. Enable Developer mode.
 4. Choose **Load unpacked** and select `.output/chrome-mv3`.
-5. Pin Reader Setting Transfer, open a public article, and choose the extension.
+5. Pin Reader Setting Transfer, open a supported public article, and choose the extension.
 
 ## Privacy and permissions
 
-The extension has no analytics, account, remote API, or broad host permission.
+<!-- claim:extension-no-remote-requests -->
+The extension makes no remote requests.
 <!-- claim:activation-boundary -->
 It reads article text only after you open the extension and select **Read this article**.
 <!-- claim:no-background-monitoring -->

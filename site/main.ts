@@ -3,6 +3,14 @@ import '@fontsource/atkinson-hyperlegible/700.css';
 import './style.css';
 
 if (new URLSearchParams(location.search).get('demo') === '1') {
+  // Preserve the route-focus intent across the canonical demo redirect. This
+  // keeps the documented /?demo=1 entry point while giving keyboard and
+  // screen-reader users a clear destination after the full-page navigation.
+  try {
+    sessionStorage.setItem('reader-setting-transfer:route-focus', '/demo/');
+  } catch {
+    // The demo remains usable when session storage is unavailable.
+  }
   location.replace('/demo/');
 }
 

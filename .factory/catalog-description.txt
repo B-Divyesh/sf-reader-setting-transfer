@@ -1,1 +1,1 @@
-Apply one reading card to simplified web articles without resetting text size, spacing, contrast, or motion.
+Apply one reading card to supported web articles with your chosen text, spacing, contrast, and motion.

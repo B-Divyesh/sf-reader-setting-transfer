@@ -151,6 +151,104 @@ test('@claim:extension-local-reader the built extension stores a profile locally
   }
 });
 
+test('@claim:extension-reading-settings the packaged Chromium extension applies every reading setting', async ({}, testInfo) => {
+  const extensionPath = resolve('.output/chrome-mv3');
+  const context = await chromium.launchPersistentContext(testInfo.outputPath('all-settings-profile'), {
+    channel: 'chromium',
+    headless: true,
+    args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
+  });
+  try {
+    let worker = context.serviceWorkers()[0];
+    if (!worker) worker = await context.waitForEvent('serviceworker');
+    const extensionId = new URL(worker.url()).host;
+    const page = await getOptionsPage(context, extensionId);
+    await page.evaluate(() => chrome.storage.local.clear());
+    await page.reload();
+    await expect(page.locator('#profile-name')).toHaveValue('My reading card');
+
+    await page.locator('#profile-name').fill('Complete settings');
+    await page.locator('#font-scale').fill('1.35');
+    await page.locator('#measure').fill('48');
+    await page.locator('#line-height').fill('1.9');
+    await page.locator('#paragraph-space').fill('1.7');
+    await page.locator('#letter-spacing').fill('0.04');
+    await page.locator('#font-choice').selectOption('dyslexia');
+    await page.locator('#contrast').selectOption('dark');
+    await page.locator('#reduce-motion').check();
+    await page.getByRole('button', { name: 'Save reading card' }).click();
+    await expect(page.getByRole('status').filter({ hasText: 'Saved on this device.' })).toBeVisible();
+
+    await page.evaluate(() => chrome.storage.local.set({ currentArticle: {
+      title: 'Every setting test', byline: '', source: 'example.test', url: 'https://example.test/article',
+      html: '<p>Every reading setting should reach this article.</p>', excerpt: 'Every reading setting', extractedAt: Date.now()
+    }}));
+    await page.goto(`chrome-extension://${extensionId}/reader.html`);
+    const article = page.locator('#article');
+    await expect(article).toHaveCSS('--article-size', '27px');
+    await expect(article).toHaveCSS('--article-measure', '48ch');
+    await expect(article).toHaveCSS('--article-leading', '1.9');
+    await expect(article).toHaveCSS('--article-para', '1.7em');
+    await expect(article).toHaveCSS('--article-spacing', '0.04em');
+    await expect(article).toHaveAttribute('data-font', 'dyslexia');
+    await expect(article).toHaveAttribute('data-contrast', 'dark');
+    await expect(article).toHaveAttribute('data-reduce-motion', 'true');
+    await expect(page.locator('#profile-name')).toHaveText('Complete settings');
+    expect(await article.evaluate((element) => getComputedStyle(element).animationName)).toBe('none');
+
+    await page.evaluate(async () => {
+      const { readerProfile } = await chrome.storage.local.get('readerProfile');
+      await chrome.storage.local.set({ readerProfile: { ...readerProfile, reduceMotion: false } });
+    });
+    await page.reload();
+    await expect(article).toHaveAttribute('data-reduce-motion', 'false');
+    expect(await article.evaluate((element) => getComputedStyle(element).animationName)).toBe('settle');
+  } finally {
+    await context.close();
+  }
+});
+
+test('@claim:extension-no-remote-requests extension use stays inside the installed package', async ({}, testInfo) => {
+  const extensionPath = resolve('.output/chrome-mv3');
+  const manifest = JSON.parse(readFileSync(resolve(extensionPath, 'manifest.json'), 'utf8'));
+  const packageJson = JSON.parse(readFileSync(resolve('package.json'), 'utf8'));
+  expect(manifest.host_permissions).toBeUndefined();
+  expect(manifest.externally_connectable).toBeUndefined();
+  expect(manifest.permissions).not.toContain('cookies');
+  expect(Object.keys({ ...packageJson.dependencies, ...packageJson.devDependencies }))
+    .not.toEqual(expect.arrayContaining(['@segment/analytics-next', 'firebase', 'posthog-js']));
+
+  const context = await chromium.launchPersistentContext(testInfo.outputPath('no-remote-profile'), {
+    channel: 'chromium',
+    headless: true,
+    args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
+  });
+  const remoteRequests: string[] = [];
+  context.on('request', (request) => {
+    if (/^https?:/.test(request.url())) remoteRequests.push(request.url());
+  });
+  try {
+    let worker = context.serviceWorkers()[0];
+    if (!worker) worker = await context.waitForEvent('serviceworker');
+    const extensionId = new URL(worker.url()).host;
+    const page = await getOptionsPage(context, extensionId);
+    await page.evaluate(() => chrome.storage.local.clear());
+    await page.locator('#font-scale').fill('1.25');
+    await page.getByRole('button', { name: 'Save reading card' }).click();
+    await page.evaluate(() => chrome.storage.local.set({ currentArticle: {
+      title: 'Local request check', byline: '', source: 'local.test', url: 'https://local.test/article',
+      html: '<p>Stored article content.</p>', excerpt: 'Stored article content.', extractedAt: Date.now()
+    }}));
+    await page.goto(`chrome-extension://${extensionId}/reader.html`);
+    await expect(page.getByRole('heading', { name: 'Local request check' })).toBeVisible();
+    expect(remoteRequests).toEqual([]);
+    expect(await context.cookies()).toEqual([]);
+    expect(Object.keys(await page.evaluate(() => chrome.storage.local.get(null))).sort()).toEqual(['currentArticle', 'readerProfile']);
+  } finally {
+    await context.close();
+  }
+});
+
 test('@claim:per-site-off-return turns the reader off for one site and returns to the original article', async ({}, testInfo) => {
   const extensionPath = resolve('.output/chrome-mv3');
   const context = await chromium.launchPersistentContext(testInfo.outputPath('per-site-profile'), {
