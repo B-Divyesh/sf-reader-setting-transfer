@@ -8,6 +8,7 @@ body { background: var(--reader-bg); }
 .reader-actions { display: flex; gap: 12px; }
 .bar-button { min-height: 44px; border: 0; padding: 8px 10px; background: transparent; color: var(--blue); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
 .reader-shell { display: grid; grid-template-columns: 260px minmax(0, 1fr); align-items: start; gap: clamp(28px, 5vw, 80px); max-width: 1500px; margin: 0 auto; padding: 48px clamp(20px, 5vw, 72px) 100px; }
+.reader-shell[hidden] { display: none; }
 .reader-rail { position: sticky; top: 32px; display: grid; gap: 28px; padding-top: 4px; }
 .profile-tab { padding: 18px; border: 2px solid var(--ink); border-left: 8px solid var(--red); background: var(--surface); box-shadow: 4px 4px 0 var(--ink); }
 .profile-tab strong { display: block; font-size: 1.15rem; }

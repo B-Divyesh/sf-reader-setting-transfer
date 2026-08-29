@@ -1,6 +1,19 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
+function contrastRatio(first: number[], second: number[]) {
+  const luminance = (rgb: number[]) => rgb
+    .map((channel) => channel / 255)
+    .map((channel) => channel <= .04045 ? channel / 12.92 : ((channel + .055) / 1.055) ** 2.4)
+    .reduce((total, channel, index) => total + channel * [.2126, .7152, .0722][index], 0);
+  const [lighter, darker] = [luminance(first), luminance(second)].sort((a, b) => b - a);
+  return (lighter + .05) / (darker + .05);
+}
+
+function rgbChannels(value: string) {
+  return value.match(/[\d.]+/g)!.slice(0, 3).map(Number);
+}
+
 for (const path of ['/', '/demo/', '/privacy/', '/terms/', '/404.html']) {
   test(`${path} has one main heading and no serious accessibility violations`, async ({ page }) => {
     const consoleErrors: string[] = [];
@@ -98,6 +111,24 @@ test('@claim:reading-settings sample settings visibly change and reset the artic
     .map((element) => ({ tag: element.tagName, id: element.id, text: element.textContent?.trim(), box: element.getBoundingClientRect().toJSON() })));
   expect(undersizedTargets).toEqual([]);
   await page.screenshot({ path: 'test-results/mobile-demo.png', fullPage: true });
+});
+
+test('demo banner controls have a focus indicator with at least 3:1 contrast', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/demo/');
+
+  for (const control of [page.getByRole('button', { name: 'Reset demo' }), page.getByRole('link', { name: 'Start for real' })]) {
+    await control.focus();
+    await expect(control).toBeFocused();
+    const colors = await control.evaluate((element) => {
+      const focused = getComputedStyle(element);
+      const banner = getComputedStyle(element.closest('.demo-banner')!);
+      return { outline: focused.outlineColor, adjacent: banner.backgroundColor, width: parseFloat(focused.outlineWidth) };
+    });
+    expect(colors.width).toBeGreaterThanOrEqual(2);
+    expect(contrastRatio(rgbChannels(colors.outline), rgbChannels(colors.adjacent))).toBeGreaterThanOrEqual(3);
+  }
 });
 
 test('@claim:profile-json-transfer the sample card exports and imports as JSON', async ({ page }) => {

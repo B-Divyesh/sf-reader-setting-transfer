@@ -1,0 +1,11 @@
+{
+  "shellHidden": true,
+  "shellDisplay": "none",
+  "emptyVisible": true,
+  "accessibleArticleControls": 0,
+  "visibleEmptyHeadings": [
+    "Open an article, then choose the extension."
+  ],
+  "storageKeys": [],
+  "errors": []
+}

@@ -109,6 +109,7 @@ code { padding: 2px 5px; background: var(--sheet); border: 1px solid var(--rule)
 .demo-banner { position: sticky; top: 0; z-index: 90; display: flex; min-height: 56px; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px 18px; padding: 8px 20px; border-bottom: 2px solid var(--ink); background: var(--ink); color: var(--paper); font-weight: 700; }
 .demo-banner p { margin: 0; }
 .demo-banner button, .demo-banner a { min-height: 44px; border: 2px solid var(--paper); padding: 7px 12px; background: transparent; color: var(--paper); font: inherit; font-weight: 700; cursor: pointer; }
+.demo-banner button:focus-visible, .demo-banner a:focus-visible { outline-color: var(--paper); }
 .demo-banner a { display: inline-flex; align-items: center; text-decoration: underline; }
 .demo-page { max-width: 1500px; margin: 0 auto; padding: clamp(48px, 7vw, 96px) clamp(20px, 5vw, 72px) 112px; }
 .demo-intro { max-width: 850px; margin-bottom: 56px; }

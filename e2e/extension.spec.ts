@@ -19,6 +19,63 @@ async function getOptionsPage(context: Awaited<ReturnType<typeof chromium.launch
   return page;
 }
 
+test('a fresh reader exposes only its empty state and keeps article controls inert', async ({}, testInfo) => {
+  const extensionPath = resolve('.output/chrome-mv3');
+  const context = await chromium.launchPersistentContext(testInfo.outputPath('empty-reader-profile'), {
+    channel: 'chromium',
+    headless: true,
+    viewport: { width: 390, height: 844 },
+    args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
+  });
+
+  try {
+    let worker = context.serviceWorkers()[0];
+    if (!worker) worker = await context.waitForEvent('serviceworker');
+    const extensionId = new URL(worker.url()).host;
+    const optionsPage = await getOptionsPage(context, extensionId);
+    await optionsPage.evaluate(() => chrome.storage.local.clear());
+
+    const page = await context.newPage();
+    const pageErrors: string[] = [];
+    page.on('pageerror', (error) => pageErrors.push(error.message));
+    await page.goto(`chrome-extension://${extensionId}/reader.html`);
+
+    await expect(page.getByRole('heading', { name: 'Open an article, then choose the extension.' })).toBeVisible();
+    await expect(page.locator('#reader-shell')).toBeHidden();
+    await expect(page.getByRole('button', { name: 'Make text larger' })).toHaveCount(0);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveCount(0);
+    // Dispatch directly against the hidden DOM node to prove the defensive
+    // initialization also prevents the verifier's former fontScale error.
+    await page.locator('#size-up').dispatchEvent('click');
+    await expect(page.locator('#reader-status')).toHaveText('Reading card updated.');
+    expect(pageErrors).toEqual([]);
+
+    await page.getByRole('button', { name: 'Review my reading card' }).focus();
+    await page.keyboard.press('Tab');
+    await expect(page.locator('#size-down')).not.toBeFocused();
+
+    const results = await new AxeBuilder({ page }).analyze();
+    expect(results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''))).toEqual([]);
+
+    const errorPage = await context.newPage();
+    const initializationErrors: string[] = [];
+    errorPage.on('pageerror', (error) => initializationErrors.push(error.message));
+    await errorPage.addInitScript(() => {
+      Object.defineProperty(chrome.storage.local, 'get', {
+        configurable: true,
+        value: () => Promise.reject(new Error('Synthetic storage read failure'))
+      });
+    });
+    await errorPage.goto(`chrome-extension://${extensionId}/reader.html`);
+    await expect(errorPage.getByText('The saved article could not be opened. Return to its page and collect it again.')).toBeVisible();
+    await expect(errorPage.locator('#reader-shell')).toBeHidden();
+    await expect(errorPage.getByRole('button', { name: 'Make text larger' })).toHaveCount(0);
+    expect(initializationErrors).toEqual([]);
+  } finally {
+    await context.close();
+  }
+});
+
 test('@claim:extension-local-reader the built extension stores a profile locally and renders a clean article', async ({}, testInfo) => {
   // This claim deliberately runs 12 complete axe scans across the options and
   // reader contrast/size matrix in a real MV3 browser context. On a contended

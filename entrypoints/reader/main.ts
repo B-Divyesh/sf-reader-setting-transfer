@@ -1,5 +1,5 @@
 import { browser } from 'wxt/browser';
-import { mergedProfile, hostnameFromUrl, type ContrastMode, type ReaderProfile } from '../../lib/profile';
+import { DEFAULT_PROFILE, mergedProfile, hostnameFromUrl, type ContrastMode, type ReaderProfile } from '../../lib/profile';
 import { getArticle, getOverrides, getProfile, saveOverrides, saveProfile } from '../../lib/storage';
 import './style.css';
 
@@ -7,7 +7,10 @@ const shell = document.querySelector<HTMLElement>('#reader-shell')!;
 const empty = document.querySelector<HTMLElement>('#empty-state')!;
 const sheet = document.querySelector<HTMLElement>('#article')!;
 const status = document.querySelector<HTMLElement>('#reader-status')!;
-let profile: ReaderProfile;
+// Keep controls safe even if storage initialization fails. They remain hidden
+// outside a ready reader, but a synthetic/programmatic activation must not
+// turn a recoverable empty state into an uncaught exception.
+let profile: ReaderProfile = DEFAULT_PROFILE;
 let articleUrl = '';
 let hostname = '';
 
@@ -34,6 +37,12 @@ async function persistQuickChange(changes: Partial<ReaderProfile>) {
   status.textContent = 'Reading card updated.';
 }
 
+function showEmptyState(message?: string) {
+  shell.hidden = true;
+  empty.hidden = false;
+  if (message) empty.querySelector('p:last-of-type')!.textContent = message;
+}
+
 async function goBack() {
   if (articleUrl) await browser.tabs.update({ url: articleUrl });
 }
@@ -41,8 +50,7 @@ async function goBack() {
 async function init() {
   const [article, storedProfile, overrides] = await Promise.all([getArticle(), getProfile(), getOverrides()]);
   if (!article) {
-    empty.hidden = false;
-    shell.hidden = true;
+    showEmptyState();
     return;
   }
   articleUrl = article.url;
@@ -83,7 +91,5 @@ document.querySelectorAll('#return-button, #end-return-button').forEach((button)
 document.querySelectorAll('#settings-button, #empty-settings-button').forEach((button) => button.addEventListener('click', () => void browser.runtime.openOptionsPage()));
 
 void init().catch(() => {
-  shell.hidden = true;
-  empty.hidden = false;
-  empty.querySelector('p:last-of-type')!.textContent = 'The saved article could not be opened. Return to its page and collect it again.';
+  showEmptyState('The saved article could not be opened. Return to its page and collect it again.');
 });
