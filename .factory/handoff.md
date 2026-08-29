@@ -1,3 +1,43 @@
+# Reader Setting Transfer — adversarial review 5 handoff
+
+## Final status
+
+**PASS** at commit `1f602d8146d24dd3f5aff9611ac7d4141b7eb08f`.
+
+This reviewer pass made no product-code changes. It added
+`.factory/review-5.md`, a complete adversarial first-read record. The review
+checks the live deployment from fresh phone and desktop browser contexts, the
+demo isolation boundary, every registered claim from a clean clone, copy,
+history, routing, metadata, accessibility, links, privacy requests, and the
+brief’s missing-leverage question. No findings remain.
+
+## How verified
+
+In clean clone `/tmp/rst-review5-clean-L1q3zb`:
+
+```sh
+npm ci
+npm run check
+npm run test:package
+# every exact command in .factory/claims.json, invoked separately
+npm audit --omit=dev
+npm audit
+```
+
+All 23 claim commands passed on their first invocation. Live
+`VERIFY_EVIDENCE=/tmp/rst-review5-live node scripts/verify-live.mjs` also
+passed: five routes, 13 links, first screen at 390 × 844 and 1440 × 900,
+demo reset/isolation/offline reload, 404, focus, metadata, headers, same-origin
+requests only, no cookies, zero console errors, zero serious/critical Axe
+findings, and zero reflow overflow at 200% text.
+
+## Known gaps / next steps
+
+None observed. Preserve the local-only demo namespace and register an
+observable test for any future visitor-facing product claim.
+
+---
+
 # Reader Setting Transfer — independent verification 14 handoff
 
 ## Final status
