@@ -1,0 +1,75 @@
+{
+  "liveZipSha": "7c4831b7ef0d76c8f75914acf2ff711b0b7c5c37cd0a6d5b8e9c66fdfe27967c",
+  "extensionId": "aigdaibdloebojlcejmennejmofjmkao",
+  "title": "Article reader — Reader Setting Transfer",
+  "headings": [
+    {
+      "level": 2,
+      "text": "Open an article, then choose the extension.",
+      "visible": true
+    },
+    {
+      "level": 1,
+      "text": "",
+      "visible": false
+    }
+  ],
+  "h1Count": 1,
+  "mainCount": 1,
+  "emptyVisible": true,
+  "visibleControls": [
+    {
+      "tag": "A",
+      "id": "",
+      "text": "Skip to article",
+      "href": "#article"
+    },
+    {
+      "tag": "BUTTON",
+      "id": "settings-button",
+      "text": "Reading card",
+      "href": null,
+      "disabled": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "return-button",
+      "text": "Return to original",
+      "href": null,
+      "disabled": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "empty-settings-button",
+      "text": "Review my reading card",
+      "href": null,
+      "disabled": false
+    }
+  ],
+  "firstFocus": {
+    "tag": "A",
+    "id": "",
+    "text": "Skip to article",
+    "href": "#article"
+  },
+  "skipAfter": {
+    "tag": "BODY",
+    "id": "",
+    "url": "chrome-extension://aigdaibdloebojlcejmennejmofjmkao/reader.html#article",
+    "articleHidden": true
+  },
+  "returnAfter": {
+    "url": "chrome-extension://aigdaibdloebojlcejmennejmofjmkao/reader.html#article",
+    "unchanged": true
+  },
+  "seriousCritical": [],
+  "allAxe": [
+    {
+      "id": "page-has-heading-one",
+      "impact": "moderate"
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "http": []
+}

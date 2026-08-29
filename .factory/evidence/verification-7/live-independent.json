@@ -1,0 +1,1748 @@
+{
+  "routes": [
+    {
+      "viewport": "desktop",
+      "path": "/",
+      "status": 200,
+      "title": "Reader Setting Transfer — carry settings into articles",
+      "lang": "en",
+      "h1": [
+        "Carry your reading settings into clean articles."
+      ],
+      "mains": 1,
+      "overflow": 0,
+      "badImages": [],
+      "motion": [
+        {
+          "tag": "HTML",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "HEAD",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "TITLE",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "SCRIPT",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        }
+      ],
+      "seriousCritical": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "origins": [
+        "https://reader-setting-transfer.sociobot.in"
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "path": "/demo/",
+      "status": 200,
+      "title": "Demo — Reader Setting Transfer",
+      "lang": "en",
+      "h1": [
+        "Try your settings on a real article."
+      ],
+      "mains": 1,
+      "overflow": 0,
+      "badImages": [],
+      "motion": [
+        {
+          "tag": "HTML",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "HEAD",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "TITLE",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "SCRIPT",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        }
+      ],
+      "seriousCritical": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "origins": [
+        "https://reader-setting-transfer.sociobot.in"
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "path": "/privacy/",
+      "status": 200,
+      "title": "Privacy — Reader Setting Transfer",
+      "lang": "en",
+      "h1": [
+        "Privacy, in plain language."
+      ],
+      "mains": 1,
+      "overflow": 0,
+      "badImages": [],
+      "motion": [
+        {
+          "tag": "HTML",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "HEAD",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "TITLE",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "SCRIPT",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        }
+      ],
+      "seriousCritical": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "origins": [
+        "https://reader-setting-transfer.sociobot.in"
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "path": "/terms/",
+      "status": 200,
+      "title": "Terms — Reader Setting Transfer",
+      "lang": "en",
+      "h1": [
+        "Terms of use."
+      ],
+      "mains": 1,
+      "overflow": 0,
+      "badImages": [],
+      "motion": [
+        {
+          "tag": "HTML",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "HEAD",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "TITLE",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "SCRIPT",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        }
+      ],
+      "seriousCritical": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "origins": [
+        "https://reader-setting-transfer.sociobot.in"
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "path": "/404.html",
+      "status": 200,
+      "title": "Page not found — Reader Setting Transfer",
+      "lang": "en",
+      "h1": [
+        "This page slipped out of frame."
+      ],
+      "mains": 1,
+      "overflow": 0,
+      "badImages": [],
+      "motion": [
+        {
+          "tag": "HTML",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "HEAD",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "TITLE",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        }
+      ],
+      "seriousCritical": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "origins": [
+        "https://reader-setting-transfer.sociobot.in"
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "path": "/",
+      "status": 200,
+      "title": "Reader Setting Transfer — carry settings into articles",
+      "lang": "en",
+      "h1": [
+        "Carry your reading settings into clean articles."
+      ],
+      "mains": 1,
+      "overflow": 0,
+      "badImages": [],
+      "motion": [
+        {
+          "tag": "HTML",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "HEAD",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "TITLE",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "SCRIPT",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        }
+      ],
+      "seriousCritical": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "origins": [
+        "https://reader-setting-transfer.sociobot.in"
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "path": "/demo/",
+      "status": 200,
+      "title": "Demo — Reader Setting Transfer",
+      "lang": "en",
+      "h1": [
+        "Try your settings on a real article."
+      ],
+      "mains": 1,
+      "overflow": 0,
+      "badImages": [],
+      "motion": [
+        {
+          "tag": "HTML",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "HEAD",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "TITLE",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "SCRIPT",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        }
+      ],
+      "seriousCritical": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "origins": [
+        "https://reader-setting-transfer.sociobot.in"
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "path": "/privacy/",
+      "status": 200,
+      "title": "Privacy — Reader Setting Transfer",
+      "lang": "en",
+      "h1": [
+        "Privacy, in plain language."
+      ],
+      "mains": 1,
+      "overflow": 0,
+      "badImages": [],
+      "motion": [
+        {
+          "tag": "HTML",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "HEAD",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "TITLE",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "SCRIPT",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        }
+      ],
+      "seriousCritical": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "origins": [
+        "https://reader-setting-transfer.sociobot.in"
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "path": "/terms/",
+      "status": 200,
+      "title": "Terms — Reader Setting Transfer",
+      "lang": "en",
+      "h1": [
+        "Terms of use."
+      ],
+      "mains": 1,
+      "overflow": 0,
+      "badImages": [],
+      "motion": [
+        {
+          "tag": "HTML",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "HEAD",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "TITLE",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "SCRIPT",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        }
+      ],
+      "seriousCritical": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "origins": [
+        "https://reader-setting-transfer.sociobot.in"
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "path": "/404.html",
+      "status": 200,
+      "title": "Page not found — Reader Setting Transfer",
+      "lang": "en",
+      "h1": [
+        "This page slipped out of frame."
+      ],
+      "mains": 1,
+      "overflow": 0,
+      "badImages": [],
+      "motion": [
+        {
+          "tag": "HTML",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "HEAD",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "TITLE",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "LINK",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        },
+        {
+          "tag": "META",
+          "id": "",
+          "a": "1e-05s",
+          "t": "1e-05s"
+        }
+      ],
+      "seriousCritical": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "origins": [
+        "https://reader-setting-transfer.sociobot.in"
+      ]
+    }
+  ],
+  "demo": {
+    "landingAction": {
+      "visible": true,
+      "href": "/demo/"
+    },
+    "initial": {
+      "url": "https://reader-setting-transfer.sociobot.in/demo/",
+      "banner": "Demo — sample data, nothing is saved Reset demo Start for real",
+      "article": "FIELD NOTE · URBAN TREES\n\nThe city changes when you notice its trees\n\nAt dusk, street trees stop blending into the build",
+      "local": [],
+      "session": [],
+      "size": "120%"
+    },
+    "boundary": {
+      "status": "Imported “Independent boundary” into the demo.",
+      "state": {
+        "size": "36px",
+        "measure": "40ch",
+        "leading": "2.2",
+        "para": "2.5em",
+        "spacing": "0.08em",
+        "contrast": "dark",
+        "font": "dyslexia",
+        "motion": "false"
+      }
+    },
+    "invalid": [
+      {
+        "name": "malformed",
+        "status": "Sample settings updated."
+      },
+      {
+        "name": "version",
+        "status": "This profile version is not supported."
+      },
+      {
+        "name": "range",
+        "status": "Text size is outside the supported range."
+      },
+      {
+        "name": "huge",
+        "status": "That file is too large to be a reading card."
+      }
+    ],
+    "recovery": {
+      "status": "Imported “Recovered” into the demo.",
+      "size": "85%"
+    },
+    "reset": {
+      "status": "Demo reset to the sample reading card.",
+      "size": "120%",
+      "focused": "demo-article",
+      "session": [
+        "demo:reader-profile"
+      ]
+    },
+    "startReal": {
+      "filename": "reader-setting-transfer-chrome.zip",
+      "session": []
+    },
+    "privacy": {
+      "origins": [
+        "https://reader-setting-transfer.sociobot.in"
+      ],
+      "local": [],
+      "consoleErrors": [],
+      "pageErrors": []
+    },
+    "zoom200": {
+      "overflow": 123,
+      "clientWidth": 390,
+      "scrollWidth": 513,
+      "clipped": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download ↓"
+        },
+        {
+          "tag": "SELECT",
+          "id": "demo-font",
+          "text": "Book serifAtkinson HyperlegibleSpacious sans serif"
+        },
+        {
+          "tag": "SELECT",
+          "id": "demo-contrast",
+          "text": "Warm paperHigh contrastDark page"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "demo-export",
+          "text": "Export sample card"
+        },
+        {
+          "tag": "INPUT",
+          "id": "demo-import",
+          "text": ""
+        }
+      ]
+    }
+  },
+  "keyboard": {
+    "sequence": [
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Skip to demo",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(184, 55, 30)",
+        "visible": true
+      },
+      {
+        "tag": "BUTTON",
+        "id": "reset-demo",
+        "text": "Reset demo",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(243, 235, 216)",
+        "visible": true
+      },
+      {
+        "tag": "A",
+        "id": "start-real",
+        "text": "Start for real",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(243, 235, 216)",
+        "visible": true
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Reader SettingTransfer",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(184, 55, 30)",
+        "visible": true
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Download ↓",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(184, 55, 30)",
+        "visible": true
+      },
+      {
+        "tag": "INPUT",
+        "id": "demo-size",
+        "text": "",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(184, 55, 30)",
+        "visible": true
+      },
+      {
+        "tag": "INPUT",
+        "id": "demo-leading",
+        "text": "",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(184, 55, 30)",
+        "visible": true
+      },
+      {
+        "tag": "SELECT",
+        "id": "demo-font",
+        "text": "Book serifAtkinson HyperlegibleSpacious sans serif",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(184, 55, 30)",
+        "visible": true
+      },
+      {
+        "tag": "SELECT",
+        "id": "demo-contrast",
+        "text": "Warm paperHigh contrastDark page",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(184, 55, 30)",
+        "visible": true
+      },
+      {
+        "tag": "INPUT",
+        "id": "demo-motion",
+        "text": "",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(184, 55, 30)",
+        "visible": true
+      },
+      {
+        "tag": "BUTTON",
+        "id": "demo-export",
+        "text": "Export sample card",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(184, 55, 30)",
+        "visible": true
+      },
+      {
+        "tag": "INPUT",
+        "id": "demo-import",
+        "text": "",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(184, 55, 30)",
+        "visible": true
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Privacy",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(184, 55, 30)",
+        "visible": true
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Terms",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(184, 55, 30)",
+        "visible": true
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Source",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(184, 55, 30)",
+        "visible": true
+      },
+      {
+        "tag": "BODY",
+        "id": "",
+        "text": "Skip to demo Demo — sample data, nothing is saved ",
+        "outline": "none",
+        "width": "0px",
+        "color": "rgb(24, 33, 59)",
+        "visible": true
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Skip to demo",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(184, 55, 30)",
+        "visible": true
+      },
+      {
+        "tag": "BUTTON",
+        "id": "reset-demo",
+        "text": "Reset demo",
+        "outline": "solid",
+        "width": "4px",
+        "color": "rgb(243, 235, 216)",
+        "visible": true
+      }
+    ],
+    "smallTargets": []
+  },
+  "offline": {
+    "active": "activated",
+    "controlled": true,
+    "error": null,
+    "url": "https://reader-setting-transfer.sociobot.in/demo/",
+    "banner": true,
+    "article": true,
+    "notice": "You’re offline. This sample still works."
+  },
+  "crawl": {
+    "count": 13,
+    "links": [
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/#main",
+        "status": 200
+      },
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/",
+        "status": 200
+      },
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/demo/",
+        "status": 200
+      },
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/#how-it-works",
+        "status": 200
+      },
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/#privacy",
+        "status": 200
+      },
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/downloads/reader-setting-transfer-chrome.zip",
+        "status": 200
+      },
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/privacy/",
+        "status": 200
+      },
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/terms/",
+        "status": 200
+      },
+      {
+        "url": "https://github.com/B-Divyesh/sf-reader-setting-transfer",
+        "external": true
+      },
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/demo/#main",
+        "status": 200
+      },
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/privacy/#main",
+        "status": 200
+      },
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/terms/#main",
+        "status": 200
+      },
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/404.html#main",
+        "status": 200
+      }
+    ]
+  }
+}

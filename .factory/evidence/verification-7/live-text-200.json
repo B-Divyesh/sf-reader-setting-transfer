@@ -1,0 +1,34 @@
+[
+  {
+    "path": "/",
+    "rootFont": "32px",
+    "overflow": 40,
+    "h1Visible": true,
+    "clippedInteractive": [],
+    "errors": []
+  },
+  {
+    "path": "/demo/",
+    "rootFont": "32px",
+    "overflow": 0,
+    "h1Visible": true,
+    "clippedInteractive": [],
+    "errors": []
+  },
+  {
+    "path": "/privacy/",
+    "rootFont": "32px",
+    "overflow": 50,
+    "h1Visible": true,
+    "clippedInteractive": [],
+    "errors": []
+  },
+  {
+    "path": "/terms/",
+    "rootFont": "32px",
+    "overflow": 0,
+    "h1Visible": true,
+    "clippedInteractive": [],
+    "errors": []
+  }
+]

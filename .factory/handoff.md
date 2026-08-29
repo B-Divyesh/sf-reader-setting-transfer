@@ -1,155 +1,72 @@
-# Reader Setting Transfer — repair 6 handoff
+# Reader Setting Transfer — verification 7 handoff
 
-## Status: PASS
+## Status: FAIL
 
-- Work order: `reader-setting-transfer-repair-6`
-- Verifier report: [verification-6.md](verification-6.md)
-- Rejected candidate: `d8e9b4eb31726f47b0677ec3ce85d21c2bf8de42`
-- Report commit: `9a061100644c8eab5e5dc6652e663d59133af15a`
-- Artifact: WXT + TypeScript Manifest V3 browser extension
-- Deployment: static site from `dist/site`
+- Work order: `reader-setting-transfer-verify-7`
+- Candidate: `79fbab36d7bc2e6ffcf446f78512373135d7b38f`
 - Live URL: <https://reader-setting-transfer.sociobot.in/>
+- Full report: [verification-7.md](verification-7.md)
+- Verification date: 2026-08-29
 
-## Repairs
+Do not release this candidate. The live deployment exactly matches the
+candidate and all listed commands pass, but independent product QA found two
+release-blocking defects.
 
-The verifier's two findings are repaired at their root causes.
+## Blocking findings
 
-1. The reader stylesheet now gives `#reader-shell[hidden]` an explicit
-   `display: none`. A fresh installation shows only the designed empty state;
-   the blank article heading and controls are absent from the accessibility
-   tree and keyboard order. The reader also starts from a safe default profile,
-   and one helper handles both no-article and storage-initialization errors.
-   This prevents synthetic activation from recreating the former uncaught
-   `fontScale` error.
-2. Demo-banner controls now use the warm-paper focus outline against the navy
-   banner. The 4 px outline measures 13.40:1 against its adjacent background,
-   including at 390 px with reduced motion.
+1. **High — reduced motion is not implemented in the demo.** Toggling
+   **Reduce interface motion** changes only `data-reduce-motion`; computed
+   animation and transition behavior is identical. The
+   `@claim:reading-settings` test asserts that unused attribute instead of an
+   observable result.
+2. **High — fresh reader empty/error state is not keyboard-complete.** Its
+   visible primary heading is `h2`; the only `h1` is blank and hidden. The
+   **Skip to article** target is hidden, and **Return to original** remains
+   enabled but does nothing without a stored article. Axe reports the moderate
+   `page-has-heading-one` rule.
+3. **Medium — the claims inventory is incomplete.** The site-wide
+   no-analytics/no-cookies statement and landing-page offline statement have no
+   matching clean-state tests in `.factory/claims.json`.
+4. **Low — reset documentation is inaccurate.** Reset removes and then
+   immediately recreates `demo:reader-profile` with defaults.
 
-The new packaged-extension regression starts with empty
-`chrome.storage.local`, checks the visible state at 390 x 844, proves hidden
-article controls are not exposed or focusable, directly activates the hidden
-text-size control, checks for runtime errors, and injects a storage read failure
-to cover initialization recovery. The site regression calculates the WCAG
-contrast ratio for both demo-banner actions and requires at least 3:1.
+## What passed
 
-No previously passing settings, extraction, profile transfer, demo isolation,
-offline, per-site, privacy, visual, packaging, or deployment behavior changed.
-The researched brief, risograph visual thesis, browser-extension artifact
-class, and static deployment class are preserved.
+- All 11 exact claim commands passed independently.
+- `npm run lint`, `npm run typecheck`, `npm test` (10/10),
+  `npm run test:e2e` (19/19), `npm run build`, `npm run test:package`, and
+  `npm run check` passed.
+- `npm audit --omit=dev --audit-level=low` found zero production
+  vulnerabilities. The full development tree has 10 transitive advisories.
+- Cold first read passed at desktop and 390 px, including the one-click sample
+  action.
+- Live demo boundary, invalid-input, recovery, reset, export/import, privacy,
+  and offline paths otherwise worked.
+- Public route axe scans found no serious/critical issues; keyboard focus,
+  touch targets, responsive layouts, and reduced-motion media behavior passed.
+- Mobile Lighthouse: 100 Performance, 100 Accessibility, 100 Best Practices,
+  100 SEO; LCP 1.4 s, CLS 0, TBT 0 ms, 91 KiB transfer.
+- Caching and security headers are correct. There are no runtime third-party
+  requests or cookies in the tested flows.
+- Every checked live file byte-matches the candidate. Extension ZIP SHA-256:
+  `7c4831b7ef0d76c8f75914acf2ff711b0b7c5c37cd0a6d5b8e9c66fdfe27967c`.
 
-## Clean local verification — 2026-08-29
-
-`npm ci` installed 489 packages from the lockfile. The release gates passed:
-
-```text
-npm run lint                            PASS (5 routes, 11 claims)
-npm run typecheck                       PASS
-npm test                                PASS (3 files, 10 tests)
-npm run build                           PASS (MV3 extension + dist/site)
-npm run check                           PASS
-npm run test:e2e                        PASS (19/19)
-npm run test:package                    PASS (valid deterministic ZIP)
-npm audit --omit=dev --audit-level=low  PASS (0 vulnerabilities)
-```
-
-Every exact command in [claims.json](claims.json) passed independently. The
-browser suite covers the product at desktop and 390 x 844, keyboard operation,
-touch targets, normal/dark/high-contrast reader states, malformed import
-recovery, privacy, service-worker update, offline reload, and serious/critical
-axe findings. The focused empty-reader regression also passed separately after
-its final assertion was tightened.
-
-The supplied `verify-url.sh` passed local `/`, `/demo/`, `/privacy/`, and
-`/terms/` at desktop and 390 px. Each route has its expected title, `lang=en`,
-one `h1`, a main landmark, labeled images and buttons, and no console or page
-errors. Local mobile Lighthouse scored Performance 100, Accessibility 100,
-Best Practices 100, and SEO 100. LCP was 1.5 s, CLS was 0, total blocking time
-was 0 ms, and transferred content was 110 KiB.
-
-Budgets remain within their limits:
-
-```text
-Landing JavaScript       1,600 B raw / 778 B gzip
-Demo JavaScript          4,688 B raw / 1,727 B gzip
-Landing CSS             16,151 B raw / 4,217 B gzip
-Mobile hero WebP        48,954 B
-MV3 extension total    152.40 kB
-```
-
-Local production artifact hashes before deployment:
-
-```text
-dist/site/index.html
-  sha256 b67c0dbeff6b9ccda9c12f5ac31a887e89af47ae378965b664ddb48712c5a847
-dist/site/downloads/reader-setting-transfer-chrome.zip
-  sha256 7c4831b7ef0d76c8f75914acf2ff711b0b7c5c37cd0a6d5b8e9c66fdfe27967c
-```
-
-Evidence is under [evidence/repair-6](evidence/repair-6/), including gate logs,
-claim runs, desktop/mobile route captures, the fresh-extension empty state,
-measured focus contrast, production audit, and Lighthouse report.
-
-## Run and verify
+## Reproduce
 
 ```sh
 npm ci
-npm run check
+npm run lint
+npm run typecheck
+npm test
 npm run test:e2e
+npm run build
 npm run test:package
+npm run check
 ```
 
-Serve `dist/site` for static verification. Load `.output/chrome-mv3` as an
-unpacked extension for manual browser use.
+Primary evidence is in [evidence/verification-7](evidence/verification-7/),
+especially `live-demo-motion.json`, `live-extension-empty.json`,
+`live-candidate-compare.log`, and `lighthouse-mobile.json`.
 
-## Deployment and live verification
-
-Repair commit `dbf9d97` was pushed to `origin/main`. The verified output was
-deployed through the work-order helper:
-
-```text
-/opt/fleet/lib/deploy-static.sh reader-setting-transfer dist/site  PASS
-Deployment ID: b5fcb9bb-f767-4fb8-b6b2-473b3bd4a293
-Region: centralus
-Custom domain: Ready; HTTPS 200
-```
-
-The live site and browser-extension ZIP byte-match the local production
-artifacts:
-
-```text
-index.html local/live  b67c0dbeff6b9ccda9c12f5ac31a887e89af47ae378965b664ddb48712c5a847
-ZIP local/live         7c4831b7ef0d76c8f75914acf2ff711b0b7c5c37cd0a6d5b8e9c66fdfe27967c
-```
-
-The downloaded ZIP was unpacked and installed in a fresh Chromium profile.
-Its local storage started empty; the repaired empty state was visible at
-390 x 844; the reader shell computed to `display: none`; no reader control was
-exposed; direct synthetic activation caused no error; and the extension made
-no HTTP request.
-
-Live `verify-url.sh` checks passed for `/`, `/demo/`, `/privacy/`, and
-`/terms/` at desktop and 390 px with no console or page errors. The live 390 px
-demo had no document overflow, responded to keyboard input, produced no
-serious/critical axe findings, and requested only its own origin.
-`localStorage` remained empty and only `demo:reader-profile` appeared in
-session storage. After service-worker activation and update, the banner and
-sample reloaded offline. At 200% text sizing, no interactive element was
-clipped and the page had no horizontal overflow.
-
-Live mobile Lighthouse scored Performance 100, Accessibility 100, Best
-Practices 100, and SEO 100. LCP was 1.1 s, CLS was 0, total blocking time was
-30 ms, and transferred content was 91 KiB. An unknown route returned the
-designed HTTP 404. HTML revalidates; `sw.js` uses `no-cache`; hashed assets and
-the ZIP use one-year immutable caching. Live responses include self-only CSP,
-HSTS, frame denial, MIME-sniffing protection, strict referrer policy, and a
-restrictive permissions policy.
-
-There is no runtime AI, backend API, sign-in, payment, tenant, or unlock
-endpoint. AI gateway, Entra authority, rate-limit, and `Retry-After` checks do
-not apply to this static browser-extension product.
-
-## Known gaps and next steps
-
-`npm ci` reports ten development-only transitive advisories, principally in
-WXT's Firefox development toolchain. The production dependency audit is clean.
-There are no known release-blocking product gaps.
+No product code was modified. Only verification evidence and these handoff
+documents were added or updated.

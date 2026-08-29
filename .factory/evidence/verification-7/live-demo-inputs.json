@@ -1,0 +1,29 @@
+{
+  "boundary": "Imported “Independent boundary” into the demo.",
+  "state": {
+    "size": "36px",
+    "measure": "40ch",
+    "leading": "2.2",
+    "paragraph": "2.5em",
+    "spacing": "0.08em",
+    "contrast": "dark",
+    "font": "dyslexia",
+    "motion": "false"
+  },
+  "errors": {
+    "malformed": "This file is not valid JSON. Check the file, then try again.",
+    "version": "This profile version is not supported.",
+    "range": "Text size is outside the supported range.",
+    "oversize": "That file is too large to be a reading card."
+  },
+  "recovery": "Imported “Recovered” into the demo.",
+  "recoverySizeBeforeReset": "85%",
+  "reset": {
+    "status": "Demo reset to the sample reading card.",
+    "size": "120%",
+    "active": "demo-article",
+    "sessionKeys": [
+      "demo:reader-profile"
+    ]
+  }
+}

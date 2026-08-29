@@ -1,0 +1,14 @@
+{
+  "before": {
+    "checked": true,
+    "data": "true",
+    "styles": []
+  },
+  "after": {
+    "checked": false,
+    "data": "false",
+    "styles": []
+  },
+  "styleRuleReferences": 0,
+  "behaviorChanged": false
+}
