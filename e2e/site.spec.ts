@@ -496,11 +496,34 @@ test('internal route changes move focus to the destination heading and Back rest
   await expect(page).toHaveURL(/\/demo\/$/);
   await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
   await expect(page.locator('#route-status')).toHaveText('Opened Try your settings on a sample article.');
+  const demoRouteStatus = await page.locator('#route-status').evaluate((element) => {
+    const box = element.getBoundingClientRect();
+    const style = getComputedStyle(element);
+    return {
+      width: box.width,
+      height: box.height,
+      position: style.position,
+      overflow: style.overflow,
+      clipPath: style.clipPath,
+      bannerBottom: document.querySelector('.demo-banner')?.getBoundingClientRect().bottom,
+      headerTop: document.querySelector('header')?.getBoundingClientRect().top
+    };
+  });
+  expect(demoRouteStatus).toMatchObject({
+    width: 1,
+    height: 1,
+    position: 'absolute',
+    overflow: 'hidden',
+    clipPath: 'inset(50%)'
+  });
+  expect(demoRouteStatus.headerTop).toBe(demoRouteStatus.bannerBottom);
 
   await page.goBack();
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
   await expect(page.locator('#route-status')).toHaveText('Opened Apply your reading card to web articles.');
+  await expect(page.locator('#route-status')).toHaveCSS('position', 'absolute');
+  expect(await page.locator('header').evaluate((element) => element.getBoundingClientRect().top)).toBe(0);
 
   await page.getByRole('link', { name: 'Privacy', exact: true }).first().click();
   await expect(page).toHaveURL(/\/privacy\/$/);

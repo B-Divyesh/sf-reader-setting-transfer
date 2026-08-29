@@ -145,5 +145,12 @@
     "where": "landing privacy section and README",
     "test": "npm run test:e2e -- --grep @claim:extension-no-remote-requests",
     "sandbox": "fresh MV3 Chromium profile; inspect manifest and installed dependencies; use options and reader; assert no HTTP requests, cookies, remote permissions, or unexpected storage keys"
+  },
+  {
+    "id": "site-choice-reenable",
+    "claim": "A reader can turn the reader back on for a disabled site from extension settings.",
+    "where": "privacy page, extension settings, README",
+    "test": "npm run test:e2e -- --grep @claim:site-choice-reenable",
+    "sandbox": "fresh MV3 Chromium profile; disable a site; select Use reader again in extension settings; assert the override is removed and the stored article opens in the reader"
   }
 ]

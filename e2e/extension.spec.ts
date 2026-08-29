@@ -368,6 +368,19 @@ test('@claim:extension-open-article a real local public article reaches the pack
     const extensionId = new URL(worker.url()).host;
     const options = await getOptionsPage(context, extensionId);
     await options.evaluate(() => chrome.storage.local.clear());
+    await worker.evaluate(() => {
+      const scope = globalThis as typeof globalThis & { __rstObservedOpenReaderMessages?: Array<{ type: string; title?: string }> };
+      scope.__rstObservedOpenReaderMessages = [];
+      chrome.runtime.onMessage.addListener((message: unknown) => {
+        if (!message || typeof message !== 'object') return;
+        const candidate = message as { type?: unknown; article?: { title?: unknown } };
+        if (candidate.type !== 'reader-setting-transfer:open-reader') return;
+        scope.__rstObservedOpenReaderMessages!.push({
+          type: candidate.type,
+          title: typeof candidate.article?.title === 'string' ? candidate.article.title : undefined
+        });
+      });
+    });
     await options.locator('#profile-name').fill('Article flow card');
     await options.locator('#font-scale').fill('1.3');
     await options.locator('#contrast').selectOption('dark');
@@ -400,12 +413,11 @@ test('@claim:extension-open-article a real local public article reaches the pack
     expect(popupTarget).toBeDefined();
     const attachment = await popupCdp.send('Target.attachToTarget', { targetId: popupTarget!.targetId, flatten: true }) as { sessionId: string };
     // Chromium's programmatic action surface does not carry an activeTab
-    // grant in headless mode. Re-run the packaged popup entry on that real
-    // action target with a strict browser-API fixture: it only accepts the
-    // active tab from the last focused window, verifies the popup supplies its
-    // extractor to scripting, and returns this local article's sanitized
-    // result. The button itself, popup loading/error behavior, background
-    // message, storage write, and reader tab remain the installed code.
+    // grant in headless mode. Replace only the original button node before
+    // re-running the packaged popup entry with a strict browser-API fixture.
+    // Removing the first listener prevents two popup handlers from racing.
+    // The real popup document, pointer event, packaged handler, background
+    // message, storage write, and reader tab remain in the tested path.
     await popupCdp.send('Runtime.evaluate', {
       expression: `(async () => {
         const sourceTab = { id: ${sourceTabId}, url: ${JSON.stringify('http://127.0.0.1:4173/terms/')} };
@@ -416,6 +428,15 @@ test('@claim:extension-open-article a real local public article reaches the pack
           excerpt: 'A public article paragraph about evening walks, street trees, and settings that support careful reading.',
           extractedAt: 1234
         };
+        const firstButton = document.querySelector('#read-button');
+        if (!(firstButton instanceof HTMLButtonElement)) throw new Error('Packaged read button was not found.');
+        const cleanButton = firstButton.cloneNode(true);
+        firstButton.replaceWith(cleanButton);
+        document.addEventListener('click', (event) => {
+          if (event.target instanceof Element && event.target.closest('#read-button')) {
+            window.__rstPointerClickObserved = true;
+          }
+        }, { capture: true, once: true });
         Object.defineProperty(chrome.tabs, 'query', {
           configurable: true,
           value: async (queryInfo) => {
@@ -429,7 +450,8 @@ test('@claim:extension-open-article a real local public article reaches the pack
             if (details?.target?.tabId !== sourceTab.id || typeof details?.func !== 'function') {
               throw new Error('Popup did not invoke the extractor for the active article tab.');
             }
-            window.__rstPopupInvocation = { tabId: details.target.tabId, extractor: details.func.name || 'anonymous' };
+            window.__rstPopupInvocation = { tabId: details.target.tabId, extractorType: typeof details.func };
+            await new Promise((resolve) => setTimeout(resolve, 100));
             return [{ result: article }];
           }
         });
@@ -464,16 +486,52 @@ test('@claim:extension-open-article a real local public article reaches the pack
       type: 'mouseReleased', x: popupButton.x, y: popupButton.y, button: 'left', clickCount: 1
     }, attachment.sessionId);
 
+    const pointerState = await popupCdp.send('Runtime.evaluate', {
+      expression: `({
+        clickObserved: window.__rstPointerClickObserved === true,
+        invocation: window.__rstPopupInvocation ?? null
+      })`,
+      returnByValue: true
+    }, attachment.sessionId) as { result: { value?: unknown } };
+    expect(pointerState.result.value).toEqual({
+      clickObserved: true,
+      invocation: { tabId: sourceTabId, extractorType: 'function' }
+    });
+
     await expect.poll(async () => {
-      if (context.pages().some((page) => page.url() === `chrome-extension://${extensionId}/reader.html`)) return 'reader-opened';
-      const stored = await worker.evaluate(async () => (await chrome.storage.local.get('currentArticle')).currentArticle);
-      if (stored) return `article-stored:${(stored as { title?: string }).title ?? 'untitled'}`;
-      const status = await popupCdp!.send('Runtime.evaluate', {
-        expression: `document.querySelector('#status')?.textContent?.trim() ?? 'popup target closed'`,
-        returnByValue: true
-      }, attachment.sessionId) as { result: { value?: unknown } };
-      return status.result.value;
-    }).toBe('reader-opened');
+      const readerOpened = context.pages().some((page) => page.url() === `chrome-extension://${extensionId}/reader.html`);
+      const [stored, messages] = await worker.evaluate(async () => {
+        const scope = globalThis as typeof globalThis & { __rstObservedOpenReaderMessages?: Array<{ type: string; title?: string }> };
+        return [
+          (await chrome.storage.local.get('currentArticle')).currentArticle,
+          scope.__rstObservedOpenReaderMessages ?? []
+        ];
+      });
+      let popupStatus = 'popup target closed';
+      try {
+        const status = await popupCdp!.send('Runtime.evaluate', {
+          expression: `document.querySelector('#status')?.textContent?.trim() ?? ''`,
+          returnByValue: true
+        }, attachment.sessionId) as { result: { value?: unknown } };
+        popupStatus = String(status.result.value ?? '');
+      } catch {
+        // A closed popup is expected after a successful background response.
+      }
+      return {
+        readerOpened,
+        storedTitle: (stored as { title?: string } | undefined)?.title ?? null,
+        messageTitle: messages.at(-1)?.title ?? null,
+        popupStatus
+      };
+    }, {
+      timeout: 15_000,
+      intervals: [50, 100, 250, 500],
+      message: 'The packaged popup did not complete its background open-reader request.'
+    }).toMatchObject({
+      readerOpened: true,
+      storedTitle: 'A local article about street trees',
+      messageTitle: 'A local article about street trees'
+    });
     const reader = context.pages().find((page) => page.url() === `chrome-extension://${extensionId}/reader.html`)!;
     await expect(reader.getByRole('heading', { level: 1, name: 'A local article about street trees' })).toBeVisible();
     await expect(reader.getByRole('heading', { level: 2, name: 'Useful details' })).toBeVisible();
@@ -586,6 +644,64 @@ test('@claim:per-site-off-return turns the reader off for one site and returns t
     ]);
     const overrides = await worker.evaluate(async () => (await chrome.storage.local.get('siteOverrides')).siteOverrides);
     expect(overrides).toEqual({ '127.0.0.1': { enabled: false } });
+  } finally {
+    await context.close();
+  }
+});
+
+test('@claim:site-choice-reenable turns the reader back on from extension settings', async ({}, testInfo) => {
+  const extensionPath = resolve('.output/chrome-mv3');
+  const context = await chromium.launchPersistentContext(testInfo.outputPath('site-choice-reenable-profile'), {
+    channel: 'chromium',
+    headless: true,
+    args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
+  });
+  try {
+    let worker = context.serviceWorkers()[0];
+    if (!worker) worker = await context.waitForEvent('serviceworker');
+    const extensionId = new URL(worker.url()).host;
+    const options = await getOptionsPage(context, extensionId);
+    const article = {
+      title: 'Reader restored for this site',
+      byline: 'A. Reader',
+      source: '127.0.0.1',
+      url: 'http://127.0.0.1:4173/terms/',
+      html: '<h2>Restored article</h2><p>This stored public article confirms the reader can open after its site choice is removed.</p>',
+      excerpt: 'This stored public article confirms the reader can open.',
+      extractedAt: 1234
+    };
+    await options.evaluate(async ({ storedArticle }) => {
+      await chrome.storage.local.clear();
+      await chrome.storage.local.set({
+        currentArticle: storedArticle,
+        siteOverrides: { '127.0.0.1': { enabled: false } }
+      });
+    }, { storedArticle: article });
+    await options.reload();
+
+    await expect(options.locator('#overrides-list')).toContainText('127.0.0.1');
+    const restoreButton = options.getByRole('button', { name: 'Use reader again' });
+    await expect(restoreButton).toBeVisible();
+    await restoreButton.click();
+    await expect(options.locator('#overrides-empty')).toHaveText('No site choices yet.');
+    await expect(options.locator('#overrides-empty')).toBeVisible();
+    await expect.poll(() => worker.evaluate(async () => (await chrome.storage.local.get('siteOverrides')).siteOverrides)).toEqual({});
+
+    const existingPages = new Set(context.pages());
+    const response = await options.evaluate(async (storedArticle) => chrome.runtime.sendMessage({
+      type: 'reader-setting-transfer:open-reader',
+      article: storedArticle
+    }), article);
+    expect(response).toEqual({ opened: true });
+    await expect.poll(() => context.pages().some((page) =>
+      !existingPages.has(page) && page.url() === `chrome-extension://${extensionId}/reader.html`
+    )).toBe(true);
+    const reader = context.pages().find((page) =>
+      !existingPages.has(page) && page.url() === `chrome-extension://${extensionId}/reader.html`
+    )!;
+    await expect(reader.getByRole('heading', { level: 1, name: 'Reader restored for this site' })).toBeVisible();
+    await expect(reader.locator('#site-rule')).toHaveText('Applied on 127.0.0.1');
+    await expect(reader.getByRole('heading', { level: 2, name: 'Restored article' })).toBeVisible();
   } finally {
     await context.close();
   }

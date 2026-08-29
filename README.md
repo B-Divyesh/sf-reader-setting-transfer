@@ -24,7 +24,10 @@ The production build places the extension ZIP in `dist/site/downloads/`.
 - Applies your saved reading card only inside the reader
 - Previews type, spacing, and contrast changes while you adjust the reading card
 - Stores the current article, reading card, and site choices locally
+<!-- claim:per-site-off-return -->
 - Turns the reader off per site and returns to the original page
+<!-- claim:site-choice-reenable -->
+- Turns the reader back on for a site from extension settings
 - Supports keyboard use and 390 px layouts on the landing page and demo
 - Provides the packaged extension ZIP from the product site
 

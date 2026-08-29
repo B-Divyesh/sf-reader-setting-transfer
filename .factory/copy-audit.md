@@ -33,7 +33,7 @@ sentence is at or below 22 words, and no banned term appears.
 | 10 | The extension does not send us your reading history. |
 | 12 | Your reading card, site choices, and current article stay in browser extension storage. |
 | 6 | The extension makes no remote requests. |
-| 10 | Remove the extension and its local data leaves with it. |
+| 7 | Removing the extension deletes its local data. |
 | 8 | Install the extension, then open a supported article. |
 | 6 | Download and unzip the extension package. |
 | 7 | Open `chrome://extensions` in Chrome or Chromium. |
