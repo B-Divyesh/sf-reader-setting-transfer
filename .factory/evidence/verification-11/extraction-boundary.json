@@ -1,0 +1,29 @@
+{
+  "engine": "Chromium via Playwright 1.58.2",
+  "cases": [
+    {
+      "name": "visible marker",
+      "wrapperStyle": "",
+      "markerStyle": "",
+      "outcome": "rejected",
+      "error": "page.evaluate: Error: This page appears to restrict access. Open an article you can read without a paywall.\n    at extractArticleFromPage (eval at evaluate (:290:30), <anonymous>:13:24)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+      "sourceUnchanged": true
+    },
+    {
+      "name": "marker hidden directly",
+      "wrapperStyle": "",
+      "markerStyle": "display:none",
+      "outcome": "accepted",
+      "title": "Public story",
+      "sourceUnchanged": true
+    },
+    {
+      "name": "marker hidden by CSS-hidden ancestor",
+      "wrapperStyle": "display:none",
+      "markerStyle": "",
+      "outcome": "rejected",
+      "error": "page.evaluate: Error: This page appears to restrict access. Open an article you can read without a paywall.\n    at extractArticleFromPage (eval at evaluate (:290:30), <anonymous>:13:24)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+      "sourceUnchanged": true
+    }
+  ]
+}

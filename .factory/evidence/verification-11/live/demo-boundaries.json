@@ -1,0 +1,47 @@
+{
+  "normal": {
+    "size": "17px",
+    "leading": "2.2",
+    "font": "dyslexia",
+    "contrast": "dark",
+    "motion": "false",
+    "animation": "demo-reader-settle"
+  },
+  "upperStyles": {
+    "size": "36px",
+    "measure": "85ch",
+    "leading": "2.2",
+    "para": "2.5em",
+    "spacing": "0.08em",
+    "contrast": "high",
+    "font": "hyperlegible",
+    "motion": "true"
+  },
+  "malformed": "This file is not valid JSON. Check the file, then try again.",
+  "oversized": "That file is too large to be a reading card.",
+  "recovered": "Imported “Recovery” into the demo.",
+  "focus": {
+    "active": true,
+    "matchesVisible": true,
+    "outline": "rgb(243, 235, 216) solid 4px",
+    "outlineColor": "rgb(243, 235, 216)",
+    "outlineWidth": "4px"
+  },
+  "reduced": {
+    "animation": "none",
+    "duration": "1e-05s",
+    "transition": "1e-05s"
+  },
+  "storage": {
+    "session": [
+      "demo:reader-profile"
+    ],
+    "local": [],
+    "cookies": ""
+  },
+  "overflow": 0,
+  "requestOrigins": [
+    "https://reader-setting-transfer.sociobot.in"
+  ],
+  "errors": []
+}

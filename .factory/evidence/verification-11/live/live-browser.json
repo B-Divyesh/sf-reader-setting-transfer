@@ -1,0 +1,99 @@
+{
+  "base": "https://reader-setting-transfer.sociobot.in",
+  "routes": {
+    "/": {
+      "title": "Reader Setting Transfer — apply settings to articles",
+      "seriousAxeViolations": 0
+    },
+    "/demo/": {
+      "title": "Demo — Reader Setting Transfer",
+      "seriousAxeViolations": 0
+    },
+    "/privacy/": {
+      "title": "Privacy — Reader Setting Transfer",
+      "seriousAxeViolations": 0
+    },
+    "/terms/": {
+      "title": "Terms — Reader Setting Transfer",
+      "seriousAxeViolations": 0
+    },
+    "/404.html": {
+      "title": "Page not found — Reader Setting Transfer",
+      "seriousAxeViolations": 0
+    }
+  },
+  "mobile": {
+    "headingBottom": 739.53125,
+    "paragraphTop": 764.71875,
+    "overflow": 0,
+    "storage": {
+      "local": {
+        "readerProfile": "live-real-data-sentinel"
+      },
+      "session": [
+        "demo:reader-profile"
+      ]
+    }
+  },
+  "privacy": {
+    "requestOrigins": [
+      "https://reader-setting-transfer.sociobot.in"
+    ],
+    "cookies": []
+  },
+  "offline": {
+    "demoReloaded": true
+  },
+  "links": {
+    "checked": 9
+  },
+  "errors": [],
+  "desktopFirstScreen": {
+    ".action-note": {
+      "bottom": 571.09375
+    },
+    ".hero-facts": {
+      "bottom": 678.53125
+    }
+  },
+  "focus": {
+    "primaryFocused": true,
+    "forwardFocused": true,
+    "backFocused": true
+  },
+  "reflow": {
+    "/": {
+      "overflow": 0
+    },
+    "/demo/": {
+      "overflow": 0
+    },
+    "/privacy/": {
+      "overflow": 0
+    },
+    "/terms/": {
+      "overflow": 0
+    },
+    "/404.html": {
+      "overflow": 0
+    }
+  },
+  "headers": {
+    "cache-control": "public, max-age=0, must-revalidate",
+    "content-encoding": "br",
+    "content-security-policy": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'",
+    "content-type": "text/html",
+    "date": "Sat, 29 Aug 2026 11:23:48 GMT",
+    "etag": "\"80778754\"",
+    "last-modified": "Sat, 29 Aug 2026 10:34:52 GMT",
+    "permissions-policy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+    "transfer-encoding": "chunked",
+    "vary": "Accept-Encoding",
+    "x-content-type-options": "nosniff",
+    "x-dns-prefetch-control": "off",
+    "x-frame-options": "DENY",
+    "x-xss-protection": "1; mode=block"
+  }
+}

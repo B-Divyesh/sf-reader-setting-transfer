@@ -1,0 +1,17 @@
+{
+  "ready": {
+    "scope": "https://reader-setting-transfer.sociobot.in/",
+    "active": "https://reader-setting-transfer.sociobot.in/sw.js",
+    "state": "activated",
+    "controller": null,
+    "cacheKeys": [
+      "reader-setting-transfer-site-v4"
+    ]
+  },
+  "offline": {
+    "url": "https://reader-setting-transfer.sociobot.in/demo/",
+    "banner": true,
+    "heading": true,
+    "errors": []
+  }
+}

@@ -1,58 +1,65 @@
-# Reader Setting Transfer — polish round 3 handoff
+# Reader Setting Transfer — independent verification 11 handoff
 
-## Status: PASS
+## Status: FAIL
 
-Repair commit: `43932d56a06f24e5dbdd389063813e1d88a13ced`
-Base reviewed: `cc2f685484e3ba22c9752f601334069cbb927f4e`
+Candidate: `c3a1aa96f92ff6e3e1bc70ac6304942f47ad31a0`
+
 Live URL: <https://reader-setting-transfer.sociobot.in/>
-Static deployment: `f5d847a6-861e-42e1-966e-ba49cd51686a` on 2026-08-29 UTC.
 
-## What changed
+Verified: 2026-08-29 UTC
 
-- Made the one-click demo immediately show its realistic sample heading and
-  first paragraph on both phone and desktop, while keeping its separate
-  `demo:reader-profile` session namespace, banner, and Reset demo control.
-- Removed unsupported completeness, motion-preview, and offline-download
-  language; the remaining preview copy names precisely what users can see.
-- Added production reader-opening messaging plus registered MV3 claim tests
-  for real article extraction/reader rendering and packaged card transfer.
-- Added readable hero-caption framing, full mobile navigation, and announced
-  route changes alongside the existing H1 focus behavior.
-- Preserved the risograph paper/ink visual system, all routes, legal links,
-  metadata, 404 behavior, privacy model, and extension artifact class.
+The deployment is healthy and exactly matches the candidate, but the candidate
+is not release-ready. See `.factory/verification-11.md` for full evidence.
 
-## Verification
+## Release blockers
 
-- Clean clone: `/tmp/rst-polish3-clean-p12Zan`; `npm ci` completed with 0
-  vulnerabilities.
-- Every exact command in the 21-entry `.factory/claims.json` ran separately
-  and passed from that clone.
-- `npm run check`: PASS — 21-claim lint, typecheck, 10 unit tests, and build.
-- `npm run test:e2e`: PASS — 33 Playwright tests including Axe integration,
-  offline reload, privacy request/cookie checks, 200% reflow, keyboard,
-  mobile, metadata, route, 404, and packaged MV3 tests.
-- `npm run test:package`: PASS; deterministic ZIP SHA-256
+1. **Medium:** a public article is falsely rejected when a `.paywall-*` marker
+   is inside an ancestor hidden with CSS. The extractor checks only the
+   marker's computed visibility and `[hidden]` ancestors.
+2. **Medium:** the `extension-open-article` claim test does not perform its
+   registered popup → **Read this article** → reader flow. It calls extraction
+   and the background message directly, leaving the core UI integration
+   unproved.
+
+## What was verified
+
+- Every one of the 21 `.factory/claims.json` commands passed after `npm ci`.
+- Lint, typecheck, 10 unit tests, exact production build, 33 Playwright tests,
+  deterministic package verification, and both dependency audits passed.
+- All 26 live files match the candidate build byte-for-byte. Extension ZIP:
   `c574dbb356d994b59b3e814c2af398962d04583bb9ef2f2f6e5e628dcec735d1`.
-- `npm audit` and `npm audit --omit=dev`: PASS, 0 vulnerabilities.
-- Live cold verification: `verify-url.sh` passed with 0 console errors,
-  title/lang/main/alt checks passed, and Playwright Axe found 0 serious or
-  critical violations on `/`, `/demo/`, `/privacy/`, `/terms/`, and `/404.html`.
-- Live privacy/offline checks: only the product origin was requested, cookies
-  were empty, demo reloaded offline, and every public route had 0 px overflow
-  at 200% text. Evidence: `.factory/evidence/polish-3/live-routes/`.
-- Live desktop demo check: heading bottom 823.22 px; first paragraph top
-  862.81 px in a 1440×900 viewport. Live hero-caption contrast: 15.64:1.
-  Screenshots and reports: `.factory/evidence/polish-3/`.
+- First-read/demo gates passed on desktop and 390 px mobile.
+- Live routes had zero serious/critical Axe findings, zero browser errors,
+  only same-origin requests, no cookies, correct security/cache headers, and
+  a working service-worker update/offline reload.
+- Boundary settings, malformed/oversized import recovery, reset, keyboard
+  focus, reduced motion, and mobile budgets passed.
+- Mobile Lighthouse: Performance 97, Accessibility 100, Best Practices 100,
+  SEO 100; LCP 1.4 s, CLS 0.04, TBT 170 ms.
 
-## Run locally
+## Reproduce
 
 ```sh
 npm ci
-npm run check
+npm run lint
+npm run typecheck
+npm test
+npm run build
 npm run test:e2e
 npm run test:package
 ```
 
-## Known gaps
+Ancestor-visibility evidence is in
+`.factory/evidence/verification-11/extraction-boundary.json`; live browser,
+demo, service-worker, Lighthouse, screenshot, and factory-helper evidence is
+under `.factory/evidence/verification-11/`.
 
-None.
+## Next steps
+
+- Treat a paywall marker as hidden when any ancestor is non-rendered by CSS,
+  and add real-Chromium regression cases for direct and ancestor hiding.
+- Replace or extend the open-article claim test so it drives the packaged
+  popup action and proves active-tab extraction through the reader tab.
+- Rerun every claim and full verification after repair.
+
+No product code was modified during verification.
