@@ -101,6 +101,7 @@ Every shorter evidence path below is relative to `.factory/evidence/polish-4/`.
 - `npm run test:e2e`: 35/35 browser and packaged-extension tests pass.
 - `npm run test:package`: deterministic ZIP SHA-256 `1ab39761b25a4cf65d011ea5e3f9a689bf10f51d147d9f583c1a49720bf666ea`.
 - Clean clone: all 22 exact registered claim commands passed on first invocation.
+- Final pushed-tree clone `/tmp/rst-polish4-final-TNxBf4`: check, deterministic package, 35 browser tests, and both audits passed.
 - Local and live Lighthouse: 100 performance, 100 accessibility, 100 best practices, 100 SEO; LCP 1.5/1.4 s, CLS 0.04, TBT 0 ms.
 - Live: zero serious/critical Axe findings on five routes, zero console errors, same-origin requests only, zero cookies, 13/13 links healthy, offline demo reload, and designed HTTP 404.
 - Local/live landing and ZIP hashes match: `81a2f00e…cb1` and `1ab39761…666ea`.

@@ -18,6 +18,8 @@ earlier finding was rechecked. The complete finding map is
 - Clean clone `/tmp/rst-polish4-clean-jDrjLh`: `npm ci` found zero
   vulnerabilities and every one of 22 claim commands passed independently on
   its first invocation.
+- Final pushed-tree clone `/tmp/rst-polish4-final-TNxBf4`: `npm run check`,
+  `npm run test:package`, `npm run test:e2e`, and both audits passed.
 - `extension-open-article`: five consecutive stress runs passed, followed by
   passes in the full suite and clean-clone claim run.
 - `npm run check`: lint, typecheck, 11 unit tests, and the production build
