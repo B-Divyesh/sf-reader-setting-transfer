@@ -1,63 +1,82 @@
-# Reader Setting Transfer — review 2 handoff
+# Reader Setting Transfer — polish round 2 handoff
 
-## Status: FAIL
+## Status: PASS
 
-Completed adversarial review 2 against repository commit
-`a194fce97f77fdcec628fded0c344988dc023593` and the matching live deployment
-at <https://reader-setting-transfer.sociobot.in/> on 2026-08-29 UTC. No product
-code was changed.
+All findings in `.factory/review-1.md` and `.factory/review-2.md` are closed.
+The product repair is commit `251be18`, pushed to `main` and deployed at
+<https://reader-setting-transfer.sociobot.in/> on 2026-08-29 UTC. Azure Static
+Web Apps deployment ID: `1c01aba6-89df-4743-b899-a453c6dacf59`.
 
-The complete review is in `.factory/review-2.md`. It records 7 reopened
-blocking findings, 6 new major findings, and 8 new minor findings. The primary
-blockers are incomplete keyboard-claim coverage, missing focus after the hero
-demo redirect, inconsistent route chrome, an unlabeled external link, and
-three earlier copy/claim findings that remain unresolved.
+## What changed
 
-## Verification completed
+- Rewrote the first screen around the supported-article job and kept its action
+  explanation plus three facts inside a 1440 × 900 viewport.
+- Preserved the one-click `/?demo=1` sandbox, persistent banner, reset, isolated
+  session storage, offline reload, and immediate sample article on phones.
+- Preserved route focus through the query redirect and verified Back behavior.
+- Added one shared header and footer to Home, Demo, Privacy, Terms, and 404,
+  including the wordmark, legal links, external source cue, and version.
+- Added 200% text reflow safeguards across all public routes.
+- Removed universal article, cross-browser, speed, reproducibility, and
+  aggregate service wording that exceeded the evidence.
+- Added complete packaged-extension coverage for all reading settings and a
+  no-remote-request claim covering manifest, dependencies, network, cookies,
+  permissions, and storage.
+- Strengthened JSON transfer to export from one clean browser context and
+  import into another.
+- Expanded keyboard coverage to the landing action and every named demo
+  control, including the native file chooser.
+- Updated WXT to 0.21.4 and esbuild to 0.28.2. Full `npm audit` now reports zero
+  vulnerabilities.
+- Updated `.factory/claims.json`, `.factory/copy-audit.md`, demo-facing docs,
+  the catalog description, and the complete finding ledger in
+  `.factory/polish-2.md`.
 
-- Opened the live site cold at 390 × 844 and 1440 × 900.
-- Exercised the one-click demo, Reset, download/exit cleanup, keyboard input,
-  local/session storage isolation, offline reload, request log, and cookies.
-- Inspected all required routes, metadata, headings, canonical/OG/favicon
-  assets, unknown-route status, Back behavior, route focus, and navigation.
-- Crawled every public link; intended destinations and the extension ZIP
-  returned 200.
-- Ran live Axe checks with no serious or critical findings.
-- Read every earlier review, polish record, and handoff; checked all 39 earlier
-  findings against both live output and source.
-- Ran all 16 exact `.factory/claims.json` commands independently from clean
-  clone `/tmp/rst-review2-clean-6Rox3z`; every command passed.
-- Ran `npm run check`, `npm run test:package`, and `npm run test:e2e` from that
-  clone. Results: 10/10 unit tests and 24/24 browser tests passed; build and
-  deterministic package passed.
-- Confirmed the live landing page, demo page, and extension ZIP hashes match
-  the clean build.
-- Confirmed `npm audit --omit=dev` has zero findings. The full dependency audit
-  reports 10 development-tool findings and is recorded as F-2-14.
+The risograph collage, warm paper, ultramarine and persimmon inks, Atkinson
+Hyperlegible type, offset borders, and reduced-motion policy remain intact.
 
-## How to reproduce
+## Verification
 
-From a clean clone, run every command in `.factory/claims.json`, followed by:
+Clean clone: `/tmp/rst-polish2-clean-ELUG4F`.
+
+- 18/18 exact commands from `.factory/claims.json`: PASS independently.
+- `npm run check`: PASS — lint, typecheck, 10/10 unit tests, and production
+  build.
+- `npm run test:package`: PASS — deterministic extension ZIP.
+- `npm run test:e2e`: PASS — 28/28 site and real MV3 Chromium tests.
+- `npm audit`: PASS — zero vulnerabilities.
+- `npm audit --omit=dev`: PASS — zero vulnerabilities.
+- Local Lighthouse: 100 performance, 100 accessibility, 100 best practices,
+  100 SEO; LCP 1.5 s, CLS 0.043, TBT 0 ms.
+- Live Lighthouse: 100/100/100/100; LCP 1.4 s, CLS 0.042, TBT 0 ms.
+- Live Playwright/Axe audit: all five routes have correct titles, one H1, one
+  main landmark, shared chrome, and zero serious or critical violations.
+- Live privacy audit: one request origin, no cookies, no console errors.
+- Live reflow audit: 0 px horizontal overflow at 200% text on all five routes.
+- Live demo: H1 receives focus; heading bottom 729.64 px and first paragraph
+  starts at 759.33 px in a 390 × 844 viewport; Reset and offline reload pass.
+- Unknown route returns HTTP 404 with the designed page.
+- Every public link returns below 400; the extension ZIP returns 200.
+- Live and local HTML/ZIP hashes match exactly. ZIP SHA-256:
+  `a6cda2db2887e917d37f306f87e571b9260d3c45eef6f7190eabf0856956387c`.
+
+Evidence is under `.factory/evidence/polish-2/`. The machine-readable live
+summary is `.factory/evidence/polish-2/live-browser.json`.
+
+## Run and verify
 
 ```sh
 npm ci
 npm run check
 npm run test:package
 npm run test:e2e
-VERIFY_EVIDENCE=.factory/evidence/review-2 node scripts/verify-live.mjs
 npm audit
-npm audit --omit=dev
+VERIFY_EVIDENCE=.factory/evidence/polish-2 node scripts/verify-live.mjs
 ```
 
-The browser checks that exposed review findings also need the hero's
-**Try it with sample data** path, every keyboard-operable control, and 200%
-root text at a 390 × 844 viewport; the current shared verifier does not cover
-those three cases.
+Build output is `dist/site/`; the packaged extension is
+`dist/site/downloads/reader-setting-transfer-chrome.zip`.
 
-## What remains
+## Known gaps and next steps
 
-Resolve every finding in `.factory/review-2.md`, with reopened `F-1-*` IDs
-first. Then rerun the exact claim commands and all live checks, including the
-hero demo focus path and 200% text reflow at 390 px. The next review must not
-accept a passing command when its assertions cover less than the registered
-claim.
+None. No finding or deferred item remains.
