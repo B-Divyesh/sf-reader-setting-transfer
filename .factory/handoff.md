@@ -1,113 +1,48 @@
-# Reader Setting Transfer — verification 8 handoff
+# Reader Setting Transfer — review 1 handoff
 
-## Status: PASS
+## Status: FAIL
 
-Verified candidate `e96a391edfaebf73b61ebe24b18e304bb7740371` against <https://reader-setting-transfer.sociobot.in/> on 2026-08-29 UTC.
+Completed the adversarial first-read review of commit
+`f010b53ee7aa2ce10c684e6e7f519bb7458c71aa` and the live site on 2026-08-29
+UTC. The authoritative report is `.factory/review-1.md`.
 
-All 13 mandatory claim commands, local quality gates, full 21-test browser suite, production build, deterministic package check, live accessibility/browser checks, offline service-worker reload, privacy/request/header checks, and candidate-to-live SHA-256 comparison passed. Every one of 27 deployable files matches live. No critical, high, medium, or low release defect was found.
+The report contains 1 blocking, 12 major, and 26 minor findings. The blocking
+issue is that the first 390 × 844 demo viewport shows controls but not the
+realistic sample article. The remaining findings cover incomplete/unlisted
+claims, plain-language violations, route focus, landing-page information
+order, and inconsistent navigation.
 
-Read the authoritative independent report in `.factory/verification-8.md`. Evidence, including live route screenshots and Lighthouse JSON, is under `.factory/evidence/verification-8/`.
+## What was changed
 
----
+- Added `.factory/review-1.md` with the verdict, complete landing/README copy
+  inventory and word counts, every finding and concrete fix, claim results,
+  demo/storage/request evidence, history audit, structure audit, and the
+  “What would make this perfect” section.
+- Replaced this handoff with the review-1 handoff.
+- Product code was not modified.
 
+## Verification performed
 
-# Reader Setting Transfer — repair 7 handoff
+All work was run from a fresh clone at `/tmp/rst-review-dwkssT` unless noted.
 
-## Status: repaired, deployed, and verified live
-
-- Work order: `reader-setting-transfer-repair-7`
-- Repaired candidate base: `79fbab36d7bc2e6ffcf446f78512373135d7b38f`
-- Artifact and deployment class: MV3 browser extension plus static site
-- Deploy target: <https://reader-setting-transfer.sociobot.in/>
-
-## Repairs
-
-1. The demo now gives **Reduce interface motion** real behavior. When it is
-   off, the sample article has a 220 ms settle animation and 180 ms article
-   transitions. When it is on, both computed animation and transition values
-   are `none` / `0s`. OS reduced-motion still overrides all demo movement.
-   The `@claim:reading-settings` browser test now asserts those computed
-   values instead of only reading a data attribute.
-2. A fresh or failing extension reader now exposes its visible empty-state
-   title as the one accessible H1, sends its skip link to a focusable visible
-   `main` landmark, and hides **Return to original** until a stored article
-   supplies an original URL. The fresh-reader MV3 regression exercises the
-   keyboard path and the storage-error state.
-3. Added listed, clean-context claims for landing-page offline reload and the
-   public no-tracking/no-cookie promise. The privacy test traverses every
-   public route and asserts first-party-only requests, no `Set-Cookie`, and an
-   empty cookie jar.
-4. Corrected demo documentation: reset replaces the session key with the
-   shipped sample card; it does not leave the key absent.
-
-## How to run and verify
-
-```sh
-npm ci
-npm run lint
-npm run typecheck
-npm test
-npm run test:e2e
-npm run build
-npm run test:package
-npm run check
-```
-
-The reproducible production build command remains exactly `npm run build`.
-
-## Evidence
-
-- `npm ci`: installed 489 packages. It reports 10 transitive development-only
-  advisories; `npm audit --omit=dev --audit-level=low` passes with 0 production
-  vulnerabilities.
-- `npm run lint`: passed for 5 public routes and 13 claims.
-- `npm run typecheck`: passed.
-- `npm test`: 3 files / 10 tests passed.
-- Every exact command from `.factory/claims.json`: passed. This includes all
-  13 claims, with the new computed-motion, landing-offline, and whole-site
-  no-cookie/request tests.
-- `npm run test:e2e`: 21/21 passed. It covers real MV3 installation,
-  fresh-reader keyboard behavior, 390 px layouts, offline reload, import and
-  export, privacy, and Axe serious/critical scans of public routes and reader
-  contrast states.
-- `npm run build`: passed and produced `.output/chrome-mv3` and `dist/site`.
-  Initial site JS is 1.60 kB raw / 0.76 kB gzip; demo JS is 4.69 kB raw /
-  1.71 kB gzip; site CSS is 16.64 kB raw / 4.31 kB gzip.
-- `npm run test:package`: passed; deterministic package SHA-256:
+- Every exact command in `.factory/claims.json`: 13/13 commands passed.
+- `npm run check`: passed (lint, typecheck, 10/10 unit tests, production build).
+- `npm run test:e2e`: 21/21 passed.
+- `npm run test:package`: passed; deterministic ZIP SHA-256
   `2d5c1423e1daa4a3433999bae7ac2514c24464590d1e0a79780320a5445c0d2b`.
-- `npm run check`: passed.
-- `/opt/fleet/lib/verify-url.sh` passed locally for `/`, `/demo/`,
-  `/privacy/`, and `/terms/`: titles, `lang`, one H1, `main`, image alt text,
-  and zero console/page errors. Standalone `@axe-core/cli` could not discover
-  Chrome in this container; the equivalent in-repository Playwright Axe scans
-  passed as part of the 21-test browser suite.
+- `/opt/fleet/lib/verify-url.sh`: passed live for `/`, `/demo/`, `/privacy/`,
+  and `/terms/`.
+- Live Axe scans: zero violations at 390 × 844 and 1440 × 900 for `/`,
+  `/demo/`, `/privacy/`, `/terms/`, and `/404.html`.
+- Live link crawl: all internal routes, the extension ZIP, and GitHub source
+  returned 200; an unknown route returned the designed HTTP 404.
+- Live sandbox check: only same-origin requests; no console errors; demo writes
+  only `demo:reader-profile` in session storage and leaves seeded real local
+  storage unchanged; Reset restores 120% and the shipped sample.
 
-## Deployment and live checks
+## Work remaining
 
-- Source repair commit: `cbf4fc6` (`fix: repair motion and fresh reader states`),
-  pushed to `origin/main` before deployment.
-- Deployed with `/opt/fleet/lib/deploy-static.sh reader-setting-transfer
-  dist/site` to the existing Standard Static Web App in `centralus`.
-- Live identity passed: local and downloaded live `index.html` both SHA-256
-  `44946533db65d3fbe41167ed7c52cf9139a0e66fa470590ccbd00f4f8bed193a`;
-  local and live extension ZIP both SHA-256
-  `2d5c1423e1daa4a3433999bae7ac2514c24464590d1e0a79780320a5445c0d2b`.
-- `/opt/fleet/lib/verify-url.sh` passed live for `/`, `/demo/`, `/privacy/`,
-  and `/terms/` at desktop and 390 px. Every route had one H1, `lang=en`, a
-  main landmark, complete image alt text, and no console/page errors.
-- Live Playwright/Axe checks over `/`, `/demo/`, `/privacy/`, `/terms/`, and
-  `/404.html` found no serious or critical violations. The same run confirmed
-  no console errors, only the product origin requested, no `Set-Cookie`, and
-  an empty browser cookie jar.
-- Live repaired motion behavior: with OS motion set to `no-preference`, an
-  unchecked control computed `demo-reader-settle`, `0.22s`, and `0.18s`;
-  checked motion reduction computed `none`, `0s`, and `0s`.
-- Live mobile/keyboard/offline check: 390 px overflow was `0`; Arrow Right
-  scrolled the keyboard-focusable promise strip; after service-worker control
-  and update, an offline landing reload rendered both the H1 and offline
-  notice.
-
-## Known gaps / next steps
-
-None known. The product remains local-first, account-free, and uses no
-analytics or remote runtime services.
+Resolve every finding in `.factory/review-1.md` before requesting another
+review. F-1-1 is blocking. Passing automated tests does not produce a PASS
+while the immediate mobile demo result, claim registry, and copy contract
+remain incomplete.
