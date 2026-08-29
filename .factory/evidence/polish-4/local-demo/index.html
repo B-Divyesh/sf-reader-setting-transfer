@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Try Reader Setting Transfer on a sample article without changing real browser data." />
+    <meta name="theme-color" content="#18213B" />
+    <title>Demo — Reader Setting Transfer</title>
+    <link rel="canonical" href="https://reader-setting-transfer.sociobot.in/demo/" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Demo — Reader Setting Transfer" />
+    <meta property="og:description" content="Try a sample article with adjustable reading settings." />
+    <meta property="og:url" content="https://reader-setting-transfer.sociobot.in/demo/" />
+    <meta property="og:image" content="https://reader-setting-transfer.sociobot.in/social-card.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Demo — Reader Setting Transfer" />
+    <meta name="twitter:description" content="Try a sample article with adjustable reading settings." />
+    <meta name="twitter:image" content="https://reader-setting-transfer.sociobot.in/social-card.jpg" />
+    <script type="module" crossorigin src="/assets/demo-D8sALWx9.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/main-Cr58VjM7.js">
+    <link rel="stylesheet" crossorigin href="/assets/main-BwxQhb_6.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to demo</a>
+    <div id="route-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="demo-banner" role="status" aria-label="Demo mode">
+      <p>Demo — sample data, nothing is saved</p>
+      <button id="reset-demo" type="button">Reset demo</button>
+      <a id="start-real" href="/downloads/reader-setting-transfer-chrome.zip" download>Download the extension</a>
+    </div>
+    <div id="offline-banner" class="offline-banner" role="status" hidden>You’re offline. This sample still works.</div>
+    <header class="site-header">
+      <a class="logo" href="/" aria-label="Reader Setting Transfer home"><span class="reg-mark" aria-hidden="true"><i></i></span><span>Reader Setting<br />Transfer</span></a>
+      <nav aria-label="Main navigation">
+        <a href="/demo/" aria-current="page">Demo</a>
+        <a href="/#how-it-works">How it works</a>
+        <a href="/privacy/">Privacy</a>
+        <a class="nav-download" href="/downloads/reader-setting-transfer-chrome.zip" download>Download extension <span aria-hidden="true">↓</span></a>
+      </nav>
+    </header>
+    <main id="main" class="demo-page">
+      <section class="demo-intro">
+        <p class="eyebrow">Ready sample · city field notes</p>
+        <h1>Try your settings on a sample article.</h1>
+        <p class="hero__lede">Adjust this sample reading card. Its temporary storage stays separate from extension data.</p>
+      </section>
+      <section class="demo-workspace" aria-label="Sample reader workspace">
+        <form id="demo-controls" class="demo-controls">
+          <fieldset>
+            <legend>Text</legend>
+            <label for="demo-size">Text size</label>
+            <div class="demo-control-row"><input id="demo-size" name="fontScale" type="range" min="0.85" max="1.8" step="0.05" /><output id="demo-size-value" for="demo-size"></output></div>
+            <label for="demo-leading">Line spacing</label>
+            <div class="demo-control-row"><input id="demo-leading" name="lineHeight" type="range" min="1.2" max="2.2" step="0.05" /><output id="demo-leading-value" for="demo-leading"></output></div>
+            <label for="demo-font">Letter shapes</label>
+            <select id="demo-font" name="fontChoice"><option value="serif">Book serif</option><option value="hyperlegible">Atkinson Hyperlegible</option><option value="dyslexia">Spacious sans serif</option></select>
+          </fieldset>
+          <fieldset>
+            <legend>Comfort</legend>
+            <label for="demo-contrast">Page contrast</label>
+            <select id="demo-contrast" name="contrast"><option value="paper">Warm paper</option><option value="high">High contrast</option><option value="dark">Dark page</option></select>
+            <label class="demo-check" for="demo-motion"><input id="demo-motion" name="reduceMotion" type="checkbox" /> Reduce interface motion</label>
+          </fieldset>
+          <div class="demo-transfer">
+            <button id="demo-export" type="button">Export sample card</button>
+            <input id="demo-import" type="file" accept="application/json,.json" aria-label="Import a sample card" />
+          </div>
+          <p id="demo-status" class="demo-status" role="status" aria-live="polite">Sample settings are ready.</p>
+        </form>
+        <div id="demo-reader" class="demo-reader">
+          <div class="demo-reader__rail"><span>Quiet evening · sample reading card</span><span>Applied on fieldnotes.example</span></div>
+          <article id="demo-article" class="demo-article" tabindex="-1">
+            <p class="demo-source">FIELD NOTE · URBAN TREES</p>
+            <h2>The city changes when you notice its trees</h2>
+            <p>At dusk, street trees stop blending into the buildings. Their shadows stretch across brick walls, and each leaf edge catches the last blue light.</p>
+            <p>A short evening walk can become a useful field study. Choose one familiar block and notice what changes from week to week.</p>
+            <h3>Three details worth recording</h3>
+            <ul><li>Where the canopy begins above the pavement.</li><li>Which birds return before the streetlights switch on.</li><li>How rain changes the colour and texture of the bark.</li></ul>
+            <blockquote>Familiar streets become new when you give them enough time.</blockquote>
+            <p>This sample keeps headings, paragraphs, a list, and a quotation so you can judge the reading settings on varied text.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <a class="logo logo--footer" href="/"><span class="reg-mark" aria-hidden="true"><i></i></span><span>Reader Setting<br />Transfer</span></a>
+      <p>Apply one reading card to simplified web articles.</p>
+      <nav aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="https://github.com/B-Divyesh/sf-reader-setting-transfer" rel="noreferrer">Source on GitHub (external)</a></nav>
+      <p class="art-note">Built by Param Factory · Version 1.0</p>
+    </footer>
+  </body>
+</html>

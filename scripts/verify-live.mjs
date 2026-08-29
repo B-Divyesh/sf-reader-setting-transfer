@@ -17,6 +17,7 @@ const routeTitles = {
 
 const browser = await chromium.launch({ channel: 'chromium' });
 const results = { base, routes: {}, mobile: {}, privacy: {}, offline: {}, links: {}, errors: [] };
+const publicLinks = new Set();
 
 try {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
@@ -34,8 +35,13 @@ try {
     const response = await page.goto(`${base}${path}`, { waitUntil: 'networkidle' });
     assert(response?.ok(), `${path} did not return 200`);
     assert(await page.title() === title, `${path} title did not match`);
+    assert(await page.locator('html').getAttribute('lang') === 'en', `${path} missed lang=en`);
     assert(await page.locator('h1').count() === 1, `${path} did not have one H1`);
     assert(await page.locator('main').count() === 1, `${path} did not have one main`);
+    assert(Boolean(await page.locator('meta[name="description"]').getAttribute('content')), `${path} missed its description`);
+    assert(Boolean(await page.locator('link[rel="canonical"]').getAttribute('href')), `${path} missed its canonical URL`);
+    assert((await page.locator('meta[property="og:image"]').getAttribute('content'))?.endsWith('/social-card.jpg'), `${path} missed its social image`);
+    assert(await page.locator('meta[name="twitter:card"]').getAttribute('content') === 'summary_large_image', `${path} missed its Twitter card`);
     assert(await page.locator('footer a[href="/privacy/"]').count() === 1, `${path} missed Privacy in the footer`);
     assert(await page.locator('footer a[href="/terms/"]').count() === 1, `${path} missed Terms in the footer`);
     assert(await page.locator('header .logo').count() === 1, `${path} missed the shared header wordmark`);
@@ -44,6 +50,7 @@ try {
     const axe = await new AxeBuilder({ page }).analyze();
     const serious = axe.violations.filter((item) => ['serious', 'critical'].includes(item.impact ?? ''));
     assert(serious.length === 0, `${path} had serious Axe findings`);
+    for (const href of await page.locator('a[href]').evaluateAll((links) => links.map((link) => link.href))) publicLinks.add(href);
     results.routes[path] = { title, seriousAxeViolations: serious.length };
   }
 
@@ -56,6 +63,16 @@ try {
   await page.waitForURL(/\/demo\/$/);
   const primaryFocused = await page.locator('h1').evaluate((node) => node === document.activeElement);
   assert(primaryFocused, 'primary demo route did not focus the H1');
+  const routeStatus = await page.locator('#route-status').evaluate((element) => {
+    const box = element.getBoundingClientRect();
+    const style = getComputedStyle(element);
+    return {
+      text: element.textContent?.trim(), width: box.width, height: box.height,
+      position: style.position, overflow: style.overflow, clipPath: style.clipPath
+    };
+  });
+  assert(routeStatus.text === 'Opened Try your settings on a sample article.', 'route announcement did not name the demo');
+  assert(routeStatus.width === 1 && routeStatus.height === 1 && routeStatus.position === 'absolute' && routeStatus.overflow === 'hidden', 'route announcement affected visible layout');
   assert(await page.getByText('Demo — sample data, nothing is saved').isVisible(), 'demo banner was not visible');
   const sampleHeading = page.getByRole('heading', { name: 'The city changes when you notice its trees' });
   const headingBox = await sampleHeading.boundingBox();
@@ -77,7 +94,7 @@ try {
   assert(storage.session.length === 1 && storage.session[0] === 'demo:reader-profile', 'demo used an unexpected namespace');
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   assert(overflow <= 1, 'demo overflowed at 390 px');
-  results.mobile = { headingBottom: headingBox.y + headingBox.height, paragraphTop: paragraphBox.y, overflow, storage };
+  results.mobile = { headingBottom: headingBox.y + headingBox.height, paragraphTop: paragraphBox.y, overflow, storage, routeStatus };
 
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(`${base}/`);
@@ -90,12 +107,17 @@ try {
   await page.getByRole('link', { name: 'Demo', exact: true }).click();
   const forwardFocused = await page.locator('h1').evaluate((node) => node === document.activeElement);
   assert(forwardFocused, 'forward route did not focus the H1');
+  const desktopHeadingBox = await page.getByRole('heading', { name: 'The city changes when you notice its trees' }).boundingBox();
+  const desktopParagraphBox = await page.locator('#demo-article > p').nth(1).boundingBox();
+  assert(Boolean(desktopHeadingBox) && desktopHeadingBox.y + desktopHeadingBox.height <= 900, 'sample heading was below the first desktop viewport');
+  assert(Boolean(desktopParagraphBox) && desktopParagraphBox.y < 900, 'sample paragraph did not begin in the first desktop viewport');
+  results.desktopDemo = { headingBottom: desktopHeadingBox.y + desktopHeadingBox.height, paragraphTop: desktopParagraphBox.y };
   await page.goBack();
   const backFocused = await page.locator('h1').evaluate((node) => node === document.activeElement);
   assert(backFocused, 'Back did not focus the H1');
   results.focus = { primaryFocused, forwardFocused, backFocused };
 
-  const hrefs = await page.locator('a[href]').evaluateAll((links) => [...new Set(links.map((link) => link.href))]);
+  const hrefs = [...publicLinks];
   for (const href of hrefs) {
     if (!href.startsWith('http')) continue;
     const response = await context.request.get(href);
