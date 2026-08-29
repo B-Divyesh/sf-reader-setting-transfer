@@ -1,53 +1,63 @@
-# Reader Setting Transfer — verification handoff
+# Reader Setting Transfer — review 2 handoff
 
-## Status: PASS
+## Status: FAIL
 
-Independent QA accepted candidate `e11e4f00c23dfaccd6fca17175dc01993b42d297`
-at <https://reader-setting-transfer.sociobot.in/> on 2026-08-29 UTC. The live
-site and extension package match the candidate byte-for-byte; no product code
-was changed during verification.
+Completed adversarial review 2 against repository commit
+`a194fce97f77fdcec628fded0c344988dc023593` and the matching live deployment
+at <https://reader-setting-transfer.sociobot.in/> on 2026-08-29 UTC. No product
+code was changed.
 
-## What was verified
+The complete review is in `.factory/review-2.md`. It records 7 reopened
+blocking findings, 6 new major findings, and 8 new minor findings. The primary
+blockers are incomplete keyboard-claim coverage, missing focus after the hero
+demo redirect, inconsistent route chrome, an unlabeled external link, and
+three earlier copy/claim findings that remain unresolved.
 
-- Every one of the 16 exact commands in `.factory/claims.json` passed from a
-  clean `npm ci` checkout.
-- `npm run lint`, `npm run typecheck`, `npm test` (10 tests), `npm run
-  test:package`, exact `npm run build`, and `npm run test:e2e` (24 tests) pass.
-- The cold first screen clearly states the job, intended low-vision audience,
-  first action, and has a one-click isolated sample demo.
-- Desktop and 390 px mobile, keyboard use, focus, reduced motion, invalid and
-  minimum-boundary reading-card import recovery, privacy/network isolation,
-  offline reload/service-worker update, response headers/caching, 404, and
-  real MV3 local-reader behavior were checked.
-- Live Lighthouse: 100 Performance / 100 Accessibility / 100 Best Practices /
-  100 SEO; LCP 1.4 s, CLS 0.033, TBT 80 ms.
+## Verification completed
 
-## Deployment identity
+- Opened the live site cold at 390 × 844 and 1440 × 900.
+- Exercised the one-click demo, Reset, download/exit cleanup, keyboard input,
+  local/session storage isolation, offline reload, request log, and cookies.
+- Inspected all required routes, metadata, headings, canonical/OG/favicon
+  assets, unknown-route status, Back behavior, route focus, and navigation.
+- Crawled every public link; intended destinations and the extension ZIP
+  returned 200.
+- Ran live Axe checks with no serious or critical findings.
+- Read every earlier review, polish record, and handoff; checked all 39 earlier
+  findings against both live output and source.
+- Ran all 16 exact `.factory/claims.json` commands independently from clean
+  clone `/tmp/rst-review2-clean-6Rox3z`; every command passed.
+- Ran `npm run check`, `npm run test:package`, and `npm run test:e2e` from that
+  clone. Results: 10/10 unit tests and 24/24 browser tests passed; build and
+  deterministic package passed.
+- Confirmed the live landing page, demo page, and extension ZIP hashes match
+  the clean build.
+- Confirmed `npm audit --omit=dev` has zero findings. The full dependency audit
+  reports 10 development-tool findings and is recorded as F-2-14.
 
-The following local/live SHA-256 values match:
+## How to reproduce
 
-- `index.html`: `b61a7646138c858b6048312967f5015cf68edf431c94a2943ef67612617f7aa2`
-- `demo/index.html`: `fba4e2ad26c2418ccd9e4e43be68159184e892740ff3ad56857ffeda00a27c9a`
-- Extension ZIP: `abd2b483ee6dd9d9dd40f2d0f0958e9a3c844910eccc7ef8f1faca361d21375a`
-
-## Evidence and defects
-
-See `.factory/verification-9.md` for the complete command record, claim list,
-acceptance evidence, and applicability decisions. Supporting browser and
-Lighthouse evidence is in `.factory/evidence/verification-9/`.
-
-Defects: **none** (Critical: 0; High: 0; Medium: 0; Low: 0).
-
-## How to verify again
+From a clean clone, run every command in `.factory/claims.json`, followed by:
 
 ```sh
 npm ci
 npm run check
 npm run test:package
 npm run test:e2e
-VERIFY_EVIDENCE=.factory/evidence/verification-9 node scripts/verify-live.mjs
+VERIFY_EVIDENCE=.factory/evidence/review-2 node scripts/verify-live.mjs
+npm audit
+npm audit --omit=dev
 ```
 
-No known gaps or next steps remain. This static, account-free product has no
-backend, payment/unlock API, or sign-in flow; rate-limit and Entra checks do not
-apply.
+The browser checks that exposed review findings also need the hero's
+**Try it with sample data** path, every keyboard-operable control, and 200%
+root text at a 390 × 844 viewport; the current shared verifier does not cover
+those three cases.
+
+## What remains
+
+Resolve every finding in `.factory/review-2.md`, with reopened `F-1-*` IDs
+first. Then rerun the exact claim commands and all live checks, including the
+hero demo focus path and 200% text reflow at 390 px. The next review must not
+accept a passing command when its assertions cover less than the registered
+claim.
