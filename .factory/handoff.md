@@ -121,6 +121,12 @@ index.html local/live  b67c0dbeff6b9ccda9c12f5ac31a887e89af47ae378965b664ddb4871
 ZIP local/live         7c4831b7ef0d76c8f75914acf2ff711b0b7c5c37cd0a6d5b8e9c66fdfe27967c
 ```
 
+The downloaded ZIP was unpacked and installed in a fresh Chromium profile.
+Its local storage started empty; the repaired empty state was visible at
+390 x 844; the reader shell computed to `display: none`; no reader control was
+exposed; direct synthetic activation caused no error; and the extension made
+no HTTP request.
+
 Live `verify-url.sh` checks passed for `/`, `/demo/`, `/privacy/`, and
 `/terms/` at desktop and 390 px with no console or page errors. The live 390 px
 demo had no document overflow, responded to keyboard input, produced no

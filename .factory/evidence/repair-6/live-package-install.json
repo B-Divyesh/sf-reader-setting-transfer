@@ -1,0 +1,10 @@
+{
+  "title": "Article reader — Reader Setting Transfer",
+  "emptyVisible": true,
+  "shellHidden": true,
+  "shellDisplay": "none",
+  "visibleReaderControls": 0,
+  "storage": {},
+  "errors": [],
+  "httpRequests": []
+}
