@@ -1,0 +1,276 @@
+COMMAND npm run lint
+
+> reader-setting-transfer@1.0.0 lint
+> node scripts/lint-content.mjs
+
+Content lint passed for 5 routes and 11 claims.
+STATUS 0
+COMMAND npm run typecheck
+
+> reader-setting-transfer@1.0.0 typecheck
+> wxt prepare && tsc --noEmit
+
+[log]
+WXT 0.20.27
+[info] Generating types...
+[success] Finished in 232 ms
+STATUS 0
+COMMAND npm test
+
+> reader-setting-transfer@1.0.0 test
+> wxt prepare && vitest run
+
+[log]
+WXT 0.20.27
+[info] Generating types...
+[success] Finished in 234 ms
+
+ RUN  v3.2.7 /work/repo
+
+ ✓ tests/deployment.test.ts (2 tests) 8ms
+ ✓ tests/profile.test.ts (5 tests) 7ms
+ ✓ tests/article.test.ts (3 tests) 126ms
+
+ Test Files  3 passed (3)
+      Tests  10 passed (10)
+   Start at  01:57:51
+   Duration  2.75s (transform 379ms, setup 0ms, collect 569ms, tests 141ms, environment 1.21s, prepare 1.20s)
+
+STATUS 0
+COMMAND npm run build
+
+> reader-setting-transfer@1.0.0 build
+> npm run build:site
+
+
+> reader-setting-transfer@1.0.0 build:site
+> npm run build:extension && vite build --config vite.site.config.ts && node scripts/package-extension.mjs
+
+
+> reader-setting-transfer@1.0.0 build:extension
+> wxt build
+
+[log]
+WXT 0.20.27
+[info] Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+[1G[success] Built extension in 857 ms
+  ├─ .output/chrome-mv3/manifest.json                                                     538 B
+  ├─ .output/chrome-mv3/options.html                                                      6.17 kB
+  ├─ .output/chrome-mv3/popup.html                                                        1.38 kB
+  ├─ .output/chrome-mv3/reader.html                                                       3.58 kB
+  ├─ .output/chrome-mv3/background.js                                                     694 B
+  ├─ .output/chrome-mv3/chunks/options-ByXIDq0H.js                                        3.96 kB
+  ├─ .output/chrome-mv3/chunks/popup-QrTlmP_a.js                                          4.3 kB
+  ├─ .output/chrome-mv3/chunks/reader-DrQX7k9c.js                                         2.65 kB
+  ├─ .output/chrome-mv3/chunks/storage-Bf1bTs1C.js                                        3.32 kB
+  ├─ .output/chrome-mv3/assets/options-26LuoxQB.css                                       9.08 kB
+  ├─ .output/chrome-mv3/assets/popup-BE2KfnJH.css                                         5.54 kB
+  ├─ .output/chrome-mv3/assets/reader-7QD04X7A.css                                        10 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-400-normal-BbWidj28.woff       14.02 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-400-normal-BrHNak5F.woff2      17.21 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-700-normal-BK6Glc0m.woff       14.29 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-700-normal-GZI4o3u0.woff2      17.52 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-ext-400-normal-Bbz-b3yf.woff   7.36 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-ext-400-normal-DRk46D-x.woff2  9.38 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-ext-700-normal-BoVPHkS0.woff2  9.37 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-ext-700-normal-CKkU2Dpt.woff   7.36 kB
+  ├─ .output/chrome-mv3/icons/icon-128.png                                                1.79 kB
+  ├─ .output/chrome-mv3/icons/icon-16.png                                                 780 B
+  ├─ .output/chrome-mv3/icons/icon-32.png                                                 654 B
+  ├─ .output/chrome-mv3/icons/icon-48.png                                                 1.06 kB
+  └─ .output/chrome-mv3/icons/icon.svg                                                    354 B
+Σ Total size: 152.36 kB
+[success] Finished in 889 ms
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 12 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/404.html                                                           2.68 kB │ gzip: 1.00 kB
+../dist/site/terms/index.html                                                   3.80 kB │ gzip: 1.50 kB
+../dist/site/privacy/index.html                                                 4.20 kB │ gzip: 1.63 kB
+../dist/site/demo/index.html                                                    6.42 kB │ gzip: 2.28 kB
+../dist/site/assets/atkinson-hyperlegible-latin-ext-400-normal-Bbz-b3yf.woff    7.36 kB
+../dist/site/assets/atkinson-hyperlegible-latin-ext-700-normal-CKkU2Dpt.woff    7.36 kB
+../dist/site/assets/atkinson-hyperlegible-latin-ext-700-normal-BoVPHkS0.woff2   9.37 kB
+../dist/site/assets/atkinson-hyperlegible-latin-ext-400-normal-DRk46D-x.woff2   9.38 kB
+../dist/site/index.html                                                         9.51 kB │ gzip: 3.08 kB
+../dist/site/assets/atkinson-hyperlegible-latin-400-normal-BbWidj28.woff       14.02 kB
+../dist/site/assets/atkinson-hyperlegible-latin-700-normal-BK6Glc0m.woff       14.29 kB
+../dist/site/assets/atkinson-hyperlegible-latin-400-normal-BrHNak5F.woff2      17.21 kB
+../dist/site/assets/atkinson-hyperlegible-latin-700-normal-GZI4o3u0.woff2      17.52 kB
+../dist/site/assets/main-DVwx1fqn.css                                          16.06 kB │ gzip: 4.20 kB
+../dist/site/assets/main-YMAyxxET.js                                            1.60 kB │ gzip: 0.76 kB
+../dist/site/assets/demo-BH-EcWir.js                                            4.69 kB │ gzip: 1.71 kB
+✓ built in 347ms
+Packaged /work/repo/dist/site/downloads/reader-setting-transfer-chrome.zip
+STATUS 0
+COMMAND npm run test:e2e
+
+> reader-setting-transfer@1.0.0 test:e2e
+> playwright test
+
+[1A[2K[WebServer] (node:3632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] - Preparing...
+
+[1A[2K[WebServer] [1G
+
+[1A[2K[WebServer] (node:3652) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:3679) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 17 tests using 2 workers
+
+[1A[2K(node:3691) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:3692) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:3692) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:3691) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/17] e2e/site.spec.ts:5:3 › / has one main heading and no serious accessibility violations
+[1A[2K[2/17] e2e/extension.spec.ts:22:1 › @claim:extension-local-reader the built extension stores a profile locally and renders a clean article
+[1A[2K[3/17] e2e/site.spec.ts:5:3 › /demo/ has one main heading and no serious accessibility violations
+[1A[2K[4/17] e2e/site.spec.ts:5:3 › /privacy/ has one main heading and no serious accessibility violations
+[1A[2K[5/17] e2e/site.spec.ts:5:3 › /terms/ has one main heading and no serious accessibility violations
+[1A[2K[6/17] e2e/site.spec.ts:5:3 › /404.html has one main heading and no serious accessibility violations
+[1A[2K[7/17] e2e/site.spec.ts:20:1 › @claim:offline-reload the demo reloads after the first visit while offline
+[1A[2K[8/17] e2e/site.spec.ts:40:1 › @claim:responsive-keyboard the landing page works at 390px with keyboard scrolling
+[1A[2K[9/17] e2e/site.spec.ts:60:1 › @claim:reading-settings sample settings visibly change and reset the article
+[1A[2K[10/17] e2e/site.spec.ts:103:1 › @claim:profile-json-transfer the sample card exports and imports as JSON
+[1A[2K[11/17] e2e/site.spec.ts:143:1 › @claim:demo-isolation the demo uses only its namespace and first-party requests
+[1A[2K[12/17] e2e/site.spec.ts:163:1 › unknown routes return the designed 404 response
+[1A[2K[13/17] e2e/site.spec.ts:169:1 › the advertised demo query opens the sandbox route
+[1A[2K[14/17] e2e/site.spec.ts:175:1 › /demo opens the real sample instead of the landing fallback
+[1A[2K[15/17] e2e/extension.spec.ts:91:1 › @claim:per-site-off-return turns the reader off for one site and returns to the original article
+[1A[2K[16/17] e2e/extension.spec.ts:119:1 › @claim:extension-uninstall-data removing the extension clears its browser-managed local data
+[1A[2K[17/17] e2e/extension.spec.ts:157:1 › the extension settings fit at 390px and explain malformed card files
+[1A[2K  17 passed (47.6s)
+STATUS 0
+COMMAND npm run test:package
+
+> reader-setting-transfer@1.0.0 test:package
+> node scripts/test-package-determinism.mjs
+
+
+> reader-setting-transfer@1.0.0 build:extension
+> wxt build
+
+[log]
+WXT 0.20.27
+[info] Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+[1G[success] Built extension in 833 ms
+  ├─ .output/chrome-mv3/manifest.json                                                     538 B
+  ├─ .output/chrome-mv3/options.html                                                      6.17 kB
+  ├─ .output/chrome-mv3/popup.html                                                        1.38 kB
+  ├─ .output/chrome-mv3/reader.html                                                       3.58 kB
+  ├─ .output/chrome-mv3/background.js                                                     694 B
+  ├─ .output/chrome-mv3/chunks/options-ByXIDq0H.js                                        3.96 kB
+  ├─ .output/chrome-mv3/chunks/popup-QrTlmP_a.js                                          4.3 kB
+  ├─ .output/chrome-mv3/chunks/reader-DrQX7k9c.js                                         2.65 kB
+  ├─ .output/chrome-mv3/chunks/storage-Bf1bTs1C.js                                        3.32 kB
+  ├─ .output/chrome-mv3/assets/options-26LuoxQB.css                                       9.08 kB
+  ├─ .output/chrome-mv3/assets/popup-BE2KfnJH.css                                         5.54 kB
+  ├─ .output/chrome-mv3/assets/reader-7QD04X7A.css                                        10 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-400-normal-BbWidj28.woff       14.02 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-400-normal-BrHNak5F.woff2      17.21 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-700-normal-BK6Glc0m.woff       14.29 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-700-normal-GZI4o3u0.woff2      17.52 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-ext-400-normal-Bbz-b3yf.woff   7.36 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-ext-400-normal-DRk46D-x.woff2  9.38 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-ext-700-normal-BoVPHkS0.woff2  9.37 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-ext-700-normal-CKkU2Dpt.woff   7.36 kB
+  ├─ .output/chrome-mv3/icons/icon-128.png                                                1.79 kB
+  ├─ .output/chrome-mv3/icons/icon-16.png                                                 780 B
+  ├─ .output/chrome-mv3/icons/icon-32.png                                                 654 B
+  ├─ .output/chrome-mv3/icons/icon-48.png                                                 1.06 kB
+  └─ .output/chrome-mv3/icons/icon.svg                                                    354 B
+Σ Total size: 152.36 kB
+[success] Finished in 878 ms
+Packaged /work/repo/dist/site/downloads/reader-setting-transfer-chrome.zip
+Archive:  /work/repo/dist/site/downloads/reader-setting-transfer-chrome.zip
+    testing: assets/atkinson-hyperlegible-latin-400-normal-BbWidj28.woff   OK
+    testing: assets/atkinson-hyperlegible-latin-400-normal-BrHNak5F.woff2   OK
+    testing: assets/atkinson-hyperlegible-latin-700-normal-BK6Glc0m.woff   OK
+    testing: assets/atkinson-hyperlegible-latin-700-normal-GZI4o3u0.woff2   OK
+    testing: assets/atkinson-hyperlegible-latin-ext-400-normal-Bbz-b3yf.woff   OK
+    testing: assets/atkinson-hyperlegible-latin-ext-400-normal-DRk46D-x.woff2   OK
+    testing: assets/atkinson-hyperlegible-latin-ext-700-normal-BoVPHkS0.woff2   OK
+    testing: assets/atkinson-hyperlegible-latin-ext-700-normal-CKkU2Dpt.woff   OK
+    testing: assets/options-26LuoxQB.css   OK
+    testing: assets/popup-BE2KfnJH.css   OK
+    testing: assets/reader-7QD04X7A.css   OK
+    testing: background.js            OK
+    testing: chunks/options-ByXIDq0H.js   OK
+    testing: chunks/popup-QrTlmP_a.js   OK
+    testing: chunks/reader-DrQX7k9c.js   OK
+    testing: chunks/storage-Bf1bTs1C.js   OK
+    testing: icons/icon-128.png       OK
+    testing: icons/icon-16.png        OK
+    testing: icons/icon-32.png        OK
+    testing: icons/icon-48.png        OK
+    testing: icons/icon.svg           OK
+    testing: manifest.json            OK
+    testing: options.html             OK
+    testing: popup.html               OK
+    testing: reader.html              OK
+No errors detected in compressed data of /work/repo/dist/site/downloads/reader-setting-transfer-chrome.zip.
+
+> reader-setting-transfer@1.0.0 build:extension
+> wxt build
+
+[log]
+WXT 0.20.27
+[info] Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+[1G[success] Built extension in 838 ms
+  ├─ .output/chrome-mv3/manifest.json                                                     538 B
+  ├─ .output/chrome-mv3/options.html                                                      6.17 kB
+  ├─ .output/chrome-mv3/popup.html                                                        1.38 kB
+  ├─ .output/chrome-mv3/reader.html                                                       3.58 kB
+  ├─ .output/chrome-mv3/background.js                                                     694 B
+  ├─ .output/chrome-mv3/chunks/options-ByXIDq0H.js                                        3.96 kB
+  ├─ .output/chrome-mv3/chunks/popup-QrTlmP_a.js                                          4.3 kB
+  ├─ .output/chrome-mv3/chunks/reader-DrQX7k9c.js                                         2.65 kB
+  ├─ .output/chrome-mv3/chunks/storage-Bf1bTs1C.js                                        3.32 kB
+  ├─ .output/chrome-mv3/assets/options-26LuoxQB.css                                       9.08 kB
+  ├─ .output/chrome-mv3/assets/popup-BE2KfnJH.css                                         5.54 kB
+  ├─ .output/chrome-mv3/assets/reader-7QD04X7A.css                                        10 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-400-normal-BbWidj28.woff       14.02 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-400-normal-BrHNak5F.woff2      17.21 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-700-normal-BK6Glc0m.woff       14.29 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-700-normal-GZI4o3u0.woff2      17.52 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-ext-400-normal-Bbz-b3yf.woff   7.36 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-ext-400-normal-DRk46D-x.woff2  9.38 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-ext-700-normal-BoVPHkS0.woff2  9.37 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-ext-700-normal-CKkU2Dpt.woff   7.36 kB
+  ├─ .output/chrome-mv3/icons/icon-128.png                                                1.79 kB
+  ├─ .output/chrome-mv3/icons/icon-16.png                                                 780 B
+  ├─ .output/chrome-mv3/icons/icon-32.png                                                 654 B
+  ├─ .output/chrome-mv3/icons/icon-48.png                                                 1.06 kB
+  └─ .output/chrome-mv3/icons/icon.svg                                                    354 B
+Σ Total size: 152.36 kB
+[success] Finished in 884 ms
+Packaged /work/repo/dist/site/downloads/reader-setting-transfer-chrome.zip
+Deterministic extension package: e77f5bd8299435470b62000299620a0f442bea9e00a15e6e0667af4ec50d2bcd
+STATUS 0
+COMMAND npm audit --omit=dev --audit-level=low
+found 0 vulnerabilities
+STATUS 0
+GATE_FAILURES 0

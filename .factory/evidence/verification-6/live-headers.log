@@ -1,0 +1,179 @@
+URL https://reader-setting-transfer.sociobot.in/
+HTTP/2 200
+content-type: text/html
+date: Sat, 29 Aug 2026 01:59:31 GMT
+accept-ranges: bytes
+cache-control: public, max-age=0, must-revalidate
+etag: "59584419"
+last-modified: Fri, 28 Aug 2026 20:27:11 GMT
+content-length: 9506
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+
+URL https://reader-setting-transfer.sociobot.in/demo/
+HTTP/2 200
+content-type: text/html
+date: Sat, 29 Aug 2026 01:59:32 GMT
+accept-ranges: bytes
+cache-control: public, max-age=0, must-revalidate
+etag: "59584419"
+last-modified: Fri, 28 Aug 2026 20:27:11 GMT
+content-length: 6417
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+
+URL https://reader-setting-transfer.sociobot.in/privacy/
+HTTP/2 200
+content-type: text/html
+date: Sat, 29 Aug 2026 01:59:32 GMT
+accept-ranges: bytes
+cache-control: public, max-age=0, must-revalidate
+etag: "59584419"
+last-modified: Fri, 28 Aug 2026 20:27:11 GMT
+content-length: 4195
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+
+URL https://reader-setting-transfer.sociobot.in/terms/
+HTTP/2 200
+content-type: text/html
+date: Sat, 29 Aug 2026 01:59:32 GMT
+accept-ranges: bytes
+cache-control: public, max-age=0, must-revalidate
+etag: "59584419"
+last-modified: Fri, 28 Aug 2026 20:27:11 GMT
+content-length: 3803
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+
+URL https://reader-setting-transfer.sociobot.in/assets/main-YMAyxxET.js
+HTTP/2 200
+content-type: text/javascript
+date: Sat, 29 Aug 2026 01:59:31 GMT
+accept-ranges: bytes
+cache-control: public, max-age=31536000, immutable
+etag: "59584419"
+last-modified: Fri, 28 Aug 2026 20:27:11 GMT
+content-length: 1600
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+
+URL https://reader-setting-transfer.sociobot.in/assets/main-DVwx1fqn.css
+HTTP/2 200
+content-type: text/css
+date: Sat, 29 Aug 2026 01:59:31 GMT
+accept-ranges: bytes
+cache-control: public, max-age=31536000, immutable
+etag: "59584419"
+last-modified: Fri, 28 Aug 2026 20:27:11 GMT
+content-length: 16061
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+
+URL https://reader-setting-transfer.sociobot.in/assets/reader-transfer-hero-720.webp
+HTTP/2 200
+content-type: image/webp
+date: Sat, 29 Aug 2026 01:59:32 GMT
+accept-ranges: bytes
+cache-control: public, max-age=31536000, immutable
+etag: "59584419"
+last-modified: Fri, 28 Aug 2026 20:27:11 GMT
+content-length: 48954
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+
+URL https://reader-setting-transfer.sociobot.in/downloads/reader-setting-transfer-chrome.zip
+HTTP/2 200
+content-type: application/zip
+date: Sat, 29 Aug 2026 01:59:32 GMT
+accept-ranges: bytes
+cache-control: public, max-age=31536000, immutable
+etag: "59584419"
+last-modified: Fri, 28 Aug 2026 20:27:11 GMT
+content-length: 122070
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+content-disposition: attachment
+
+URL https://reader-setting-transfer.sociobot.in/sw.js
+HTTP/2 200
+content-type: text/javascript
+date: Sat, 29 Aug 2026 01:59:32 GMT
+accept-ranges: bytes
+cache-control: no-cache
+etag: "59584419"
+last-modified: Fri, 28 Aug 2026 20:27:11 GMT
+content-length: 849
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+
+URL https://reader-setting-transfer.sociobot.in/verification-6-missing-route
+HTTP/2 404
+content-type: text/html
+date: Sat, 29 Aug 2026 01:59:32 GMT
+cache-control: public, max-age=0, must-revalidate
+etag: "59584419"
+last-modified: Fri, 28 Aug 2026 20:27:11 GMT
+content-length: 2682
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY

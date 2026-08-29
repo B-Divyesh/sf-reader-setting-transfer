@@ -1,0 +1,10 @@
+{
+  "active": "reset-demo",
+  "text": "Reset demo",
+  "outlineColor": "rgb(184, 55, 30)",
+  "outlineWidth": "4px",
+  "outlineOffset": "4px",
+  "surroundingBackground": "rgb(24, 33, 59)",
+  "focusVisible": true,
+  "contrast": 2.7307309060870946
+}

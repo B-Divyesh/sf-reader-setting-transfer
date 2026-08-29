@@ -1,0 +1,35 @@
+{
+  "installed": true,
+  "id": "pkbokehifbjmjmdmkihmkdlmfagpnemm",
+  "heading": "Make a reading card that feels like yours.",
+  "manifest": {
+    "action": {
+      "default_popup": "popup.html",
+      "default_title": "Reader Setting Transfer"
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "description": "Carry your readable text settings into a clean, local article reader.",
+    "icons": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    },
+    "manifest_version": 3,
+    "name": "Reader Setting Transfer",
+    "options_ui": {
+      "open_in_tab": true,
+      "page": "options.html"
+    },
+    "permissions": [
+      "storage",
+      "activeTab",
+      "scripting"
+    ],
+    "short_name": "Reader Transfer",
+    "version": "1.0.0"
+  },
+  "storage": {}
+}

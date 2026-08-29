@@ -1,0 +1,155 @@
+{
+  "manifest": {
+    "manifest_version": 3,
+    "name": "Reader Setting Transfer",
+    "description": "Carry your readable text settings into a clean, local article reader.",
+    "version": "1.0.0",
+    "short_name": "Reader Transfer",
+    "icons": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    },
+    "permissions": [
+      "storage",
+      "activeTab",
+      "scripting"
+    ],
+    "action": {
+      "default_title": "Reader Setting Transfer",
+      "default_popup": "popup.html"
+    },
+    "options_ui": {
+      "open_in_tab": true,
+      "page": "options.html"
+    },
+    "background": {
+      "service_worker": "background.js"
+    }
+  },
+  "extensionId": "hmnflijplgdmgeiodjlopfaipppkpaab",
+  "options": {
+    "invalid": [
+      {
+        "name": "bad",
+        "status": "This file is not valid JSON. Check the file, then try again."
+      },
+      {
+        "name": "version",
+        "status": "This profile version is not supported."
+      },
+      {
+        "name": "large",
+        "status": "That file is too large to be a reading card."
+      }
+    ],
+    "importedStatus": "Imported “Maximum comfort”.",
+    "storedFieldsMatch": true,
+    "storageComparisonNote": "chrome.storage reordered object keys; every field and value matched",
+    "exportMatches": true,
+    "focus": {
+      "label": "Save reading card",
+      "matches": true,
+      "outline": "3px solid rgb(21, 87, 213)"
+    },
+    "layout": {
+      "overflow": 0,
+      "targets": []
+    },
+    "axe": [
+      {
+        "contrast": "paper",
+        "serious": []
+      },
+      {
+        "contrast": "high",
+        "serious": []
+      },
+      {
+        "contrast": "dark",
+        "serious": []
+      }
+    ],
+    "savedStatus": "Saved on this device.",
+    "preview": {
+      "size": "175%",
+      "measure": "40 characters",
+      "line": "2.20×",
+      "paragraph": "2.5 lines",
+      "spacing": "8%"
+    }
+  },
+  "empty": {
+    "visible": true,
+    "h1Count": 1,
+    "headings": [
+      {
+        "tag": "H2",
+        "text": "Open an article, then choose the extension.",
+        "hidden": false
+      },
+      {
+        "tag": "H1",
+        "text": "",
+        "hidden": false
+      }
+    ],
+    "violations": [
+      {
+        "id": "empty-heading",
+        "impact": "minor",
+        "nodes": 1
+      }
+    ]
+  },
+  "reader": {
+    "maxAfterPlus": "180%",
+    "afterMinus": "175%",
+    "semantics": {
+      "h1": 1,
+      "h2": 1,
+      "lists": 1,
+      "quotes": 1,
+      "tables": 1,
+      "safeLink": {
+        "href": "http://127.0.0.1:4199/more",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      "script": 0
+    },
+    "layout": {
+      "overflow": 0,
+      "focused": "size-down",
+      "motion": "true"
+    },
+    "axe": [
+      {
+        "contrast": "paper",
+        "serious": []
+      },
+      {
+        "contrast": "high",
+        "serious": []
+      },
+      {
+        "contrast": "dark",
+        "serious": []
+      }
+    ],
+    "overrideVisible": true,
+    "overridesAfter": {}
+  },
+  "privacy": {
+    "extensionHttpRequests": [],
+    "allHttpRequests": [],
+    "consoleErrors": [],
+    "pageErrors": [],
+    "storageKeys": [
+      "currentArticle",
+      "readerProfile",
+      "siteOverrides"
+    ]
+  }
+}

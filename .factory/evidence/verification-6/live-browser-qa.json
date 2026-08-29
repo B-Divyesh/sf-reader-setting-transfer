@@ -1,0 +1,2118 @@
+{
+  "matrix": [
+    {
+      "viewport": "desktop",
+      "reducedMotion": "no-preference",
+      "route": "/",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Reader Setting Transfer — carry settings into articles",
+        "overflow": 0,
+        "undersized": [],
+        "moving": [
+          {
+            "tag": "A",
+            "class": "button button--primary",
+            "duration": "0s",
+            "transition": "0.18s, 0.18s"
+          },
+          {
+            "tag": "FIGURE",
+            "class": "hero__art",
+            "duration": "0.42s",
+            "transition": "0s"
+          },
+          {
+            "tag": "A",
+            "class": "button button--primary",
+            "duration": "0s",
+            "transition": "0.18s, 0.18s"
+          }
+        ]
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Demo",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "How it works",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Privacy",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download ↓",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "rgb(24, 33, 59) 3px 3px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Try it with sample data →",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "rgb(24, 33, 59) 5px 5px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download the extension package ↓",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "reducedMotion": "no-preference",
+      "route": "/demo/",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Demo — Reader Setting Transfer",
+        "overflow": 0,
+        "undersized": [
+          {
+            "tag": "INPUT",
+            "id": "demo-motion",
+            "text": "",
+            "w": 22,
+            "h": 22
+          }
+        ],
+        "moving": []
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to demo",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "id": "reset-demo",
+          "text": "Reset demo",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "start-real",
+          "text": "Start for real",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Product",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Privacy",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download ↓",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "rgb(24, 33, 59) 3px 3px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "id": "demo-size",
+          "text": "",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "id": "demo-leading",
+          "text": "",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "SELECT",
+          "id": "demo-font",
+          "text": "Book serifAtkinson HyperlegibleSpacious sans serif",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "SELECT",
+          "id": "demo-contrast",
+          "text": "Warm paperHigh contrastDark page",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "id": "demo-motion",
+          "text": "",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "reducedMotion": "no-preference",
+      "route": "/privacy/",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Privacy — Reader Setting Transfer",
+        "overflow": 0,
+        "undersized": [],
+        "moving": []
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Product",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Demo",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Terms",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Home",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Terms",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to main content Reader SettingTransferProductDemoTerms Effective ",
+          "outline": "0px none rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "reducedMotion": "no-preference",
+      "route": "/terms/",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Terms — Reader Setting Transfer",
+        "overflow": 0,
+        "undersized": [],
+        "moving": []
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Product",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Demo",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Privacy",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Home",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Privacy",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to main content Reader SettingTransferProductDemoPrivacy Effectiv",
+          "outline": "0px none rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "reducedMotion": "no-preference",
+      "route": "/404.html",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Page not found — Reader Setting Transfer",
+        "overflow": 0,
+        "undersized": [],
+        "moving": [
+          {
+            "tag": "A",
+            "class": "button button--primary",
+            "duration": "0s",
+            "transition": "0.18s, 0.18s"
+          }
+        ]
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Demo",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Privacy",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Return home",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "rgb(24, 33, 59) 5px 5px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Try the sample reader",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Privacy",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Terms",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "reducedMotion": "reduce",
+      "route": "/",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Reader Setting Transfer — carry settings into articles",
+        "overflow": 0,
+        "undersized": [],
+        "moving": []
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Demo",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "How it works",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Privacy",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download ↓",
+          "outline": "0px solid rgb(255, 255, 255)",
+          "boxShadow": "rgb(24, 33, 59) 3px 3px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Try it with sample data →",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "rgb(24, 33, 59) 5px 5px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download the extension package ↓",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "reducedMotion": "reduce",
+      "route": "/demo/",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Demo — Reader Setting Transfer",
+        "overflow": 0,
+        "undersized": [
+          {
+            "tag": "INPUT",
+            "id": "demo-motion",
+            "text": "",
+            "w": 22,
+            "h": 22
+          }
+        ],
+        "moving": []
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to demo",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "id": "reset-demo",
+          "text": "Reset demo",
+          "outline": "0px solid rgb(243, 235, 216)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "start-real",
+          "text": "Start for real",
+          "outline": "0px solid rgb(243, 235, 216)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Product",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Privacy",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download ↓",
+          "outline": "0px solid rgb(255, 255, 255)",
+          "boxShadow": "rgb(24, 33, 59) 3px 3px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "id": "demo-size",
+          "text": "",
+          "outline": "0px solid rgb(157, 150, 142)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "id": "demo-leading",
+          "text": "",
+          "outline": "0px solid rgb(157, 150, 142)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "SELECT",
+          "id": "demo-font",
+          "text": "Book serifAtkinson HyperlegibleSpacious sans serif",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "SELECT",
+          "id": "demo-contrast",
+          "text": "Warm paperHigh contrastDark page",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "id": "demo-motion",
+          "text": "",
+          "outline": "0px solid rgb(0, 0, 0)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "reducedMotion": "reduce",
+      "route": "/privacy/",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Privacy — Reader Setting Transfer",
+        "overflow": 0,
+        "undersized": [],
+        "moving": []
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Product",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Demo",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Terms",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Home",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Terms",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to main content Reader SettingTransferProductDemoTerms Effective ",
+          "outline": "0px none rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "reducedMotion": "reduce",
+      "route": "/terms/",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Terms — Reader Setting Transfer",
+        "overflow": 0,
+        "undersized": [],
+        "moving": []
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Product",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Demo",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Privacy",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Home",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Privacy",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to main content Reader SettingTransferProductDemoPrivacy Effectiv",
+          "outline": "0px none rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "reducedMotion": "reduce",
+      "route": "/404.html",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Page not found — Reader Setting Transfer",
+        "overflow": 0,
+        "undersized": [],
+        "moving": []
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Demo",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Privacy",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Return home",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "rgb(24, 33, 59) 5px 5px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Try the sample reader",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Privacy",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Terms",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "reducedMotion": "no-preference",
+      "route": "/",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Reader Setting Transfer — carry settings into articles",
+        "overflow": 0,
+        "undersized": [],
+        "moving": [
+          {
+            "tag": "A",
+            "class": "button button--primary",
+            "duration": "0s",
+            "transition": "0.18s, 0.18s"
+          },
+          {
+            "tag": "FIGURE",
+            "class": "hero__art",
+            "duration": "0.42s",
+            "transition": "0s"
+          },
+          {
+            "tag": "A",
+            "class": "button button--primary",
+            "duration": "0s",
+            "transition": "0.18s, 0.18s"
+          }
+        ]
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download ↓",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "rgb(24, 33, 59) 3px 3px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Try it with sample data →",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "rgb(24, 33, 59) 5px 5px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download the extension package ↓",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "SECTION",
+          "id": "",
+          "text": "01 · Portable profile02 · Clean article view03 · Local by default",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download extension ↓",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "rgb(24, 33, 59) 5px 5px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "reducedMotion": "no-preference",
+      "route": "/demo/",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Demo — Reader Setting Transfer",
+        "overflow": 0,
+        "undersized": [
+          {
+            "tag": "INPUT",
+            "id": "demo-motion",
+            "text": "",
+            "w": 22,
+            "h": 22
+          }
+        ],
+        "moving": []
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to demo",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "id": "reset-demo",
+          "text": "Reset demo",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "start-real",
+          "text": "Start for real",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download ↓",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "rgb(24, 33, 59) 3px 3px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "id": "demo-size",
+          "text": "",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "id": "demo-leading",
+          "text": "",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "SELECT",
+          "id": "demo-font",
+          "text": "Book serifAtkinson HyperlegibleSpacious sans serif",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "SELECT",
+          "id": "demo-contrast",
+          "text": "Warm paperHigh contrastDark page",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "id": "demo-motion",
+          "text": "",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "id": "demo-export",
+          "text": "Export sample card",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "id": "demo-import",
+          "text": "Import a sample card",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "reducedMotion": "no-preference",
+      "route": "/privacy/",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Privacy — Reader Setting Transfer",
+        "overflow": 0,
+        "undersized": [],
+        "moving": []
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Home",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Terms",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to main content Reader SettingTransferProductDemoTerms Effective ",
+          "outline": "0px none rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Home",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "reducedMotion": "no-preference",
+      "route": "/terms/",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Terms — Reader Setting Transfer",
+        "overflow": 0,
+        "undersized": [],
+        "moving": []
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Home",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Privacy",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to main content Reader SettingTransferProductDemoPrivacy Effectiv",
+          "outline": "0px none rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Home",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "reducedMotion": "no-preference",
+      "route": "/404.html",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Page not found — Reader Setting Transfer",
+        "overflow": 0,
+        "undersized": [],
+        "moving": [
+          {
+            "tag": "A",
+            "class": "button button--primary",
+            "duration": "0s",
+            "transition": "0.18s, 0.18s"
+          }
+        ]
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Return home",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "rgb(24, 33, 59) 5px 5px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Try the sample reader",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Privacy",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Terms",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to main content Reader SettingTransfer DemoPrivacy Misregistered ",
+          "outline": "0px none rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "reducedMotion": "reduce",
+      "route": "/",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Reader Setting Transfer — carry settings into articles",
+        "overflow": 0,
+        "undersized": [],
+        "moving": []
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download ↓",
+          "outline": "0px solid rgb(255, 255, 255)",
+          "boxShadow": "rgb(24, 33, 59) 3px 3px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Try it with sample data →",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "rgb(24, 33, 59) 5px 5px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download the extension package ↓",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "SECTION",
+          "id": "",
+          "text": "01 · Portable profile02 · Clean article view03 · Local by default",
+          "outline": "0px solid rgb(255, 255, 255)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download extension ↓",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "rgb(24, 33, 59) 5px 5px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "reducedMotion": "reduce",
+      "route": "/demo/",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Demo — Reader Setting Transfer",
+        "overflow": 0,
+        "undersized": [
+          {
+            "tag": "INPUT",
+            "id": "demo-motion",
+            "text": "",
+            "w": 22,
+            "h": 22
+          }
+        ],
+        "moving": []
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to demo",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "id": "reset-demo",
+          "text": "Reset demo",
+          "outline": "0px solid rgb(243, 235, 216)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "start-real",
+          "text": "Start for real",
+          "outline": "0px solid rgb(243, 235, 216)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download ↓",
+          "outline": "0px solid rgb(255, 255, 255)",
+          "boxShadow": "rgb(24, 33, 59) 3px 3px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "id": "demo-size",
+          "text": "",
+          "outline": "0px solid rgb(157, 150, 142)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "id": "demo-leading",
+          "text": "",
+          "outline": "0px solid rgb(157, 150, 142)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "SELECT",
+          "id": "demo-font",
+          "text": "Book serifAtkinson HyperlegibleSpacious sans serif",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "SELECT",
+          "id": "demo-contrast",
+          "text": "Warm paperHigh contrastDark page",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "id": "demo-motion",
+          "text": "",
+          "outline": "0px solid rgb(0, 0, 0)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "id": "demo-export",
+          "text": "Export sample card",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "id": "demo-import",
+          "text": "Import a sample card",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "reducedMotion": "reduce",
+      "route": "/privacy/",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Privacy — Reader Setting Transfer",
+        "overflow": 0,
+        "undersized": [],
+        "moving": []
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Home",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Terms",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to main content Reader SettingTransferProductDemoTerms Effective ",
+          "outline": "0px none rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Home",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "reducedMotion": "reduce",
+      "route": "/terms/",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Terms — Reader Setting Transfer",
+        "overflow": 0,
+        "undersized": [],
+        "moving": []
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Home",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Privacy",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to main content Reader SettingTransferProductDemoPrivacy Effectiv",
+          "outline": "0px none rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Home",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "reducedMotion": "reduce",
+      "route": "/404.html",
+      "status": 200,
+      "serious": [],
+      "errors": [],
+      "consoleErrors": [],
+      "layout": {
+        "h1": 1,
+        "main": true,
+        "lang": "en",
+        "title": "Page not found — Reader Setting Transfer",
+        "overflow": 0,
+        "undersized": [],
+        "moving": []
+      },
+      "focus": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Reader SettingTransfer",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Return home",
+          "outline": "4px solid rgb(184, 55, 30)",
+          "boxShadow": "rgb(24, 33, 59) 5px 5px 0px 0px",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Try the sample reader",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Privacy",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Terms",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to main content Reader SettingTransfer DemoPrivacy Misregistered ",
+          "outline": "0px none rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to main content",
+          "outline": "0px solid rgb(24, 33, 59)",
+          "boxShadow": "none",
+          "visible": true
+        }
+      ]
+    }
+  ],
+  "demo": {
+    "invalid": [
+      {
+        "name": "bad-json",
+        "status": "This file is not valid JSON. Check the file, then try again.",
+        "errorAttr": true
+      },
+      {
+        "name": "wrong-version",
+        "status": "This profile version is not supported.",
+        "errorAttr": true
+      },
+      {
+        "name": "too-small",
+        "status": "Text size is outside the supported range.",
+        "errorAttr": true
+      },
+      {
+        "name": "too-large-file",
+        "status": "That file is too large to be a reading card.",
+        "errorAttr": true
+      }
+    ],
+    "boundaryRendered": {
+      "status": "Imported “Boundary card” into the demo.",
+      "size": "180%",
+      "leading": "2.20×",
+      "measure": "40ch",
+      "para": "2.5em",
+      "spacing": "0.08em",
+      "contrast": "dark",
+      "font": "dyslexia",
+      "motion": "false"
+    },
+    "exportMatches": true,
+    "afterReset": {
+      "status": "Demo reset to the sample reading card.",
+      "size": "120%",
+      "session": {
+        "demo:reader-profile": "{\"version\":1,\"name\":\"Quiet evening\",\"fontScale\":1.2,\"measure\":62,\"lineHeight\":1.75,\"paragraphSpace\":1.2,\"letterSpacing\":0.02,\"contrast\":\"paper\",\"fontChoice\":\"hyperlegible\",\"reduceMotion\":true}"
+      }
+    },
+    "afterStart": {
+      "filename": "reader-setting-transfer-chrome.zip",
+      "sessionKeys": []
+    },
+    "storage": {
+      "local": [],
+      "session": []
+    },
+    "requestOrigins": [
+      "https://reader-setting-transfer.sociobot.in"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://reader-setting-transfer.sociobot.in/demo/",
+        "type": "document"
+      },
+      {
+        "method": "GET",
+        "url": "https://reader-setting-transfer.sociobot.in/assets/demo-BH-EcWir.js",
+        "type": "script"
+      },
+      {
+        "method": "GET",
+        "url": "https://reader-setting-transfer.sociobot.in/assets/main-YMAyxxET.js",
+        "type": "script"
+      },
+      {
+        "method": "GET",
+        "url": "https://reader-setting-transfer.sociobot.in/assets/main-DVwx1fqn.css",
+        "type": "stylesheet"
+      },
+      {
+        "method": "GET",
+        "url": "https://reader-setting-transfer.sociobot.in/assets/atkinson-hyperlegible-latin-400-normal-BrHNak5F.woff2",
+        "type": "font"
+      },
+      {
+        "method": "GET",
+        "url": "https://reader-setting-transfer.sociobot.in/assets/atkinson-hyperlegible-latin-700-normal-GZI4o3u0.woff2",
+        "type": "font"
+      }
+    ],
+    "responses": [
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/demo/",
+        "status": 200,
+        "cache": "public, max-age=0, must-revalidate"
+      },
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/assets/main-DVwx1fqn.css",
+        "status": 200,
+        "cache": "public, max-age=31536000, immutable"
+      },
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/assets/main-YMAyxxET.js",
+        "status": 200,
+        "cache": "public, max-age=31536000, immutable"
+      },
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/assets/demo-BH-EcWir.js",
+        "status": 200,
+        "cache": "public, max-age=31536000, immutable"
+      },
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/assets/atkinson-hyperlegible-latin-400-normal-BrHNak5F.woff2",
+        "status": 200,
+        "cache": "public, max-age=31536000, immutable"
+      },
+      {
+        "url": "https://reader-setting-transfer.sociobot.in/assets/atkinson-hyperlegible-latin-700-normal-GZI4o3u0.woff2",
+        "status": 200,
+        "cache": "public, max-age=31536000, immutable"
+      }
+    ],
+    "errors": [],
+    "serious": []
+  },
+  "offline": {
+    "update": {
+      "scriptURL": "https://reader-setting-transfer.sociobot.in/sw.js",
+      "state": "activated",
+      "controller": true
+    },
+    "reloadError": null,
+    "heading": true,
+    "banner": true,
+    "offlineNotice": true,
+    "errors": []
+  },
+  "links": {
+    "count": 13,
+    "statuses": [
+      {
+        "href": "https://reader-setting-transfer.sociobot.in/#main",
+        "status": 200,
+        "ok": true
+      },
+      {
+        "href": "https://reader-setting-transfer.sociobot.in/",
+        "status": 200,
+        "ok": true
+      },
+      {
+        "href": "https://reader-setting-transfer.sociobot.in/demo/",
+        "status": 200,
+        "ok": true
+      },
+      {
+        "href": "https://reader-setting-transfer.sociobot.in/#how-it-works",
+        "status": 200,
+        "ok": true
+      },
+      {
+        "href": "https://reader-setting-transfer.sociobot.in/#privacy",
+        "status": 200,
+        "ok": true
+      },
+      {
+        "href": "https://reader-setting-transfer.sociobot.in/downloads/reader-setting-transfer-chrome.zip",
+        "status": 200,
+        "ok": true
+      },
+      {
+        "href": "https://reader-setting-transfer.sociobot.in/privacy/",
+        "status": 200,
+        "ok": true
+      },
+      {
+        "href": "https://reader-setting-transfer.sociobot.in/terms/",
+        "status": 200,
+        "ok": true
+      },
+      {
+        "href": "https://github.com/B-Divyesh/sf-reader-setting-transfer",
+        "status": 200,
+        "ok": true
+      },
+      {
+        "href": "https://reader-setting-transfer.sociobot.in/demo/#main",
+        "status": 200,
+        "ok": true
+      },
+      {
+        "href": "https://reader-setting-transfer.sociobot.in/privacy/#main",
+        "status": 200,
+        "ok": true
+      },
+      {
+        "href": "https://reader-setting-transfer.sociobot.in/terms/#main",
+        "status": 200,
+        "ok": true
+      },
+      {
+        "href": "https://reader-setting-transfer.sociobot.in/404.html#main",
+        "status": 200,
+        "ok": true
+      }
+    ]
+  },
+  "firstScreenMobile": {
+    "h1": [
+      "Carry your reading settings into clean articles."
+    ],
+    "who": [
+      "For low-vision readers tired of resetting text size, spacing, contrast, and motion on every site."
+    ],
+    "action": [
+      "Try it with sample data →"
+    ],
+    "facts": [
+      "Free and open source.",
+      "Profiles stay on your device.",
+      "The demo reloads offline after your first visit."
+    ],
+    "viewport": {
+      "w": 390,
+      "h": 844
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "before": {
+    "shellHidden": true,
+    "shellDisplay": "grid",
+    "shellVisible": true,
+    "emptyHidden": false,
+    "emptyDisplay": "block",
+    "emptyVisible": true,
+    "visibleButtons": [
+      "Reading card",
+      "Return to original",
+      "Review my reading card",
+      "A−",
+      "A+",
+      "Turn off for this site",
+      "Return to original article"
+    ],
+    "visibleHeadings": [
+      {
+        "tag": "H2",
+        "text": "Open an article, then choose the extension."
+      },
+      {
+        "tag": "H1",
+        "text": ""
+      }
+    ]
+  },
+  "errors": [
+    "TypeError: Cannot read properties of undefined (reading 'fontScale')"
+  ]
+}

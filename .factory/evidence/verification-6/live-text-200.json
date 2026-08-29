@@ -1,0 +1,38 @@
+[
+  {
+    "route": "/",
+    "fontSize": "32px",
+    "overflow": 40,
+    "h1Visible": true,
+    "interactive": 10,
+    "clipped": [],
+    "errors": []
+  },
+  {
+    "route": "/demo/",
+    "fontSize": "32px",
+    "overflow": 0,
+    "h1Visible": true,
+    "interactive": 15,
+    "clipped": [],
+    "errors": []
+  },
+  {
+    "route": "/privacy/",
+    "fontSize": "32px",
+    "overflow": 50,
+    "h1Visible": true,
+    "interactive": 4,
+    "clipped": [],
+    "errors": []
+  },
+  {
+    "route": "/terms/",
+    "fontSize": "32px",
+    "overflow": 0,
+    "h1Visible": true,
+    "interactive": 4,
+    "clipped": [],
+    "errors": []
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "expected": {
+    "version": 1,
+    "name": "Maximum comfort",
+    "fontScale": 1.8,
+    "measure": 40,
+    "lineHeight": 2.2,
+    "paragraphSpace": 2.5,
+    "letterSpacing": 0.08,
+    "contrast": "dark",
+    "fontChoice": "dyslexia",
+    "reduceMotion": true
+  },
+  "actual": {
+    "contrast": "dark",
+    "fontChoice": "dyslexia",
+    "fontScale": 1.8,
+    "letterSpacing": 0.08,
+    "lineHeight": 2.2,
+    "measure": 40,
+    "name": "Maximum comfort",
+    "paragraphSpace": 2.5,
+    "reduceMotion": true,
+    "version": 1
+  },
+  "fieldsMatch": true
+}
