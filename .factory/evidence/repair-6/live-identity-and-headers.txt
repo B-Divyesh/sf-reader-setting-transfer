@@ -1,0 +1,19 @@
+Production identity and response policy: PASS
+
+index.html local/live sha256:
+b67c0dbeff6b9ccda9c12f5ac31a887e89af47ae378965b664ddb48712c5a847
+
+reader-setting-transfer-chrome.zip local/live sha256:
+7c4831b7ef0d76c8f75914acf2ff711b0b7c5c37cd0a6d5b8e9c66fdfe27967c
+
+Unknown route: HTTP 404; body byte-matches dist/site/404.html
+HTML Cache-Control: public, max-age=0, must-revalidate
+Hashed JS Cache-Control: public, max-age=31536000, immutable
+ZIP Cache-Control: public, max-age=31536000, immutable
+Service worker Cache-Control: no-cache
+Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+Strict-Transport-Security: max-age=10886400; includeSubDomains; preload
+X-Content-Type-Options: nosniff
+Referrer-Policy: strict-origin-when-cross-origin
+Permissions-Policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+X-Frame-Options: DENY

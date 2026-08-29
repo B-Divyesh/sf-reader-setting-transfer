@@ -1,0 +1,7 @@
+Factory static deployment: PASS
+Command: /opt/fleet/lib/deploy-static.sh reader-setting-transfer dist/site
+Deployment ID: b5fcb9bb-f767-4fb8-b6b2-473b3bd4a293
+Region: centralus
+Default host: orange-pond-0aafe3e10.7.azurestaticapps.net
+Custom domain: Ready
+HTTPS result: 200

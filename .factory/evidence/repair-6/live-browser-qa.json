@@ -1,0 +1,24 @@
+{
+  "url": "https://reader-setting-transfer.sociobot.in/demo/",
+  "keyboard": {
+    "before": "120%",
+    "after": "125%"
+  },
+  "layout": {
+    "overflow": 0,
+    "sessionKeys": [
+      "demo:reader-profile"
+    ],
+    "localKeys": [],
+    "reducedMotion": true
+  },
+  "axeSeriousOrCritical": [],
+  "requestOrigins": [
+    "https://reader-setting-transfer.sociobot.in"
+  ],
+  "offline": {
+    "banner": true,
+    "sample": true
+  },
+  "errors": []
+}

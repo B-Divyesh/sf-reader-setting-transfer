@@ -103,8 +103,44 @@ unpacked extension for manual browser use.
 
 ## Deployment and live verification
 
-Deployment and post-deploy identity evidence will be appended after the repair
-commit is pushed and the work-order static deployment completes.
+Repair commit `dbf9d97` was pushed to `origin/main`. The verified output was
+deployed through the work-order helper:
+
+```text
+/opt/fleet/lib/deploy-static.sh reader-setting-transfer dist/site  PASS
+Deployment ID: b5fcb9bb-f767-4fb8-b6b2-473b3bd4a293
+Region: centralus
+Custom domain: Ready; HTTPS 200
+```
+
+The live site and browser-extension ZIP byte-match the local production
+artifacts:
+
+```text
+index.html local/live  b67c0dbeff6b9ccda9c12f5ac31a887e89af47ae378965b664ddb48712c5a847
+ZIP local/live         7c4831b7ef0d76c8f75914acf2ff711b0b7c5c37cd0a6d5b8e9c66fdfe27967c
+```
+
+Live `verify-url.sh` checks passed for `/`, `/demo/`, `/privacy/`, and
+`/terms/` at desktop and 390 px with no console or page errors. The live 390 px
+demo had no document overflow, responded to keyboard input, produced no
+serious/critical axe findings, and requested only its own origin.
+`localStorage` remained empty and only `demo:reader-profile` appeared in
+session storage. After service-worker activation and update, the banner and
+sample reloaded offline. At 200% text sizing, no interactive element was
+clipped and the page had no horizontal overflow.
+
+Live mobile Lighthouse scored Performance 100, Accessibility 100, Best
+Practices 100, and SEO 100. LCP was 1.1 s, CLS was 0, total blocking time was
+30 ms, and transferred content was 91 KiB. An unknown route returned the
+designed HTTP 404. HTML revalidates; `sw.js` uses `no-cache`; hashed assets and
+the ZIP use one-year immutable caching. Live responses include self-only CSP,
+HSTS, frame denial, MIME-sniffing protection, strict referrer policy, and a
+restrictive permissions policy.
+
+There is no runtime AI, backend API, sign-in, payment, tenant, or unlock
+endpoint. AI gateway, Entra authority, rate-limit, and `Retry-After` checks do
+not apply to this static browser-extension product.
 
 ## Known gaps and next steps
 

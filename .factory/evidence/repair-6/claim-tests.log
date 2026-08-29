@@ -1,0 +1,311 @@
+CLAIM reading-settings npm run test:e2e -- --grep @claim:reading-settings
+
+> reader-setting-transfer@1.0.0 test:e2e
+> playwright test --grep @claim:reading-settings
+
+[1A[2K[WebServer] (node:3543) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] - Preparing...
+
+[1A[2K[WebServer] [1G
+
+[1A[2K[WebServer] (node:3562) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:3589) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 1 test using 1 worker
+
+[1A[2K(node:3601) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:3601) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/1] e2e/site.spec.ts:73:1 › @claim:reading-settings sample settings visibly change and reset the article
+[1A[2K  1 passed (5.6s)
+CLAIM profile-json-transfer npm run test:e2e -- --grep @claim:profile-json-transfer
+
+> reader-setting-transfer@1.0.0 test:e2e
+> playwright test --grep @claim:profile-json-transfer
+
+[1A[2K[WebServer] (node:3723) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] - Preparing...
+
+[1A[2K[WebServer] [1G
+
+[1A[2K[WebServer] (node:3743) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:3770) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 1 test using 1 worker
+
+[1A[2K(node:3783) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:3783) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/1] e2e/site.spec.ts:134:1 › @claim:profile-json-transfer the sample card exports and imports as JSON
+[1A[2K  1 passed (5.3s)
+CLAIM demo-isolation npm run test:e2e -- --grep @claim:demo-isolation
+
+> reader-setting-transfer@1.0.0 test:e2e
+> playwright test --grep @claim:demo-isolation
+
+[1A[2K[WebServer] (node:3907) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] - Preparing...
+
+[1A[2K[WebServer] [1G
+
+[1A[2K[WebServer] (node:3926) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:3969) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 1 test using 1 worker
+
+[1A[2K(node:3981) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:3981) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/1] e2e/site.spec.ts:174:1 › @claim:demo-isolation the demo uses only its namespace and first-party requests
+[1A[2K  1 passed (5.2s)
+CLAIM offline-reload npm run test:e2e -- --grep @claim:offline-reload
+
+> reader-setting-transfer@1.0.0 test:e2e
+> playwright test --grep @claim:offline-reload
+
+[1A[2K[WebServer] (node:4101) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] - Preparing...
+
+[1A[2K[WebServer] [1G
+
+[1A[2K[WebServer] (node:4122) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:4150) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 1 test using 1 worker
+
+[1A[2K(node:4162) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:4162) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/1] e2e/site.spec.ts:33:1 › @claim:offline-reload the demo reloads after the first visit while offline
+[1A[2K  1 passed (5.4s)
+CLAIM extension-local-reader npm run test:e2e -- --grep @claim:extension-local-reader
+
+> reader-setting-transfer@1.0.0 test:e2e
+> playwright test --grep @claim:extension-local-reader
+
+[1A[2K[WebServer] (node:4299) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] - Preparing...
+
+[1A[2K[WebServer] [1G
+
+[1A[2K[WebServer] (node:4319) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:4346) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 1 test using 1 worker
+
+[1A[2K(node:4358) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:4358) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/1] e2e/extension.spec.ts:78:1 › @claim:extension-local-reader the built extension stores a profile locally and renders a clean article
+[1A[2K  1 passed (14.8s)
+CLAIM per-site-off-return npm run test:e2e -- --grep @claim:per-site-off-return
+
+> reader-setting-transfer@1.0.0 test:e2e
+> playwright test --grep @claim:per-site-off-return
+
+[1A[2K[WebServer] (node:4696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] - Preparing...
+
+[1A[2K[WebServer] [1G
+
+[1A[2K[WebServer] (node:4715) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:4742) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 1 test using 1 worker
+
+[1A[2K(node:4755) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:4755) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/1] e2e/extension.spec.ts:147:1 › @claim:per-site-off-return turns the reader off for one site and returns to the original article
+[1A[2K  1 passed (5.8s)
+CLAIM article-structure npm test -- --testNamePattern @claim:article-structure
+
+> reader-setting-transfer@1.0.0 test
+> wxt prepare && vitest run --testNamePattern @claim:article-structure
+
+[log] 
+WXT 0.20.27
+[info] Generating types...
+[success] Finished in 177 ms
+
+ RUN  v3.2.7 /work/repo
+
+ ↓ tests/deployment.test.ts (2 tests | 2 skipped)
+ ↓ tests/profile.test.ts (5 tests | 5 skipped)
+ ✓ tests/article.test.ts (3 tests | 2 skipped) 36ms
+
+ Test Files  1 passed | 2 skipped (3)
+      Tests  1 passed | 9 skipped (10)
+   Start at  02:37:42
+   Duration  1.28s (transform 289ms, setup 0ms, collect 198ms, tests 36ms, environment 659ms, prepare 635ms)
+
+CLAIM free-open-source npm test -- --testNamePattern @claim:free-open-source
+
+> reader-setting-transfer@1.0.0 test
+> wxt prepare && vitest run --testNamePattern @claim:free-open-source
+
+[log] 
+WXT 0.20.27
+[info] Generating types...
+[success] Finished in 174 ms
+
+ RUN  v3.2.7 /work/repo
+
+ ↓ tests/profile.test.ts (5 tests | 5 skipped)
+ ✓ tests/deployment.test.ts (2 tests | 1 skipped) 4ms
+ ↓ tests/article.test.ts (3 tests | 3 skipped)
+
+ Test Files  1 passed | 2 skipped (3)
+      Tests  1 passed | 9 skipped (10)
+   Start at  02:37:46
+   Duration  1.28s (transform 149ms, setup 0ms, collect 216ms, tests 4ms, environment 700ms, prepare 611ms)
+
+CLAIM responsive-keyboard npm run test:e2e -- --grep @claim:responsive-keyboard
+
+> reader-setting-transfer@1.0.0 test:e2e
+> playwright test --grep @claim:responsive-keyboard
+
+[1A[2K[WebServer] (node:5313) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] - Preparing...
+
+[1A[2K[WebServer] [1G
+
+[1A[2K[WebServer] (node:5334) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:5376) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 1 test using 1 worker
+
+[1A[2K(node:5388) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:5388) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/1] e2e/site.spec.ts:53:1 › @claim:responsive-keyboard the landing page works at 390px with keyboard scrolling
+[1A[2K  1 passed (6.5s)
+CLAIM extension-uninstall-data npm run test:e2e -- --grep @claim:extension-uninstall-data
+
+> reader-setting-transfer@1.0.0 test:e2e
+> playwright test --grep @claim:extension-uninstall-data
+
+[1A[2K[WebServer] (node:5526) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] - Preparing...
+
+[1A[2K[WebServer] [1G
+
+[1A[2K[WebServer] (node:5545) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:5572) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 1 test using 1 worker
+
+[1A[2K(node:5600) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:5600) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/1] e2e/extension.spec.ts:175:1 › @claim:extension-uninstall-data removing the extension clears its browser-managed local data
+[1A[2K  1 passed (6.3s)
+CLAIM access-boundaries npm test -- --testNamePattern @claim:access-boundaries
+
+> reader-setting-transfer@1.0.0 test
+> wxt prepare && vitest run --testNamePattern @claim:access-boundaries
+
+[log] 
+WXT 0.20.27
+[info] Generating types...
+[success] Finished in 172 ms
+
+ RUN  v3.2.7 /work/repo
+
+ ↓ tests/deployment.test.ts (2 tests | 2 skipped)
+ ↓ tests/profile.test.ts (5 tests | 5 skipped)
+ ✓ tests/article.test.ts (3 tests | 2 skipped) 71ms
+
+ Test Files  1 passed | 2 skipped (3)
+      Tests  1 passed | 9 skipped (10)
+   Start at  02:38:04
+   Duration  1.34s (transform 124ms, setup 0ms, collect 195ms, tests 71ms, environment 672ms, prepare 705ms)
+
