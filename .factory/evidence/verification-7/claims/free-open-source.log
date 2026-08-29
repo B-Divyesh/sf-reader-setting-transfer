@@ -1,0 +1,20 @@
+
+> reader-setting-transfer@1.0.0 test
+> wxt prepare && vitest run --testNamePattern @claim:free-open-source
+
+[log] 
+WXT 0.20.27
+[info] Generating types...
+[success] Finished in 248 ms
+
+ RUN  v3.2.7 /work/repo
+
+ ✓ tests/deployment.test.ts (2 tests | 1 skipped) 5ms
+ ↓ tests/profile.test.ts (5 tests | 5 skipped)
+ ↓ tests/article.test.ts (3 tests | 3 skipped)
+
+ Test Files  1 passed | 2 skipped (3)
+      Tests  1 passed | 9 skipped (10)
+   Start at  02:55:55
+   Duration  2.73s (transform 407ms, setup 0ms, collect 471ms, tests 5ms, environment 1.42s, prepare 1.43s)
+

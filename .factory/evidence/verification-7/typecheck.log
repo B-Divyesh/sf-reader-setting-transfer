@@ -1,0 +1,8 @@
+
+> reader-setting-transfer@1.0.0 typecheck
+> wxt prepare && tsc --noEmit
+
+[log] 
+WXT 0.20.27
+[info] Generating types...
+[success] Finished in 272 ms

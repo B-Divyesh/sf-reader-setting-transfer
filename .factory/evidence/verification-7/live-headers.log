@@ -1,0 +1,118 @@
+
+URL /
+HTTP/2 200 
+content-type: text/html
+cache-control: public, max-age=0, must-revalidate
+etag: "62402876"
+content-length: 9506
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+
+URL /demo/
+HTTP/2 200 
+content-type: text/html
+cache-control: public, max-age=0, must-revalidate
+etag: "62402876"
+content-length: 6417
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+
+URL /privacy/
+HTTP/2 200 
+content-type: text/html
+cache-control: public, max-age=0, must-revalidate
+etag: "62402876"
+content-length: 4195
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+
+URL /terms/
+HTTP/2 200 
+content-type: text/html
+cache-control: public, max-age=0, must-revalidate
+etag: "62402876"
+content-length: 3803
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+
+URL /sw.js
+HTTP/2 200 
+content-type: text/javascript
+cache-control: no-cache
+etag: "62402876"
+content-length: 849
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+
+URL /assets/main-CaflV6hz.js
+HTTP/2 200 
+content-type: text/javascript
+cache-control: public, max-age=31536000, immutable
+etag: "62402876"
+content-length: 1600
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+
+URL /assets/main-Cq7McUyN.css
+HTTP/2 200 
+content-type: text/css
+cache-control: public, max-age=31536000, immutable
+etag: "62402876"
+content-length: 16151
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+
+URL /downloads/reader-setting-transfer-chrome.zip
+HTTP/2 200 
+content-type: application/zip
+cache-control: public, max-age=31536000, immutable
+etag: "62402876"
+content-length: 122092
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY
+content-disposition: attachment
+
+URL /no-such-route
+HTTP/2 404 
+content-type: text/html
+cache-control: public, max-age=0, must-revalidate
+etag: "62402876"
+content-length: 2682
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+content-security-policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'
+permissions-policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+x-frame-options: DENY

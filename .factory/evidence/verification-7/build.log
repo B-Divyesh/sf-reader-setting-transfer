@@ -1,0 +1,67 @@
+
+> reader-setting-transfer@1.0.0 build
+> npm run build:site
+
+
+> reader-setting-transfer@1.0.0 build:site
+> npm run build:extension && vite build --config vite.site.config.ts && node scripts/package-extension.mjs
+
+
+> reader-setting-transfer@1.0.0 build:extension
+> wxt build
+
+[log] 
+WXT 0.20.27
+[info] Building chrome-mv3 for production with Vite 7.3.6
+- Preparing...
+[1G[success] Built extension in 885 ms
+  ├─ .output/chrome-mv3/manifest.json                                                     538 B   
+  ├─ .output/chrome-mv3/options.html                                                      6.17 kB 
+  ├─ .output/chrome-mv3/popup.html                                                        1.38 kB 
+  ├─ .output/chrome-mv3/reader.html                                                       3.58 kB 
+  ├─ .output/chrome-mv3/background.js                                                     694 B   
+  ├─ .output/chrome-mv3/chunks/options-ByXIDq0H.js                                        3.96 kB 
+  ├─ .output/chrome-mv3/chunks/popup-QrTlmP_a.js                                          4.3 kB  
+  ├─ .output/chrome-mv3/chunks/reader-CwvhG4Tv.js                                         2.66 kB 
+  ├─ .output/chrome-mv3/chunks/storage-Bf1bTs1C.js                                        3.32 kB 
+  ├─ .output/chrome-mv3/assets/options-26LuoxQB.css                                       9.08 kB 
+  ├─ .output/chrome-mv3/assets/popup-BE2KfnJH.css                                         5.54 kB 
+  ├─ .output/chrome-mv3/assets/reader-Cxmxk11a.css                                        10.03 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-400-normal-BbWidj28.woff       14.02 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-400-normal-BrHNak5F.woff2      17.21 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-700-normal-BK6Glc0m.woff       14.29 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-700-normal-GZI4o3u0.woff2      17.52 kB
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-ext-400-normal-Bbz-b3yf.woff   7.36 kB 
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-ext-400-normal-DRk46D-x.woff2  9.38 kB 
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-ext-700-normal-BoVPHkS0.woff2  9.37 kB 
+  ├─ .output/chrome-mv3/assets/atkinson-hyperlegible-latin-ext-700-normal-CKkU2Dpt.woff   7.36 kB 
+  ├─ .output/chrome-mv3/icons/icon-128.png                                                1.79 kB 
+  ├─ .output/chrome-mv3/icons/icon-16.png                                                 780 B   
+  ├─ .output/chrome-mv3/icons/icon-32.png                                                 654 B   
+  ├─ .output/chrome-mv3/icons/icon-48.png                                                 1.06 kB 
+  └─ .output/chrome-mv3/icons/icon.svg                                                    354 B   
+Σ Total size: 152.4 kB                                                                  
+[success] Finished in 924 ms
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 12 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/site/404.html                                                           2.68 kB │ gzip: 1.00 kB
+../dist/site/terms/index.html                                                   3.80 kB │ gzip: 1.50 kB
+../dist/site/privacy/index.html                                                 4.20 kB │ gzip: 1.63 kB
+../dist/site/demo/index.html                                                    6.42 kB │ gzip: 2.28 kB
+../dist/site/assets/atkinson-hyperlegible-latin-ext-700-normal-CKkU2Dpt.woff    7.36 kB
+../dist/site/assets/atkinson-hyperlegible-latin-ext-400-normal-Bbz-b3yf.woff    7.36 kB
+../dist/site/assets/atkinson-hyperlegible-latin-ext-700-normal-BoVPHkS0.woff2   9.37 kB
+../dist/site/assets/atkinson-hyperlegible-latin-ext-400-normal-DRk46D-x.woff2   9.38 kB
+../dist/site/index.html                                                         9.51 kB │ gzip: 3.08 kB
+../dist/site/assets/atkinson-hyperlegible-latin-400-normal-BbWidj28.woff       14.02 kB
+../dist/site/assets/atkinson-hyperlegible-latin-700-normal-BK6Glc0m.woff       14.29 kB
+../dist/site/assets/atkinson-hyperlegible-latin-400-normal-BrHNak5F.woff2      17.21 kB
+../dist/site/assets/atkinson-hyperlegible-latin-700-normal-GZI4o3u0.woff2      17.52 kB
+../dist/site/assets/main-Cq7McUyN.css                                          16.15 kB │ gzip: 4.22 kB
+../dist/site/assets/main-CaflV6hz.js                                            1.60 kB │ gzip: 0.76 kB
+../dist/site/assets/demo-cJCACRfg.js                                            4.69 kB │ gzip: 1.71 kB
+✓ built in 315ms
+Packaged /work/repo/dist/site/downloads/reader-setting-transfer-chrome.zip

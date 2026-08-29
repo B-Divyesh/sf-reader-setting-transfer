@@ -1,0 +1,5 @@
+
+> reader-setting-transfer@1.0.0 lint
+> node scripts/lint-content.mjs
+
+Content lint passed for 5 routes and 11 claims.

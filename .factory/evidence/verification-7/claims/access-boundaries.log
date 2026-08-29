@@ -1,0 +1,20 @@
+
+> reader-setting-transfer@1.0.0 test
+> wxt prepare && vitest run --testNamePattern @claim:access-boundaries
+
+[log] 
+WXT 0.20.27
+[info] Generating types...
+[success] Finished in 216 ms
+
+ RUN  v3.2.7 /work/repo
+
+ ↓ tests/deployment.test.ts (2 tests | 2 skipped)
+ ↓ tests/profile.test.ts (5 tests | 5 skipped)
+ ✓ tests/article.test.ts (3 tests | 2 skipped) 114ms
+
+ Test Files  1 passed | 2 skipped (3)
+      Tests  1 passed | 9 skipped (10)
+   Start at  02:56:19
+   Duration  2.73s (transform 526ms, setup 0ms, collect 588ms, tests 114ms, environment 1.25s, prepare 1.37s)
+

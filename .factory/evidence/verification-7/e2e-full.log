@@ -1,0 +1,56 @@
+
+> reader-setting-transfer@1.0.0 test:e2e
+> playwright test
+
+[1A[2K[WebServer] (node:3918) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] - Preparing...
+
+[1A[2K[WebServer] [1G
+
+[1A[2K[WebServer] (node:3953) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:3980) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 19 tests using 2 workers
+
+[1A[2K(node:3992) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:3993) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:3993) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:3992) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/19] e2e/site.spec.ts:18:3 › / has one main heading and no serious accessibility violations
+[1A[2K[2/19] e2e/extension.spec.ts:22:1 › a fresh reader exposes only its empty state and keeps article controls inert
+[1A[2K[3/19] e2e/site.spec.ts:18:3 › /demo/ has one main heading and no serious accessibility violations
+[1A[2K[4/19] e2e/extension.spec.ts:79:1 › @claim:extension-local-reader the built extension stores a profile locally and renders a clean article
+[1A[2K[5/19] e2e/site.spec.ts:18:3 › /privacy/ has one main heading and no serious accessibility violations
+[1A[2K[6/19] e2e/site.spec.ts:18:3 › /terms/ has one main heading and no serious accessibility violations
+[1A[2K[7/19] e2e/site.spec.ts:18:3 › /404.html has one main heading and no serious accessibility violations
+[1A[2K[8/19] e2e/site.spec.ts:33:1 › @claim:offline-reload the demo reloads after the first visit while offline
+[1A[2K[9/19] e2e/site.spec.ts:53:1 › @claim:responsive-keyboard the landing page works at 390px with keyboard scrolling
+[1A[2K[10/19] e2e/site.spec.ts:73:1 › @claim:reading-settings sample settings visibly change and reset the article
+[1A[2K[11/19] e2e/site.spec.ts:116:1 › demo banner controls have a focus indicator with at least 3:1 contrast
+[1A[2K[12/19] e2e/site.spec.ts:134:1 › @claim:profile-json-transfer the sample card exports and imports as JSON
+[1A[2K[13/19] e2e/site.spec.ts:174:1 › @claim:demo-isolation the demo uses only its namespace and first-party requests
+[1A[2K[14/19] e2e/site.spec.ts:194:1 › unknown routes return the designed 404 response
+[1A[2K[15/19] e2e/site.spec.ts:200:1 › the advertised demo query opens the sandbox route
+[1A[2K[16/19] e2e/site.spec.ts:206:1 › /demo opens the real sample instead of the landing fallback
+[1A[2K[17/19] e2e/extension.spec.ts:148:1 › @claim:per-site-off-return turns the reader off for one site and returns to the original article
+[1A[2K[18/19] e2e/extension.spec.ts:176:1 › @claim:extension-uninstall-data removing the extension clears its browser-managed local data
+[1A[2K[19/19] e2e/extension.spec.ts:214:1 › the extension settings fit at 390px and explain malformed card files
+[1A[2K  19 passed (51.8s)
