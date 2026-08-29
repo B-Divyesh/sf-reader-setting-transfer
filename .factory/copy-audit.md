@@ -39,7 +39,7 @@ sentence is at or below 22 words, and no banned term appears.
 | 7 | Open `chrome://extensions` in Chrome or Chromium. |
 | 12 | Turn on Developer mode, choose “Load unpacked”, and select the unzipped folder. |
 | 11 | Pin Reader Setting Transfer and open it on a public article. |
-| 5 | Version 1.0 · Free and open source. |
+| 6 | Version 1.0 · Free and open source. |
 | 11 | Refuses clearly marked paywalls and does not restyle source pages. |
 | 8 | Apply one reading card to simplified web articles. |
 | 10 | Original hero artwork was generated with the factory image model. |

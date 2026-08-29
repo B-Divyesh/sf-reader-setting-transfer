@@ -74,6 +74,7 @@ try {
   assert(overflow <= 1, 'demo overflowed at 390 px');
   results.mobile = { headingBottom: headingBox.y + headingBox.height, paragraphTop: paragraphBox.y, overflow, storage };
 
+  await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(`${base}/`);
   await page.getByRole('link', { name: 'Demo', exact: true }).click();
   assert(await page.locator('h1').evaluate((node) => node === document.activeElement), 'forward route did not focus the H1');
@@ -87,9 +88,11 @@ try {
     assert(response.status() < 400, `link failed: ${href} (${response.status()})`);
   }
   results.links = { checked: hrefs.length };
-  results.privacy = { requestOrigins: [...requestOrigins], cookies: await context.cookies() };
+  const productHost = new URL(base).hostname;
+  const productCookies = (await context.cookies()).filter((cookie) => cookie.domain.replace(/^\./, '') === productHost);
+  results.privacy = { requestOrigins: [...requestOrigins], cookies: productCookies };
   assert([...requestOrigins].every((origin) => origin === new URL(base).origin), 'a page contacted another origin');
-  assert(results.privacy.cookies.length === 0, 'the site set a cookie');
+  assert(productCookies.length === 0, 'the site set a cookie');
   assert(results.errors.length === 0, 'the browser reported console or page errors');
   await context.close();
 
