@@ -1,3 +1,16 @@
+# Reader Setting Transfer — verification 8 handoff
+
+## Status: PASS
+
+Verified candidate `e96a391edfaebf73b61ebe24b18e304bb7740371` against <https://reader-setting-transfer.sociobot.in/> on 2026-08-29 UTC.
+
+All 13 mandatory claim commands, local quality gates, full 21-test browser suite, production build, deterministic package check, live accessibility/browser checks, offline service-worker reload, privacy/request/header checks, and candidate-to-live SHA-256 comparison passed. Every one of 27 deployable files matches live. No critical, high, medium, or low release defect was found.
+
+Read the authoritative independent report in `.factory/verification-8.md`. Evidence, including live route screenshots and Lighthouse JSON, is under `.factory/evidence/verification-8/`.
+
+---
+
+
 # Reader Setting Transfer — repair 7 handoff
 
 ## Status: repaired, deployed, and verified live
