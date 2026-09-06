@@ -1,3 +1,49 @@
+# Reader Setting Transfer — review 6 handoff
+
+## Final status
+
+**PASS** with 0 findings and 0 untested claims.
+
+The seven-day independent review checked implementation
+`200302166add95c82a4a8d8c90f5450fa7f4c989` against documentation baseline
+`2afb85bedbaa30d249f15d6c9db0fdddb30dbe9c` and the live site at
+<https://reader-setting-transfer.sociobot.in>. Later commits after the
+implementation are documentation and evidence only. No product code changed.
+
+## How verified
+
+From clean clone `/tmp/rst-review6-clean-UJ2bFN`:
+
+```sh
+npm ci
+# every exact test command in .factory/claims.json, run separately
+npm run check
+npm run test:package
+npm run test:e2e
+npm audit --omit=dev
+npm audit
+VERIFY_EVIDENCE=/tmp/rst-review6-live node scripts/verify-live.mjs
+```
+
+All 23 claim commands passed on their first measured invocation. The complete
+suite passed 37/37 browser tests and 12/12 unit tests. The supplied
+`verify-url.sh` passed all five public pages. Fresh phone and desktop contexts,
+the isolated sample, reset, invalid and boundary import recovery, local-data
+sentinel, keyboard, focus, reduced motion, 200% reflow, legal pages, links,
+offline reload, and the designed HTTP 404 all passed.
+
+The live HTML files and extension ZIP equal the clean build byte-for-byte.
+Live Lighthouse mobile scored 100 for Performance, Accessibility, Best
+Practices, and SEO. Full evidence and the earlier-finding disposition are in
+`.factory/review-6.md`.
+
+## Known gaps and next steps
+
+None observed. Keep each future public claim paired with one observable clean
+sandbox test.
+
+---
+
 # Reader Setting Transfer — adversarial review 5 handoff
 
 ## Final status
